@@ -1,0 +1,108 @@
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-on-surface-variant: #3d4947;
+  --color-on-primary-container: #f4fffc;
+  --color-surface-bright: #f8f9ff;
+  --color-inverse-on-surface: #eaf1ff;
+  --color-on-secondary-fixed: #23005c;
+  --color-secondary-container: #8455ef;
+  --color-error: #ba1a1a;
+  --color-on-secondary-container: #fffbff;
+  --color-on-tertiary-fixed-variant: #773215;
+  --color-surface-container-lowest: #ffffff;
+  --color-on-tertiary: #ffffff;
+  --color-primary-fixed: #89f5e7;
+  --color-surface-container: #e5eeff;
+  --color-on-primary-fixed-variant: #005049;
+  --color-primary-fixed-dim: #6bd8cb;
+  --color-surface-dim: #cbdbf5;
+  --color-tertiary-fixed: #ffdbce;
+  --color-inverse-surface: #213145;
+  --color-inverse-primary: #6bd8cb;
+  --color-secondary: #6b38d4;
+  --color-error-container: #ffdad6;
+  --color-secondary-fixed-dim: #d0bcff;
+  --color-outline: #6d7a77;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #008378;
+  --color-surface-container-high: #dce9ff;
+  --color-primary: #00685f;
+  --color-surface-tint: #006a61;
+  --color-on-surface: #0b1c30;
+  --color-secondary-fixed: #e9ddff;
+  --color-background: #f8f9ff;
+  --color-on-secondary: #ffffff;
+  --color-surface-container-low: #eff4ff;
+  --color-on-primary-fixed: #00201d;
+  --color-on-secondary-fixed-variant: #5516be;
+  --color-outline-variant: #bcc9c6;
+  --color-surface-container-highest: #d3e4fe;
+  --color-on-error-container: #93000a;
+  --color-on-tertiary-container: #fffbff;
+  --color-tertiary-container: #b05e3d;
+  --color-tertiary-fixed-dim: #ffb59a;
+  --color-on-tertiary-fixed: #370e00;
+  --color-surface: #f8f9ff;
+  --color-on-error: #ffffff;
+  --color-tertiary: #924628;
+  --color-on-background: #0b1c30;
+  --color-surface-variant: #d3e4fe;
+
+  --font-h1: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-h2: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-h3: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-label-sm: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-label-md: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-body-lg: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-body-md: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Manrope", ui-sans-serif, system-ui, sans-serif;
+
+  --text-h1: 32px;
+  --text-h1--line-height: 1.3;
+  --text-h1--font-weight: 600;
+  --text-h2: 24px;
+  --text-h2--line-height: 1.4;
+  --text-h2--font-weight: 600;
+  --text-h3: 20px;
+  --text-h3--line-height: 1.5;
+  --text-h3--font-weight: 600;
+  --text-label-sm: 12px;
+  --text-label-sm--line-height: 1.4;
+  --text-label-sm--font-weight: 500;
+  --text-label-md: 14px;
+  --text-label-md--line-height: 1.4;
+  --text-label-md--font-weight: 600;
+  --text-body-md: 16px;
+  --text-body-md--line-height: 1.6;
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 1.75;
+  --text-display: 48px;
+  --text-display--line-height: 1.2;
+  --text-display--font-weight: 700;
+}
+
+body {
+  @apply m-0 bg-surface text-on-surface antialiased;
+}
+
+#root {
+  @apply min-h-screen;
+}
+
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}

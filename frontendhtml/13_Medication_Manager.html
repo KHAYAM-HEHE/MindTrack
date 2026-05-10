@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Medication Insights - MindWell</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#6b38d4",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#006a61",
+                        "on-surface-variant": "#3d4947",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#23005c",
+                        "inverse-primary": "#6bd8cb",
+                        "on-primary-container": "#f4fffc",
+                        "on-secondary-fixed-variant": "#5516be",
+                        "secondary-fixed-dim": "#d0bcff",
+                        "surface-bright": "#f8f9ff",
+                        "outline-variant": "#bcc9c6",
+                        "on-primary-fixed": "#00201d",
+                        "tertiary-fixed-dim": "#ffb59a",
+                        "tertiary-container": "#b05e3d",
+                        "primary-fixed": "#89f5e7",
+                        "surface": "#f8f9ff",
+                        "on-tertiary-fixed-variant": "#773215",
+                        "on-background": "#0b1c30",
+                        "surface-variant": "#d3e4fe",
+                        "inverse-surface": "#213145",
+                        "on-tertiary-fixed": "#370e00",
+                        "on-surface": "#0b1c30",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-high": "#dce9ff",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#fffbff",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-secondary-container": "#fffbff",
+                        "background": "#f8f9ff",
+                        "surface-dim": "#cbdbf5",
+                        "outline": "#6d7a77",
+                        "primary-container": "#008378",
+                        "secondary-container": "#8455ef",
+                        "secondary-fixed": "#e9ddff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#ffdbce",
+                        "primary": "#00685f",
+                        "surface-container": "#e5eeff",
+                        "tertiary": "#924628",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#d3e4fe"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "0.5rem",
+                        "sm": "1rem",
+                        "lg": "2rem",
+                        "md": "1.5rem",
+                        "xl": "3rem",
+                        "unit": "4px",
+                        "gutter": "1.5rem",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "h1": ["Manrope"],
+                        "h3": ["Manrope"],
+                        "h2": ["Manrope"],
+                        "display": ["Manrope"],
+                        "body-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "1.75", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "h1": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "h3": ["20px", { "lineHeight": "1.5", "fontWeight": "600" }],
+                        "h2": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "display": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased min-h-screen flex">
+<!-- SideNavBar (from JSON) -->
+<nav class="hidden md:flex bg-white dark:bg-slate-900 h-screen w-64 border-r rounded-none border-slate-200 dark:border-slate-800 shadow-[4px_0_24px_rgba(100,116,139,0.08)] fixed left-0 top-0 bottom-0 flex-col p-4 gap-2 z-50">
+<!-- Header -->
+<div class="flex items-center gap-3 px-2 py-4 mb-4">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary icon-fill">spa</span>
+</div>
+<div>
+<h2 class="text-teal-700 dark:text-teal-400 font-extrabold font-h3 text-h3 tracking-tight">MindWell</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Mental Health Care</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 flex flex-col gap-1">
+<!-- Dashboard -->
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-manrope text-sm font-medium">Dashboard</span>
+</a>
+<!-- Directory -->
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-manrope text-sm font-medium">Directory</span>
+</a>
+<!-- Schedule -->
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">event_note</span>
+<span class="font-manrope text-sm font-medium">Schedule</span>
+</a>
+<!-- Insights (ACTIVE STATE) -->
+<a class="flex items-center gap-3 px-3 py-2.5 bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-xl cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined icon-fill">monitoring</span>
+<span class="font-manrope text-sm font-medium">Insights</span>
+</a>
+<!-- Library -->
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-manrope text-sm font-medium">Library</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-manrope text-sm font-medium">Settings</span>
+</a>
+</div>
+<!-- CTA -->
+<div class="mt-auto mb-4 px-2">
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md py-3 rounded-xl hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
+                New Session
+            </button>
+</div>
+<!-- Footer Links -->
+<div class="border-t border-slate-200 dark:border-slate-800 pt-2 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all cursor-pointer" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-manrope text-sm font-medium">Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 dark:text-slate-400 hover:text-error hover:bg-error-container/20 rounded-xl transition-all cursor-pointer" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-manrope text-sm font-medium">Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="flex-1 md:ml-64 p-6 md:p-xl flex flex-col gap-xl max-w-container-max mx-auto w-full">
+<!-- Header Section -->
+<header class="flex flex-col gap-2">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined">medication</span>
+<span class="font-label-md text-label-md uppercase tracking-wider">Clinical Analytics</span>
+</div>
+<h1 class="font-h1 text-h1 text-on-surface">Medication &amp; Mood Impact</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Track your daily adherence and observe correlations with your emotional well-being to foster a serene and balanced routine.</p>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-md">
+<!-- Left Column: Daily Schedule (4 cols) -->
+<section class="lg:col-span-4 flex flex-col gap-md">
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_4px_24px_rgba(100,116,139,0.06)] border border-outline-variant/30 flex-1 flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-h3 text-h3 text-on-surface">Daily Schedule</h2>
+<span class="bg-surface-container py-1 px-3 rounded-full font-label-sm text-label-sm text-primary">Today</span>
+</div>
+<div class="flex flex-col gap-4">
+<!-- Morning Med -->
+<div class="flex items-start gap-4 p-4 rounded-lg bg-surface hover:bg-surface-container-low transition-colors border border-transparent hover:border-outline-variant/40">
+<div class="flex-1">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">08:00 AM</p>
+<h3 class="font-h3 text-[18px] text-on-surface leading-snug">Escitalopram</h3>
+<p class="font-body-md text-sm text-on-surface-variant">10mg • With food</p>
+</div>
+<div class="shrink-0 mt-1">
+<button aria-label="Mark taken" class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[18px] icon-fill">check</span>
+</button>
+</div>
+</div>
+<!-- Afternoon Med -->
+<div class="flex items-start gap-4 p-4 rounded-lg bg-surface border border-transparent">
+<div class="flex-1 opacity-60">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">02:00 PM</p>
+<h3 class="font-h3 text-[18px] text-on-surface leading-snug">Propranolol</h3>
+<p class="font-body-md text-sm text-on-surface-variant">20mg • As needed</p>
+</div>
+<div class="shrink-0 mt-1">
+<button aria-label="Mark taken" class="w-8 h-8 rounded-full border-2 border-outline-variant text-transparent hover:border-primary transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</button>
+</div>
+</div>
+<!-- Evening Med -->
+<div class="flex items-start gap-4 p-4 rounded-lg bg-surface border border-transparent">
+<div class="flex-1 opacity-60">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">09:00 PM</p>
+<h3 class="font-h3 text-[18px] text-on-surface leading-snug">Melatonin</h3>
+<p class="font-body-md text-sm text-on-surface-variant">5mg • Before bed</p>
+</div>
+<div class="shrink-0 mt-1">
+<button aria-label="Mark taken" class="w-8 h-8 rounded-full border-2 border-outline-variant text-transparent hover:border-primary transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column: Impact Chart & Stats (8 cols) -->
+<section class="lg:col-span-8 flex flex-col gap-md">
+<!-- Main Chart Card -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_4px_24px_rgba(100,116,139,0.06)] border border-outline-variant/30 flex-1">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h2 class="font-h3 text-h3 text-on-surface">Impact Analysis</h2>
+<p class="font-body-md text-sm text-on-surface-variant">Adherence vs. Reported Mood (Last 14 Days)</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Mood Score</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-secondary-container opacity-60"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Adherence</span>
+</div>
+</div>
+</div>
+<!-- Abstract Chart Visual (Using SVGs for a clean, modern look) -->
+<div class="relative w-full h-64 mt-4">
+<!-- Y-axis guides -->
+<div class="absolute inset-0 flex flex-col justify-between">
+<div class="border-b border-outline-variant/20 w-full h-0"></div>
+<div class="border-b border-outline-variant/20 w-full h-0"></div>
+<div class="border-b border-outline-variant/20 w-full h-0"></div>
+<div class="border-b border-outline-variant/20 w-full h-0"></div>
+</div>
+<!-- Bar Chart (Adherence Background) -->
+<div class="absolute inset-0 flex items-end justify-between px-2 pt-8">
+<div class="w-8 bg-secondary-container/20 rounded-t-sm h-[90%]"></div>
+<div class="w-8 bg-secondary-container/20 rounded-t-sm h-[100%]"></div>
+<div class="w-8 bg-secondary-container/20 rounded-t-sm h-[100%]"></div>
+<div class="w-8 bg-secondary-container/20 rounded-t-sm h-[50%]"></div>
+<div class="w-8 bg-secondary-container/20 rounded-t-sm h-[80%]"></div>
+<div class="w-8 bg-secondary-container/20 rounded-t-sm h-[100%]"></div>
+<div class="w-8 bg-secondary-container/20 rounded-t-sm h-[100%]"></div>
+</div>
+<!-- Line Chart (Mood Trend) -->
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none" viewbox="0 0 100 100">
+<!-- Drop shadow definition for the line -->
+<defs>
+<filter height="140%" id="glow" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="blur" stddeviation="2"></fegaussianblur>
+<fecomposite in="SourceGraphic" in2="blur" operator="over"></fecomposite>
+</filter>
+</defs>
+<path d="M 0,70 C 20,60 30,30 50,40 C 70,50 80,20 100,15" fill="none" filter="url(#glow)" stroke="#00685f" stroke-width="3" vector-effect="non-scaling-stroke"></path>
+<!-- Data points -->
+<circle cx="0" cy="70" fill="#ffffff" r="1.5" stroke="#00685f" stroke-width="1" vector-effect="non-scaling-stroke"></circle>
+<circle cx="50" cy="40" fill="#ffffff" r="1.5" stroke="#00685f" stroke-width="1" vector-effect="non-scaling-stroke"></circle>
+<circle cx="100" cy="15" fill="#ffffff" r="1.5" stroke="#00685f" stroke-width="1" vector-effect="non-scaling-stroke"></circle>
+</svg>
+</div>
+</div>
+<!-- Horizontal Stat Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+<!-- Stat 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_4px_24px_rgba(100,116,139,0.06)] border border-outline-variant/30 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary-container/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">local_fire_department</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Current Streak</p>
+<p class="font-h2 text-h2 text-on-surface">12 Days</p>
+</div>
+</div>
+<!-- Stat 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_4px_24px_rgba(100,116,139,0.06)] border border-outline-variant/30 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">trending_up</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Mood Correlation</p>
+<p class="font-h2 text-h2 text-on-surface">+18%</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</body></html>

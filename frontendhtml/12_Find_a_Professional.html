@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Professional Directory</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#6b38d4",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#006a61",
+                        "on-surface-variant": "#3d4947",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#23005c",
+                        "inverse-primary": "#6bd8cb",
+                        "on-primary-container": "#f4fffc",
+                        "on-secondary-fixed-variant": "#5516be",
+                        "secondary-fixed-dim": "#d0bcff",
+                        "surface-bright": "#f8f9ff",
+                        "outline-variant": "#bcc9c6",
+                        "on-primary-fixed": "#00201d",
+                        "tertiary-fixed-dim": "#ffb59a",
+                        "tertiary-container": "#b05e3d",
+                        "primary-fixed": "#89f5e7",
+                        "surface": "#f8f9ff",
+                        "on-tertiary-fixed-variant": "#773215",
+                        "on-background": "#0b1c30",
+                        "surface-variant": "#d3e4fe",
+                        "inverse-surface": "#213145",
+                        "on-tertiary-fixed": "#370e00",
+                        "on-surface": "#0b1c30",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-high": "#dce9ff",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#fffbff",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-secondary-container": "#fffbff",
+                        "background": "#f8f9ff",
+                        "surface-dim": "#cbdbf5",
+                        "outline": "#6d7a77",
+                        "primary-container": "#008378",
+                        "secondary-container": "#8455ef",
+                        "secondary-fixed": "#e9ddff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#ffdbce",
+                        "primary": "#00685f",
+                        "surface-container": "#e5eeff",
+                        "tertiary": "#924628",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#d3e4fe"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "0.5rem",
+                        "sm": "1rem",
+                        "lg": "2rem",
+                        "md": "1.5rem",
+                        "xl": "3rem",
+                        "unit": "4px",
+                        "gutter": "1.5rem",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "h1": ["Manrope"],
+                        "h3": ["Manrope"],
+                        "h2": ["Manrope"],
+                        "display": ["Manrope"],
+                        "body-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "1.75", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "h1": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "h3": ["20px", {"lineHeight": "1.5", "fontWeight": "600"}],
+                        "h2": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "display": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+        }
+        .ambient-shadow {
+            box-shadow: 0 4px 24px rgba(100, 116, 139, 0.08);
+        }
+        .ambient-shadow-hover:hover {
+            box-shadow: 0 8px 32px rgba(100, 116, 139, 0.12);
+        }
+    </style>
+</head>
+<body class="bg-background min-h-screen text-on-background font-body-md text-body-md flex antialiased">
+<aside class="hidden md:flex flex-col fixed left-0 top-0 bottom-0 p-4 gap-2 h-screen w-64 border-r rounded-none border-slate-200 dark:border-slate-800 shadow-[4px_0_24px_rgba(100,116,139,0.08)] bg-white dark:bg-slate-900 z-50">
+<div class="flex items-center gap-3 px-4 py-6 mb-4">
+<div class="w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-900/30 flex items-center justify-center text-teal-600 dark:text-teal-400">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">spa</span>
+</div>
+<div>
+<h1 class="text-teal-700 dark:text-teal-400 font-extrabold text-xl tracking-tight leading-none">MindWell</h1>
+<span class="font-manrope text-xs text-slate-500 dark:text-slate-400 font-medium">Mental Health Care</span>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1 overflow-y-auto">
+<a class="flex items-center gap-3 px-4 py-3 font-manrope text-sm font-medium cursor-pointer active:opacity-80 text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 font-manrope text-sm font-medium cursor-pointer active:opacity-80 bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span>Directory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 font-manrope text-sm font-medium cursor-pointer active:opacity-80 text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">event_note</span>
+<span>Schedule</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 font-manrope text-sm font-medium cursor-pointer active:opacity-80 text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span>Insights</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 font-manrope text-sm font-medium cursor-pointer active:opacity-80 text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span>Library</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 font-manrope text-sm font-medium cursor-pointer active:opacity-80 text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+<button class="w-full bg-teal-600 hover:bg-teal-700 text-white font-manrope text-sm font-semibold py-3 px-4 rounded-xl flex justify-center items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                New Session
+            </button>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-2 font-manrope text-sm font-medium cursor-pointer active:opacity-80 text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+<span>Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 font-manrope text-sm font-medium cursor-pointer active:opacity-80 text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</div>
+</aside>
+<main class="flex-1 md:ml-64 p-gutter max-w-container-max mx-auto w-full">
+<header class="mb-xl">
+<h1 class="font-h1 text-h1 text-on-background mb-2">Find a Professional</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Connect with licensed therapists and counselors suited to your personal mental health journey in a secure, serene environment.</p>
+</header>
+<section class="mb-xl bg-surface-container-lowest rounded-xl p-md ambient-shadow flex flex-col gap-md">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-background border border-outline-variant rounded-xl font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-outline" placeholder="Search by name, specialty, or keywords..." type="text"/>
+</div>
+<div class="flex flex-wrap gap-sm items-center">
+<span class="font-label-md text-label-md text-on-surface-variant mr-2">Filters:</span>
+<div class="relative">
+<select class="appearance-none bg-background border border-outline-variant rounded-xl pl-4 pr-10 py-2 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary cursor-pointer">
+<option value="">Specialization</option>
+<option value="anxiety">Anxiety</option>
+<option value="depression">Depression</option>
+<option value="trauma">Trauma &amp; PTSD</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+<div class="relative">
+<select class="appearance-none bg-background border border-outline-variant rounded-xl pl-4 pr-10 py-2 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary cursor-pointer">
+<option value="">Fee Range</option>
+<option value="low">$50 - $100</option>
+<option value="med">$100 - $150</option>
+<option value="high">$150+</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+<div class="relative">
+<select class="appearance-none bg-background border border-outline-variant rounded-xl pl-4 pr-10 py-2 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary cursor-pointer">
+<option value="">Rating</option>
+<option value="4">4.0 &amp; above</option>
+<option value="4.5">4.5 &amp; above</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+<button class="ml-auto text-primary font-label-md text-label-md hover:text-on-primary-fixed-variant transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+                    More Filters
+                </button>
+</div>
+</section>
+<section class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-gutter">
+<div class="bg-surface-container-lowest rounded-xl p-[24px] ambient-shadow ambient-shadow-hover transition-shadow flex flex-col h-full border border-surface-container">
+<div class="flex items-start gap-4 mb-4">
+<div class="relative">
+<img alt="Profile picture" class="w-16 h-16 rounded-full object-cover border-2 border-surface" data-alt="A professional headshot of a middle-aged woman with warm, empathetic eyes and a gentle smile, positioned in a modern minimalist office with soft, diffused white lighting. She wears a clinical yet approachable soft lavender blouse. The background is a serene, out-of-focus slate-grey wall with subtle, calming teal accents in the decor, perfectly matching a therapeutic, light-mode digital health aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_Uv1p2DIS0mx0Mk3umyds4S7jG3Y83ql8sVuxniy0MuRZctUsQpu3hViaxtGhyTe682hVs0jFqeIe7eRFVBv0TWzoFDNPilfaKbdvR96YDS08Lxzfa8KUEKSMc2_ksBha3wJNFf1EAKYkjQGkKL7dKedDTBXFGacRRGasuDOZr0yfVIxz42nwk0TJfqwc3eIIpzMtpeJ85SVV_Zzvn1FctBB9oQUPBLwE-8dTb7pZKLxJJzTHz_DJ-0XQdDfchwKAOsjWCXKqk3c"/>
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-primary border-2 border-surface-container-lowest rounded-full" title="Online Now"></div>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface">Dr. Sarah Jenkins</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Clinical Psychologist</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="font-label-sm text-label-sm uppercase text-secondary bg-secondary/10 px-3 py-1 rounded-full">Anxiety</span>
+<span class="font-label-sm text-label-sm uppercase text-secondary bg-secondary/10 px-3 py-1 rounded-full">Depression</span>
+<span class="font-label-sm text-label-sm uppercase text-secondary bg-secondary/10 px-3 py-1 rounded-full">CBT</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3 mb-6 flex-1">
+                    I specialize in cognitive behavioral therapy to help clients navigate anxiety and depression. My approach is collaborative, providing a safe and serene space to explore your thoughts and develop practical coping mechanisms for daily life.
+                </p>
+<div class="mt-auto border-t border-surface-container pt-4 flex items-center justify-between">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-tertiary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-md text-label-md text-on-surface">4.9</span>
+<span class="font-body-md text-body-md text-outline text-sm">(124)</span>
+</div>
+<button class="bg-primary hover:bg-on-primary-fixed-variant text-on-primary font-label-md text-label-md py-2 px-6 rounded-xl transition-colors shadow-sm">
+                        Book Session
+                    </button>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-[24px] ambient-shadow ambient-shadow-hover transition-shadow flex flex-col h-full border border-surface-container">
+<div class="flex items-start gap-4 mb-4">
+<div class="relative">
+<img alt="Profile picture" class="w-16 h-16 rounded-full object-cover border-2 border-surface" data-alt="A professional headshot of a young male therapist with a calm, attentive expression, sitting in a bright, modern consultation room. The lighting is high-key and natural, pouring in from a window off-camera, creating a clean light-mode aesthetic. He is dressed in a crisp, smart-casual outfit. The background features heavy whitespace and muted slate-grey tones, ensuring the focus remains on his approachable demeanor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbP6uadGZ1bOD6wfsao3473Os3KyFh8DzZNxkMHsGHWGqcVpfCLyCbgYja847iKN_XUdq8ixFwP7ouLuuY2Xu3s1nhnpg4QvpCUAvojHrQEBFqT8WcPbt6_fxkeOPeQNWVDVxKkeprFQU2N9siIfCI6kULx91O0Kploeal2iXa_7IZCZS7pyCM4phaiL4-MDUtcqND9VSZIrIUj4EwV7wG1iaOI0tky5i8ni_HnC3RAnk8DhNYpc6iv3yBvHKpABhpdcG637kKk_Y"/>
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-outline border-2 border-surface-container-lowest rounded-full" title="Offline"></div>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface">Marcus Thorne, LMFT</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Marriage &amp; Family Therapist</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="font-label-sm text-label-sm uppercase text-secondary bg-secondary/10 px-3 py-1 rounded-full">Couples</span>
+<span class="font-label-sm text-label-sm uppercase text-secondary bg-secondary/10 px-3 py-1 rounded-full">Family Dynamics</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3 mb-6 flex-1">
+                    Focused on repairing and strengthening relationships. I provide a neutral, supportive environment for couples and families to communicate openly, resolve conflicts, and rebuild trust using emotionally focused therapy techniques.
+                </p>
+<div class="mt-auto border-t border-surface-container pt-4 flex items-center justify-between">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-tertiary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-md text-label-md text-on-surface">4.8</span>
+<span class="font-body-md text-body-md text-outline text-sm">(89)</span>
+</div>
+<button class="bg-primary hover:bg-on-primary-fixed-variant text-on-primary font-label-md text-label-md py-2 px-6 rounded-xl transition-colors shadow-sm">
+                        Book Session
+                    </button>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-[24px] ambient-shadow ambient-shadow-hover transition-shadow flex flex-col h-full border border-surface-container">
+<div class="flex items-start gap-4 mb-4">
+<div class="relative">
+<img alt="Profile picture" class="w-16 h-16 rounded-full object-cover border-2 border-surface" data-alt="A serene portrait of a female counselor in her late 30s, exuding safety and clinical professionalism. She is seated in a minimalist office environment flooded with soft, diffused daylight. The color palette emphasizes cooling, therapeutic hues like calm teal and pristine white, perfectly embodying a modern minimalist health app interface. Her expression is welcoming and highly composed." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrbBA2fG_bFFh2IQzY9swjSgdpW6YZNcHVNsX9Yb3r3CLb-KAL3h5Db3VzPgW8tjUwM_AQhOWjvdI9IfDs4jEkFRADHuslf2_sxjLnc3Mwu2KYlGKCmPW1HgVMv_YPv9ZbojECWUdx1SofnvMDbTcHmjVBoEhUSO9glYexmWVLjavDUBhGtcynb3G_BNoPmwq4Ywpn9RFC1gGRcqFuLDl3rrTD1z68GsXZ6vFweIg_Owx_zhzxU_e-VHNodX7Ml6GuL53emAKUBbw"/>
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-primary border-2 border-surface-container-lowest rounded-full" title="Online Now"></div>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface">Elena Rodriguez, LCSW</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Licensed Social Worker</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="font-label-sm text-label-sm uppercase text-secondary bg-secondary/10 px-3 py-1 rounded-full">Trauma</span>
+<span class="font-label-sm text-label-sm uppercase text-secondary bg-secondary/10 px-3 py-1 rounded-full">PTSD</span>
+<span class="font-label-sm text-label-sm uppercase text-secondary bg-secondary/10 px-3 py-1 rounded-full">EMDR</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3 mb-6 flex-1">
+                    Specializing in trauma recovery and PTSD. I utilize EMDR and mindfulness practices to help clients process difficult past experiences in a highly secure, paced, and supportive manner to restore emotional balance.
+                </p>
+<div class="mt-auto border-t border-surface-container pt-4 flex items-center justify-between">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-tertiary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-md text-label-md text-on-surface">5.0</span>
+<span class="font-body-md text-body-md text-outline text-sm">(210)</span>
+</div>
+<button class="bg-primary hover:bg-on-primary-fixed-variant text-on-primary font-label-md text-label-md py-2 px-6 rounded-xl transition-colors shadow-sm">
+                        Book Session
+                    </button>
+</div>
+</div>
+</section>
+</main>
+</body></html>

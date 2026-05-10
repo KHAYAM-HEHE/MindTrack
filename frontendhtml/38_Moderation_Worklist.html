@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Complaint Queue List</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#e9ddff",
+                    "background": "#f8f9ff",
+                    "secondary-fixed-dim": "#d0bcff",
+                    "primary-container": "#008378",
+                    "on-background": "#0b1c30",
+                    "secondary-container": "#8455ef",
+                    "primary": "#00685f",
+                    "tertiary-fixed-dim": "#ffb59a",
+                    "tertiary": "#924628",
+                    "surface-variant": "#d3e4fe",
+                    "on-surface": "#0b1c30",
+                    "on-secondary-fixed-variant": "#5516be",
+                    "on-tertiary-container": "#fffbff",
+                    "on-primary-container": "#f4fffc",
+                    "inverse-on-surface": "#eaf1ff",
+                    "surface-dim": "#cbdbf5",
+                    "surface-container": "#e5eeff",
+                    "error": "#ba1a1a",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#6d7a77",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed": "#ffdbce",
+                    "primary-fixed-dim": "#6bd8cb",
+                    "on-secondary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#dce9ff",
+                    "primary-fixed": "#89f5e7",
+                    "on-surface-variant": "#3d4947",
+                    "on-error-container": "#93000a",
+                    "surface-tint": "#006a61",
+                    "on-tertiary-fixed": "#370e00",
+                    "tertiary-container": "#b05e3d",
+                    "outline-variant": "#bcc9c6",
+                    "surface-container-low": "#eff4ff",
+                    "error-container": "#ffdad6",
+                    "inverse-primary": "#6bd8cb",
+                    "surface-bright": "#f8f9ff",
+                    "secondary": "#6b38d4",
+                    "on-secondary-container": "#fffbff",
+                    "inverse-surface": "#213145",
+                    "surface": "#f8f9ff",
+                    "on-primary-fixed-variant": "#005049",
+                    "on-tertiary-fixed-variant": "#773215",
+                    "on-primary-fixed": "#00201d",
+                    "on-primary": "#ffffff",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-secondary-fixed": "#23005c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "2rem",
+                    "unit": "4px",
+                    "md": "1.5rem",
+                    "gutter": "1.5rem",
+                    "xl": "3rem",
+                    "xs": "0.5rem",
+                    "container-max": "1280px",
+                    "sm": "1rem"
+            },
+            "fontFamily": {
+                    "h1": ["Manrope"],
+                    "display": ["Manrope"],
+                    "h2": ["Manrope"],
+                    "body-md": ["Manrope"],
+                    "body-lg": ["Manrope"],
+                    "label-sm": ["Manrope"],
+                    "label-md": ["Manrope"],
+                    "h3": ["Manrope"]
+            },
+            "fontSize": {
+                    "h1": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "h2": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.75", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "h3": ["20px", {"lineHeight": "1.5", "fontWeight": "600"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased min-h-screen flex">
+<!-- SideNavBar Component -->
+<nav class="bg-white dark:bg-slate-900 text-teal-600 dark:text-teal-400 font-manrope text-sm font-medium h-screen w-64 border-r rounded-none border-slate-200 dark:border-slate-800 shadow-[4px_0_24px_rgba(100,116,139,0.08)] fixed left-0 top-0 bottom-0 flex flex-col p-4 gap-2 z-50">
+<!-- Header -->
+<div class="flex items-center gap-3 px-4 py-6 mb-4">
+<img alt="MindWell Logo" class="w-10 h-10 rounded-xl object-cover" data-alt="A minimalist digital art installation featuring a calm teal abstract geometric shape on a crisp white background. The lighting is soft and ambient, reflecting a serene, clinical, and professional aesthetic suitable for a mental health care brand logo." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGVNfKP1k9AyZYyr5VK_jEv5mxs4se8IRO_fCDjDy4vI9lf_6OKWU9T5YIsqxSSuyfhzpEhVGNVtkEmeoIP785aKy1RhWdZJfyPCdm47GfNIMReraRHVzHQK_HdDw-OG69rDCsYS64iLa2leyxwGWZeRCuMVL8cgC29Xo3nZpbemBWejrOp7e3OUf6JHarFIgw2_KQ0CjIDWpP91EF4JdJQZ-E67ESXGvYfYhDn6JXBRz-hjXaIx_dD8sOwaLj088RseaoZ94Mf3Q"/>
+<div>
+<h1 class="text-teal-700 dark:text-teal-400 font-extrabold text-lg leading-tight">MindWell</h1>
+<span class="text-xs text-slate-500 font-medium">Mental Health Care</span>
+</div>
+</div>
+<!-- CTA -->
+<button class="w-full mb-6 bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 px-4 rounded-xl transition-all shadow-sm flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+            New Session
+        </button>
+<!-- Navigation Links -->
+<div class="flex flex-col gap-1 flex-1">
+<!-- Dashboard (Active) -->
+<a class="bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-xl flex items-center gap-3 px-4 py-3 cursor-pointer active:opacity-80 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">grid_view</span>
+<span>Dashboard</span>
+</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all flex items-center gap-3 px-4 py-3 cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Directory</span>
+</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all flex items-center gap-3 px-4 py-3 cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">event_note</span>
+<span>Schedule</span>
+</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all flex items-center gap-3 px-4 py-3 cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span>Insights</span>
+</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all flex items-center gap-3 px-4 py-3 cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span>Library</span>
+</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all flex items-center gap-3 px-4 py-3 cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</div>
+<!-- Footer Links -->
+<div class="mt-auto border-t border-slate-200 dark:border-slate-800 pt-4 flex flex-col gap-1">
+<a class="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all flex items-center gap-3 px-4 py-3 cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span>Help Center</span>
+</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all flex items-center gap-3 px-4 py-3 cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 ml-64 flex flex-col min-h-screen">
+<!-- TopAppBar Component -->
+<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md text-teal-600 dark:text-teal-400 font-manrope antialiased text-slate-700 dark:text-slate-200 docked full-width top-0 border-b border-slate-200/60 dark:border-slate-800/60 shadow-sm shadow-slate-200/50 dark:shadow-none sticky top-0 z-40 flex justify-between items-center w-full px-6 py-3">
+<div class="text-xl font-bold tracking-tight text-teal-700 dark:text-teal-400">
+                MindWell
+            </div>
+<div class="flex items-center gap-4">
+<div class="flex gap-2">
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-teal-50/50 dark:hover:bg-teal-900/20 transition-colors active:scale-95 duration-200 cursor-pointer rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-teal-50/50 dark:hover:bg-teal-900/20 transition-colors active:scale-95 duration-200 cursor-pointer rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">chat_bubble</span>
+</button>
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-teal-50/50 dark:hover:bg-teal-900/20 transition-colors active:scale-95 duration-200 cursor-pointer rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="h-8 w-px bg-slate-200 dark:bg-slate-700 mx-2"></div>
+<img alt="User profile settings" class="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm cursor-pointer hover:ring-2 hover:ring-teal-100 transition-all" data-alt="A professional headshot of a female administrative professional in a brightly lit, modern office space. The lighting is soft and flattering, highlighting a composed and approachable demeanor. The background is slightly out of focus, featuring neutral tones that match a clinical, high-end minimalist design aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEaqcIjPbM3VInH_Y0Vb0HTOxMRc8-mJFCq47d1wj2iwGy0vNSLsycXh_GdNLWU7L_862sOnFk0ZLOhbxhrTifkGPvK-zGSGpZxJx6nQe3H5fsEb7Vg8RnhPNdm_VlAHuUU6CEefLaNBzLKrHTJioi7wWoeaYaAEZz_mvVZMccboUfINuxhBKghPJnaw2AleMCrzimENrdhlz3C3F59It-oA9bUWVgj8UhRehXBu2H9r5wLb9BZN98ULgSu31CsHU9WFFwAu7sFhU"/>
+</div>
+</header>
+<!-- Page Content -->
+<main class="p-xl flex-1 max-w-[1600px] mx-auto w-full flex flex-col gap-xl">
+<!-- Header Section -->
+<div class="flex justify-between items-end">
+<div class="flex flex-col gap-2">
+<h2 class="font-h1 text-h1 text-on-surface">Complaint Queue</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Monitor active investigations, balance moderator workload, and ensure timely resolution of critical safety reports.</p>
+</div>
+<div class="flex gap-sm">
+<button class="bg-surface-container text-on-surface font-label-md text-label-md px-6 py-3 rounded-lg hover:bg-surface-container-highest transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                        Filter View
+                    </button>
+</div>
+</div>
+<!-- Bento Grid Metrics -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+<!-- Metric 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-lg shadow-[0_4px_24px_-8px_rgba(100,116,139,0.12)] flex flex-col gap-md border border-surface-container-high/50">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wide">Active Investigations</span>
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined">query_stats</span>
+</div>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-display text-display text-on-surface">24</span>
+<span class="font-label-md text-label-md text-primary-container">+3 this hour</span>
+</div>
+</div>
+<!-- Metric 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-lg shadow-[0_4px_24px_-8px_rgba(100,116,139,0.12)] flex flex-col gap-md border border-error-container">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wide">High Priority</span>
+<div class="w-10 h-10 rounded-full bg-error-container flex items-center justify-center text-on-error-container">
+<span class="material-symbols-outlined">warning</span>
+</div>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-display text-display text-error">7</span>
+<span class="font-label-md text-label-md text-error">Requires immediate action</span>
+</div>
+</div>
+<!-- Metric 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-lg shadow-[0_4px_24px_-8px_rgba(100,116,139,0.12)] flex flex-col gap-md border border-surface-container-high/50">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wide">Avg Time to Assign</span>
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined">timer</span>
+</div>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-display text-display text-on-surface">12m</span>
+<span class="font-label-md text-label-md text-primary-container">-2m from yesterday</span>
+</div>
+</div>
+</div>
+<!-- Queue Grid -->
+<div class="flex flex-col gap-md">
+<h3 class="font-h2 text-h2 text-on-surface">Unassigned Tickets</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
+<!-- Ticket Card 1 (High Priority) -->
+<div class="bg-surface-container-lowest rounded-xl p-lg shadow-[0_4px_24px_-8px_rgba(100,116,139,0.08)] border border-error-container/30 flex flex-col gap-md hover:shadow-[0_8px_32px_-8px_rgba(100,116,139,0.15)] transition-shadow">
+<div class="flex justify-between items-center border-b border-surface-variant pb-3">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">#CQ-8821</span>
+<span class="font-label-sm text-label-sm uppercase bg-error-container text-on-error-container px-3 py-1 rounded-full">High Priority</span>
+</div>
+<div class="flex flex-col gap-2 flex-1">
+<h4 class="font-h3 text-h3 text-on-surface">Severe Professional Misconduct</h4>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3">Client reported that Pro used highly inappropriate language during session and terminated the call abruptly without closing remarks.</p>
+</div>
+<div class="mt-auto pt-md flex items-center justify-between border-t border-surface-variant">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline">Reported</span>
+<span class="font-label-md text-label-md text-on-surface">14 mins ago</span>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-5 py-2.5 rounded-lg hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
+                                Assign Ticket
+                            </button>
+</div>
+</div>
+<!-- Ticket Card 2 (Routine) -->
+<div class="bg-surface-container-lowest rounded-xl p-lg shadow-[0_4px_24px_-8px_rgba(100,116,139,0.08)] border border-outline-variant/30 flex flex-col gap-md hover:shadow-[0_8px_32px_-8px_rgba(100,116,139,0.15)] transition-shadow">
+<div class="flex justify-between items-center border-b border-surface-variant pb-3">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">#CQ-8819</span>
+<span class="font-label-sm text-label-sm uppercase bg-surface-variant text-on-surface-variant px-3 py-1 rounded-full">Routine</span>
+</div>
+<div class="flex flex-col gap-2 flex-1">
+<h4 class="font-h3 text-h3 text-on-surface">Scheduling Conflict Dispute</h4>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3">Client claims they were charged for a no-show despite cancelling 24 hours prior via the in-app messaging system.</p>
+</div>
+<div class="mt-auto pt-md flex items-center justify-between border-t border-surface-variant">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline">Reported</span>
+<span class="font-label-md text-label-md text-on-surface">45 mins ago</span>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-5 py-2.5 rounded-lg hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
+                                Assign Ticket
+                            </button>
+</div>
+</div>
+<!-- Ticket Card 3 (Routine) -->
+<div class="bg-surface-container-lowest rounded-xl p-lg shadow-[0_4px_24px_-8px_rgba(100,116,139,0.08)] border border-outline-variant/30 flex flex-col gap-md hover:shadow-[0_8px_32px_-8px_rgba(100,116,139,0.15)] transition-shadow">
+<div class="flex justify-between items-center border-b border-surface-variant pb-3">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">#CQ-8815</span>
+<span class="font-label-sm text-label-sm uppercase bg-surface-variant text-on-surface-variant px-3 py-1 rounded-full">Routine</span>
+</div>
+<div class="flex flex-col gap-2 flex-1">
+<h4 class="font-h3 text-h3 text-on-surface">Audio/Video Technical Failure</h4>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3">System logs indicate continuous connection drops. Client requesting a refund or session credit for the disrupted hour.</p>
+</div>
+<div class="mt-auto pt-md flex items-center justify-between border-t border-surface-variant">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline">Reported</span>
+<span class="font-label-md text-label-md text-on-surface">1 hr ago</span>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-5 py-2.5 rounded-lg hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
+                                Assign Ticket
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Active Workload Grid -->
+<div class="flex flex-col gap-md mt-lg">
+<div class="flex justify-between items-center">
+<h3 class="font-h2 text-h2 text-on-surface">Active Investigations</h3>
+<a class="font-label-md text-label-md text-primary hover:underline" href="#">View All Active</a>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-lg">
+<!-- Assigned Ticket Card -->
+<div class="bg-surface-container-lowest rounded-xl p-lg shadow-[0_4px_24px_-8px_rgba(100,116,139,0.08)] border border-outline-variant/30 flex items-center justify-between gap-md">
+<div class="flex flex-col gap-2 flex-1">
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">#CQ-8790</span>
+<span class="font-label-sm text-label-sm uppercase bg-error-container text-on-error-container px-2 py-0.5 rounded-full text-[10px]">High Priority</span>
+</div>
+<h4 class="font-h3 text-h3 text-on-surface">Account Compromise Suspected</h4>
+</div>
+<div class="flex items-center gap-xl border-l border-surface-variant pl-xl">
+<div class="flex flex-col items-end">
+<span class="font-label-sm text-label-sm text-outline">Assigned To</span>
+<div class="flex items-center gap-2 mt-1">
+<img alt="Moderator Profile" class="w-6 h-6 rounded-full object-cover" data-alt="A portrait of a male moderator in a well-lit, contemporary office space. The image is crisp, featuring soft ambient lighting that conveys a calm, professional, and trustworthy atmosphere consistent with a secure medical software environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJOJ0-lnc8yI4JkRW1i00FC-6FyMPxCr_6-Jphgw7P3eWgQGNYwMv14xP4WgSZyjlb1hK8StHRkxHP1fv-h3pueQ-S_QYpxC2DUEnw9zNC02O26J4RS_Crew7rXv83P3c9uMUw7Fd4t77UWReoGRNFzqzTG13u2cj4DH-PspqqpQWSGWvMYlWysCF5RdJUK-ODz4QFrVmW2WNvOj2PtuycldeMAAPFN1sM7rIPGuVIe8TWOjyvvViEs5eoyZXd2L32hShvtA0Q-cY"/>
+<span class="font-label-md text-label-md text-on-surface">David C.</span>
+</div>
+</div>
+<button class="bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md px-4 py-2 rounded-lg hover:bg-secondary-fixed-dim transition-colors">
+                                Review Status
+                            </button>
+</div>
+</div>
+<!-- Assigned Ticket Card -->
+<div class="bg-surface-container-lowest rounded-xl p-lg shadow-[0_4px_24px_-8px_rgba(100,116,139,0.08)] border border-outline-variant/30 flex items-center justify-between gap-md">
+<div class="flex flex-col gap-2 flex-1">
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">#CQ-8782</span>
+<span class="font-label-sm text-label-sm uppercase bg-surface-variant text-on-surface-variant px-2 py-0.5 rounded-full text-[10px]">Routine</span>
+</div>
+<h4 class="font-h3 text-h3 text-on-surface">Billing Discrepancy - Overcharge</h4>
+</div>
+<div class="flex items-center gap-xl border-l border-surface-variant pl-xl">
+<div class="flex flex-col items-end">
+<span class="font-label-sm text-label-sm text-outline">Assigned To</span>
+<div class="flex items-center gap-2 mt-1">
+<img alt="Moderator Profile" class="w-6 h-6 rounded-full object-cover" data-alt="A close-up portrait of a female financial moderator looking attentively at a screen. The lighting is high-key and soft, set against a blurred, airy background featuring subtle cool tones to maintain a calm and professional digital interface look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLlmhjzQbyiXZ80G7mzALZo350TAo4lATAQmma6U--mN9_bOtdbOoOA_YivfQBIWhNJTRlIMCBxNe63uLXvg5hu7_eY7ENoUCkjjrhuQ-hAp3prxPkefU-M12daHcEWenxysAJ1AJ9Dh1xJTg0qwhErLcMMvUdD6RRNmSSRFnxSLJsQRua7IF0gYzDD6erDvQyArzUt0qZJAhT0les2It41U0LNyOM3B6QMUJThZJVdbkzyhMeB63LlNgQOMwInx0l18WPmpkQ_Dg"/>
+<span class="font-label-md text-label-md text-on-surface">Sarah M.</span>
+</div>
+</div>
+<button class="bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md px-4 py-2 rounded-lg hover:bg-secondary-fixed-dim transition-colors">
+                                Review Status
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

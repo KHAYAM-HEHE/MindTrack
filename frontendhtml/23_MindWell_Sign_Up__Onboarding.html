@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MindWell - Sign Up</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#6b38d4",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#006a61",
+                        "on-surface-variant": "#3d4947",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#23005c",
+                        "inverse-primary": "#6bd8cb",
+                        "on-primary-container": "#f4fffc",
+                        "on-secondary-fixed-variant": "#5516be",
+                        "secondary-fixed-dim": "#d0bcff",
+                        "surface-bright": "#f8f9ff",
+                        "outline-variant": "#bcc9c6",
+                        "on-primary-fixed": "#00201d",
+                        "tertiary-fixed-dim": "#ffb59a",
+                        "tertiary-container": "#b05e3d",
+                        "primary-fixed": "#89f5e7",
+                        "surface": "#f8f9ff",
+                        "on-tertiary-fixed-variant": "#773215",
+                        "on-background": "#0b1c30",
+                        "surface-variant": "#d3e4fe",
+                        "inverse-surface": "#213145",
+                        "on-tertiary-fixed": "#370e00",
+                        "on-surface": "#0b1c30",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-high": "#dce9ff",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#fffbff",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-secondary-container": "#fffbff",
+                        "background": "#f8f9ff",
+                        "surface-dim": "#cbdbf5",
+                        "outline": "#6d7a77",
+                        "primary-container": "#008378",
+                        "secondary-container": "#8455ef",
+                        "secondary-fixed": "#e9ddff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#ffdbce",
+                        "primary": "#00685f",
+                        "surface-container": "#e5eeff",
+                        "tertiary": "#924628",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#d3e4fe"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "0.5rem",
+                        "sm": "1rem",
+                        "lg": "2rem",
+                        "md": "1.5rem",
+                        "xl": "3rem",
+                        "unit": "4px",
+                        "gutter": "1.5rem",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "h1": ["Manrope"],
+                        "h3": ["Manrope"],
+                        "h2": ["Manrope"],
+                        "display": ["Manrope"],
+                        "body-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "1.75", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "h1": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "h3": ["20px", { "lineHeight": "1.5", "fontWeight": "600" }],
+                        "h2": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "display": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background min-h-screen flex items-center justify-center p-md lg:p-xl relative overflow-x-hidden">
+<!-- Subtle Ambient Background Blobs for depth (replaces image for cleaner clinical aesthetic) -->
+<div class="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none -translate-x-1/2 -translate-y-1/2"></div>
+<div class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-[120px] pointer-events-none translate-x-1/3 translate-y-1/3"></div>
+<!-- Main Registration Card -->
+<main class="w-full max-w-[640px] bg-surface-container-lowest rounded-xl shadow-[0_4px_24px_rgba(100,116,139,0.06)] relative z-10 flex flex-col">
+<!-- Header Section -->
+<header class="p-lg lg:p-xl pb-0 flex flex-col items-center text-center">
+<div class="flex items-center gap-xs mb-sm text-primary">
+<span class="material-symbols-outlined" style="font-size: 32px; font-variation-settings: 'FILL' 1;">spa</span>
+<span class="font-h2 text-h2 tracking-tight">MindWell</span>
+</div>
+<h1 class="font-h1 text-h1 text-on-surface mb-xs">Create your account</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-[400px]">Begin your journey to better mental well-being in a safe, professional environment.</p>
+</header>
+<!-- Form Content -->
+<form class="p-lg lg:p-xl flex flex-col gap-xl">
+<!-- Step 1: Role Selection -->
+<section class="flex flex-col gap-md">
+<div class="flex items-center gap-sm">
+<span class="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-on-primary font-label-md text-label-md">1</span>
+<h2 class="font-h3 text-h3 text-on-surface">Select your role</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-sm">
+<!-- Client Option (Active State Example) -->
+<label class="relative flex flex-col p-md rounded-xl border-2 border-primary bg-primary/5 cursor-pointer hover:bg-primary/5 transition-colors">
+<input checked="" class="peer sr-only" name="role" type="radio" value="client"/>
+<div class="flex justify-between items-start mb-sm">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">self_improvement</span>
+<span class="material-symbols-outlined text-primary">check_circle</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface mb-xs">Client</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">I am seeking emotional support and care.</span>
+</label>
+<!-- Professional Option -->
+<label class="relative flex flex-col p-md rounded-xl border border-outline-variant bg-surface-container-lowest cursor-pointer hover:border-outline transition-colors">
+<input class="peer sr-only" name="role" type="radio" value="professional"/>
+<div class="flex justify-between items-start mb-sm">
+<span class="material-symbols-outlined text-outline">psychology</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface mb-xs">Professional</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">I am a licensed healthcare provider.</span>
+</label>
+</div>
+</section>
+<!-- Divider -->
+<hr class="border-t border-outline-variant/50"/>
+<!-- Step 2: Account Details -->
+<section class="flex flex-col gap-md">
+<div class="flex items-center gap-sm">
+<span class="flex items-center justify-center w-8 h-8 rounded-full border border-outline-variant text-on-surface-variant font-label-md text-label-md">2</span>
+<h2 class="font-h3 text-h3 text-on-surface">Account details</h2>
+</div>
+<!-- Google Auth Button -->
+<button class="w-full flex items-center justify-center gap-sm p-3 rounded-lg border border-outline-variant bg-surface-container-lowest hover:bg-surface-container-low transition-colors font-label-md text-label-md text-on-surface" type="button">
+<!-- Simple CSS representation of G logo to avoid external image deps if possible, but using standard pattern -->
+<svg class="w-5 h-5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+</svg>
+                    Continue with Google
+                </button>
+<div class="flex items-center gap-sm my-xs">
+<div class="h-px bg-outline-variant flex-1"></div>
+<span class="font-label-sm text-label-sm text-outline uppercase">or use email</span>
+<div class="h-px bg-outline-variant flex-1"></div>
+</div>
+<div class="flex flex-col gap-sm">
+<div class="flex flex-col gap-xs">
+<label class="font-label-sm text-label-sm text-on-surface" for="email">Email Address</label>
+<input class="w-full rounded-lg border border-outline-variant bg-surface-container-lowest p-3 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-outline-variant" id="email" placeholder="you@example.com" type="email"/>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-sm text-label-sm text-on-surface" for="password">Password</label>
+<div class="relative">
+<input class="w-full rounded-lg border border-outline-variant bg-surface-container-lowest p-3 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-outline-variant" id="password" placeholder="••••••••" type="password"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined" style="font-size: 20px;">visibility_off</span>
+</button>
+</div>
+<p class="font-label-sm text-label-sm text-outline-variant mt-1">Must be at least 8 characters.</p>
+</div>
+</div>
+</section>
+<!-- Divider -->
+<hr class="border-t border-outline-variant/50"/>
+<!-- Step 3: Legal & Consent -->
+<section class="flex flex-col gap-md">
+<div class="flex items-center gap-sm">
+<span class="flex items-center justify-center w-8 h-8 rounded-full border border-outline-variant text-on-surface-variant font-label-md text-label-md">3</span>
+<h2 class="font-h3 text-h3 text-on-surface">Terms &amp; Consent</h2>
+</div>
+<div class="flex flex-col gap-sm">
+<label class="flex items-start gap-3 cursor-pointer group">
+<div class="flex items-center justify-center mt-1">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary cursor-pointer" type="checkbox"/>
+</div>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">
+                            I agree to the MindWell <a class="text-primary hover:underline font-medium" href="#">Terms of Service</a> and acknowledge the <a class="text-primary hover:underline font-medium" href="#">Privacy Policy</a>.
+                        </span>
+</label>
+<label class="flex items-start gap-3 cursor-pointer group">
+<div class="flex items-center justify-center mt-1">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary cursor-pointer" type="checkbox"/>
+</div>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">
+                            I consent to the collection and processing of my health-related data as outlined in the <a class="text-primary hover:underline font-medium" href="#">HIPAA Notice of Privacy Practices</a>.
+                        </span>
+</label>
+</div>
+</section>
+<!-- Submit Action -->
+<div class="pt-sm">
+<button class="w-full bg-primary hover:bg-primary/90 text-on-primary font-label-md text-label-md py-4 rounded-xl transition-all shadow-sm active:scale-[0.98]" type="submit">
+                    Create Account
+                </button>
+<p class="text-center font-body-md text-body-md text-on-surface-variant text-sm mt-md">
+                    Already have an account? <a class="text-primary hover:underline font-medium" href="#">Log in</a>
+</p>
+</div>
+</form>
+</main>
+</body></html>

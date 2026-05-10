@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MindWell Pro - Credential Verification Onboarding</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#005049",
+                        "on-secondary-container": "#fffbff",
+                        "surface-tint": "#006a61",
+                        "primary-fixed": "#89f5e7",
+                        "on-tertiary-fixed": "#370e00",
+                        "surface-dim": "#cbdbf5",
+                        "surface": "#f8f9ff",
+                        "secondary-container": "#8455ef",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#dce9ff",
+                        "on-tertiary-container": "#fffbff",
+                        "inverse-primary": "#6bd8cb",
+                        "surface-bright": "#f8f9ff",
+                        "tertiary-fixed": "#ffdbce",
+                        "on-surface": "#0b1c30",
+                        "on-primary": "#ffffff",
+                        "primary": "#00685f",
+                        "inverse-surface": "#213145",
+                        "background": "#f8f9ff",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#b05e3d",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#773215",
+                        "on-secondary-fixed": "#23005c",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-container-low": "#eff4ff",
+                        "on-primary-fixed": "#00201d",
+                        "primary-container": "#008378",
+                        "surface-variant": "#d3e4fe",
+                        "tertiary-fixed-dim": "#ffb59a",
+                        "secondary-fixed-dim": "#d0bcff",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#5516be",
+                        "outline-variant": "#bcc9c6",
+                        "tertiary": "#924628",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary-fixed": "#e9ddff",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#e5eeff",
+                        "outline": "#6d7a77",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "on-primary-container": "#f4fffc",
+                        "on-surface-variant": "#3d4947",
+                        "on-background": "#0b1c30",
+                        "secondary": "#6b38d4",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "1.5rem",
+                        "xl": "3rem",
+                        "unit": "4px",
+                        "container-max": "1280px",
+                        "gutter": "1.5rem",
+                        "xs": "0.5rem",
+                        "lg": "2rem",
+                        "sm": "1rem"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "h2": ["Manrope"],
+                        "h1": ["Manrope"],
+                        "h3": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "display": ["Manrope"],
+                        "label-sm": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.75", "fontWeight": "400" }],
+                        "h2": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "h1": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "h3": ["20px", { "lineHeight": "1.5", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "display": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md min-h-screen flex flex-col">
+<!-- Header - Suppressed standard nav because this is a transactional onboarding flow -->
+<header class="sticky top-0 z-40 flex justify-between items-center w-full px-6 py-3 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm shadow-slate-200/50 border-b border-slate-200/60">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-icon="health_and_safety" data-weight="fill">health_and_safety</span>
+<span class="font-h3 text-h3 text-primary-container">MindWell Pro Verification</span>
+</div>
+<div class="flex items-center gap-md">
+<span class="font-label-md text-label-md text-on-surface-variant">Save &amp; Exit</span>
+</div>
+</header>
+<main class="flex-grow flex justify-center py-xl px-gutter">
+<div class="w-full max-w-4xl flex flex-col md:flex-row gap-xl">
+<!-- Progress Sidebar (Bento style) -->
+<aside class="w-full md:w-64 flex-shrink-0">
+<div class="bg-surface-container-lowest rounded-xl shadow-[4px_0_24px_rgba(100,116,139,0.08)] p-md sticky top-24">
+<h3 class="font-h3 text-h3 text-on-surface mb-lg">Onboarding</h3>
+<ul class="flex flex-col gap-sm relative">
+<!-- Connecting Line -->
+<div class="absolute left-[15px] top-[24px] bottom-[24px] w-0.5 bg-outline-variant z-0"></div>
+<!-- Step 1: Active -->
+<li class="flex items-start gap-sm relative z-10">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center flex-shrink-0 shadow-sm mt-1">
+<span class="material-symbols-outlined text-label-sm" data-icon="badge">badge</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary">Step 1</span>
+<span class="font-body-md text-body-md text-on-surface font-semibold">Professional Identity</span>
+</div>
+</li>
+<!-- Step 2: Pending -->
+<li class="flex items-start gap-sm relative z-10 opacity-60">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center flex-shrink-0 mt-1 border-2 border-surface-container-lowest">
+<span class="material-symbols-outlined text-label-sm" data-icon="psychology">psychology</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">Step 2</span>
+<span class="font-body-md text-body-md text-on-surface">Clinical Specialization</span>
+</div>
+</li>
+<!-- Step 3: Pending -->
+<li class="flex items-start gap-sm relative z-10 opacity-60">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center flex-shrink-0 mt-1 border-2 border-surface-container-lowest">
+<span class="material-symbols-outlined text-label-sm" data-icon="calendar_clock">calendar_clock</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">Step 3</span>
+<span class="font-body-md text-body-md text-on-surface">Availability &amp; Fees</span>
+</div>
+</li>
+<!-- Step 4: Pending -->
+<li class="flex items-start gap-sm relative z-10 opacity-60">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center flex-shrink-0 mt-1 border-2 border-surface-container-lowest">
+<span class="material-symbols-outlined text-label-sm" data-icon="upload_file">upload_file</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">Step 4</span>
+<span class="font-body-md text-body-md text-on-surface">Document Upload</span>
+</div>
+</li>
+</ul>
+</div>
+</aside>
+<!-- Main Form Canvas -->
+<div class="flex-grow flex flex-col gap-lg">
+<div class="bg-surface-container-lowest rounded-xl shadow-[4px_0_24px_rgba(100,116,139,0.08)] p-xl">
+<div class="flex items-center justify-between mb-lg border-b border-outline-variant/30 pb-sm">
+<h1 class="font-h2 text-h2 text-on-surface">Professional Identity</h1>
+<div class="group relative cursor-help">
+<span class="material-symbols-outlined text-outline" data-icon="info">info</span>
+<div class="absolute right-0 bottom-full mb-2 w-64 bg-inverse-surface text-inverse-on-surface p-sm rounded-lg shadow-lg font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                                Verification typically takes 2-3 business days after all documents are submitted. You will be notified via email upon approval.
+                            </div>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-xl">
+                        Please provide your primary licensing information to begin the verification process. Ensure all details match your official documents exactly.
+                    </p>
+<form class="flex flex-col gap-lg">
+<!-- Personal Info Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface" for="first_name">Legal First Name</label>
+<input class="w-full bg-surface rounded-lg border border-outline-variant px-sm py-[10px] font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" id="first_name" placeholder="e.g. Jane" type="text"/>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface" for="last_name">Legal Last Name</label>
+<input class="w-full bg-surface rounded-lg border border-outline-variant px-sm py-[10px] font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" id="last_name" placeholder="e.g. Doe" type="text"/>
+</div>
+</div>
+<!-- License Details -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface" for="license_type">Primary License Type</label>
+<select class="w-full bg-surface rounded-lg border border-outline-variant px-sm py-[10px] font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all appearance-none cursor-pointer" id="license_type">
+<option disabled="" selected="" value="">Select License Type</option>
+<option value="lpc">Licensed Professional Counselor (LPC)</option>
+<option value="lcsw">Licensed Clinical Social Worker (LCSW)</option>
+<option value="lmft">Licensed Marriage and Family Therapist (LMFT)</option>
+<option value="psyd">Clinical Psychologist (PsyD/PhD)</option>
+<option value="md">Psychiatrist (MD/DO)</option>
+</select>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface" for="license_number">License Number</label>
+<input class="w-full bg-surface rounded-lg border border-outline-variant px-sm py-[10px] font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" id="license_number" placeholder="Enter alphanumeric code" type="text"/>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface" for="license_state">State of Issue</label>
+<select class="w-full bg-surface rounded-lg border border-outline-variant px-sm py-[10px] font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all appearance-none cursor-pointer" id="license_state">
+<option disabled="" selected="" value="">Select State</option>
+<option value="CA">California</option>
+<option value="NY">New York</option>
+<option value="TX">Texas</option>
+<!-- Add more as needed -->
+</select>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface" for="npi_number">NPI Number (Optional)</label>
+<input class="w-full bg-surface rounded-lg border border-outline-variant px-sm py-[10px] font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" id="npi_number" placeholder="10-digit National Provider Identifier" type="text"/>
+</div>
+<!-- Action Bar -->
+<div class="mt-lg pt-lg border-t border-outline-variant/30 flex justify-end gap-sm">
+<button class="px-md py-[10px] rounded-lg bg-surface-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-dim transition-colors" type="button">
+                                Cancel
+                            </button>
+<button class="px-xl py-[10px] rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary-container transition-colors flex items-center gap-xs shadow-sm" type="button">
+                                Continue to Specialization
+                                <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</form>
+</div>
+<!-- Informational Card underneath -->
+<div class="bg-surface-container-high rounded-xl p-md flex items-start gap-md">
+<span class="material-symbols-outlined text-primary-container text-h2 mt-1" data-icon="verified_user">verified_user</span>
+<div>
+<h4 class="font-h3 text-h3 text-on-surface mb-unit">Why do we need this?</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                             MindWell maintains a rigorous clinical standard. We verify all licenses against state registries to ensure client safety and build trust within our community of professionals.
+                         </p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

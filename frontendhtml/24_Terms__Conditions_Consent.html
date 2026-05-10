@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Terms &amp; Conditions Consent - MindWell</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#e9ddff",
+                        "background": "#f8f9ff",
+                        "secondary-fixed-dim": "#d0bcff",
+                        "primary-container": "#008378",
+                        "on-background": "#0b1c30",
+                        "secondary-container": "#8455ef",
+                        "primary": "#00685f",
+                        "tertiary-fixed-dim": "#ffb59a",
+                        "tertiary": "#924628",
+                        "surface-variant": "#d3e4fe",
+                        "on-surface": "#0b1c30",
+                        "on-secondary-fixed-variant": "#5516be",
+                        "on-tertiary-container": "#fffbff",
+                        "on-primary-container": "#f4fffc",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container": "#e5eeff",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#6d7a77",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#ffdbce",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#dce9ff",
+                        "primary-fixed": "#89f5e7",
+                        "on-surface-variant": "#3d4947",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#006a61",
+                        "on-tertiary-fixed": "#370e00",
+                        "tertiary-container": "#b05e3d",
+                        "outline-variant": "#bcc9c6",
+                        "surface-container-low": "#eff4ff",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#6bd8cb",
+                        "surface-bright": "#f8f9ff",
+                        "secondary": "#6b38d4",
+                        "on-secondary-container": "#fffbff",
+                        "inverse-surface": "#213145",
+                        "surface": "#f8f9ff",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-tertiary-fixed-variant": "#773215",
+                        "on-primary-fixed": "#00201d",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-secondary-fixed": "#23005c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "2rem",
+                        "unit": "4px",
+                        "md": "1.5rem",
+                        "gutter": "1.5rem",
+                        "xl": "3rem",
+                        "xs": "0.5rem",
+                        "container-max": "1280px",
+                        "sm": "1rem"
+                    },
+                    "fontFamily": {
+                        "h1": ["Manrope"],
+                        "display": ["Manrope"],
+                        "h2": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "h3": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "h1": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "h2": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.75", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "h3": ["20px", { "lineHeight": "1.5", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+            .scrollbar-hide {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            
+            /* Custom Scrollbar for legal text area to maintain clean UI while allowing visual affordance */
+            .custom-scrollbar::-webkit-scrollbar {
+                width: 6px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            .custom-scrollbar::-webkit-scrollbar-thumb {
+                background-color: #bcc9c6; /* outline-variant */
+                border-radius: 10px;
+            }
+            .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+                background-color: #6d7a77; /* outline */
+            }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased min-h-screen flex items-center justify-center p-4 md:p-8 selection:bg-primary-container selection:text-on-primary-container">
+<!-- Main Consent Container (No Nav Shell as this is a linear transactional gate) -->
+<main class="w-full max-w-3xl bg-surface-container-lowest rounded-xl shadow-[0_8px_32px_rgba(100,116,139,0.08)] border border-outline-variant/20 flex flex-col max-h-[921px] relative overflow-hidden">
+<!-- Header Section -->
+<header class="px-6 md:px-10 pt-10 pb-6 border-b border-outline-variant/30 flex flex-col md:flex-row md:items-end justify-between gap-6 shrink-0 bg-surface-container-lowest relative z-10">
+<div>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: 'FILL' 1;">spa</span>
+<span class="font-display text-h3 text-primary-fixed-variant tracking-tight">MindWell</span>
+</div>
+<h1 class="font-h1 text-h1 text-on-surface mb-2">Terms &amp; Conditions</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-lg">
+                    Please review and explicitly consent to our updated policies to securely access your care environment.
+                </p>
+</div>
+<!-- Version History Toggle -->
+<button class="group flex items-center gap-2 text-primary font-label-md text-label-md hover:bg-surface-container-low px-4 py-2.5 rounded-lg transition-colors border border-transparent hover:border-outline-variant/30 shrink-0">
+<span class="material-symbols-outlined text-[20px] group-hover:-rotate-45 transition-transform duration-300">history</span>
+                Version History
+            </button>
+</header>
+<!-- Document Scroll Area -->
+<div class="px-6 md:px-10 py-8 overflow-y-auto custom-scrollbar flex-grow bg-surface-bright relative">
+<div class="max-w-prose mx-auto space-y-8 text-on-surface-variant font-body-md text-body-md leading-relaxed">
+<section>
+<h2 class="font-h3 text-h3 text-on-surface mb-4 pb-2 border-b border-outline-variant/20">1. Acceptance of Terms</h2>
+<p class="mb-4">
+                        Welcome to MindWell. By accessing or using our platform, you agree to be bound by these Terms of Service, our Privacy Policy, and our HIPAA Compliance agreements. These terms govern your use of our mental health care management software, including all features, functionalities, and user interfaces.
+                    </p>
+<p>
+                        If you do not agree to these terms in their entirety, you are expressly prohibited from using the platform and must discontinue use immediately.
+                    </p>
+</section>
+<section>
+<h2 class="font-h3 text-h3 text-on-surface mb-4 pb-2 border-b border-outline-variant/20">2. Privacy &amp; Data Handling</h2>
+<p class="mb-4">
+                        Protecting your privacy is our highest priority. We collect and utilize personal information solely to facilitate your care coordination and platform functionality. 
+                    </p>
+<p>
+                        All personal health information (PHI) is encrypted both in transit and at rest, utilizing industry-standard cryptographic protocols to ensure confidentiality, integrity, and availability.
+                    </p>
+</section>
+<section>
+<h2 class="font-h3 text-h3 text-on-surface mb-4 pb-2 border-b border-outline-variant/20">3. HIPAA Compliance</h2>
+<p class="mb-4">
+                        MindWell operates as a Business Associate under the Health Insurance Portability and Accountability Act (HIPAA). We are fully committed to complying with the Security Rule and Privacy Rule requirements.
+                    </p>
+<ul class="list-disc pl-5 space-y-2">
+<li>Strict access controls and audit logging.</li>
+<li>Mandatory incident response protocols.</li>
+<li>Secure transmission of electronic protected health information (ePHI).</li>
+</ul>
+</section>
+<section>
+<h2 class="font-h3 text-h3 text-on-surface mb-4 pb-2 border-b border-outline-variant/20">4. User Responsibilities</h2>
+<p>
+                        You are responsible for maintaining the confidentiality of your account credentials. You agree to notify us immediately of any unauthorized use of your account or any other breach of security. We will not be liable for any loss or damage arising from your failure to comply with this provision.
+                    </p>
+</section>
+</div>
+<!-- Bottom fade for scroll indication -->
+<div class="sticky bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-surface-bright to-transparent pointer-events-none"></div>
+</div>
+<!-- Consent Checkboxes Area -->
+<div class="px-6 md:px-10 py-6 bg-surface-container-low border-t border-outline-variant/30 shrink-0">
+<h3 class="font-label-sm text-label-sm text-outline uppercase tracking-widest mb-4">Mandatory Consents</h3>
+<div class="space-y-4">
+<!-- Terms of Service Checkbox -->
+<label class="flex items-start gap-4 cursor-pointer group p-3 -m-3 rounded-lg hover:bg-surface-container transition-colors">
+<div class="relative flex items-center pt-0.5">
+<input class="peer h-5 w-5 rounded border-outline-variant text-primary focus:ring-primary focus:ring-2 focus:ring-offset-2 focus:ring-offset-surface-container-low transition-all bg-surface-container-lowest cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium group-hover:text-primary transition-colors">I accept the Terms of Service</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant/80 mt-0.5">Last updated: October 24, 2023</span>
+</div>
+</label>
+<!-- Privacy Policy Checkbox -->
+<label class="flex items-start gap-4 cursor-pointer group p-3 -m-3 rounded-lg hover:bg-surface-container transition-colors">
+<div class="relative flex items-center pt-0.5">
+<input class="peer h-5 w-5 rounded border-outline-variant text-primary focus:ring-primary focus:ring-2 focus:ring-offset-2 focus:ring-offset-surface-container-low transition-all bg-surface-container-lowest cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium group-hover:text-primary transition-colors">I acknowledge the Privacy Policy</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant/80 mt-0.5">Details data collection and usage</span>
+</div>
+</label>
+<!-- HIPAA Checkbox -->
+<label class="flex items-start gap-4 cursor-pointer group p-3 -m-3 rounded-lg hover:bg-surface-container transition-colors">
+<div class="relative flex items-center pt-0.5">
+<input class="peer h-5 w-5 rounded border-outline-variant text-primary focus:ring-primary focus:ring-2 focus:ring-offset-2 focus:ring-offset-surface-container-low transition-all bg-surface-container-lowest cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium group-hover:text-primary transition-colors">I agree to the HIPAA Compliance terms</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant/80 mt-0.5">Regarding the protection of PHI</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Action Footer -->
+<footer class="px-6 md:px-10 py-6 bg-surface-container-lowest flex flex-col-reverse sm:flex-row justify-end gap-3 sm:gap-4 border-t border-outline-variant/20 shrink-0">
+<button class="px-6 py-3.5 font-label-md text-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-xl transition-colors w-full sm:w-auto text-center">
+                Decline
+            </button>
+<button class="px-8 py-3.5 font-label-md text-label-md bg-primary text-on-primary rounded-xl hover:bg-surface-tint shadow-sm shadow-primary/20 transition-all flex items-center justify-center gap-2 w-full sm:w-auto opacity-50 cursor-not-allowed" disabled="" title="Please check all mandatory consents to continue">
+                Accept &amp; Continue
+                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</footer>
+</main>
+</body></html>

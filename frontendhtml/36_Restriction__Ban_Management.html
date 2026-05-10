@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ban &amp; Suspension Management - MindWell Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed": "#e9ddff",
+                      "background": "#f8f9ff",
+                      "secondary-fixed-dim": "#d0bcff",
+                      "primary-container": "#008378",
+                      "on-background": "#0b1c30",
+                      "secondary-container": "#8455ef",
+                      "primary": "#00685f",
+                      "tertiary-fixed-dim": "#ffb59a",
+                      "tertiary": "#924628",
+                      "surface-variant": "#d3e4fe",
+                      "on-surface": "#0b1c30",
+                      "on-secondary-fixed-variant": "#5516be",
+                      "on-tertiary-container": "#fffbff",
+                      "on-primary-container": "#f4fffc",
+                      "inverse-on-surface": "#eaf1ff",
+                      "surface-dim": "#cbdbf5",
+                      "surface-container": "#e5eeff",
+                      "error": "#ba1a1a",
+                      "on-tertiary": "#ffffff",
+                      "outline": "#6d7a77",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed": "#ffdbce",
+                      "primary-fixed-dim": "#6bd8cb",
+                      "on-secondary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-high": "#dce9ff",
+                      "primary-fixed": "#89f5e7",
+                      "on-surface-variant": "#3d4947",
+                      "on-error-container": "#93000a",
+                      "surface-tint": "#006a61",
+                      "on-tertiary-fixed": "#370e00",
+                      "tertiary-container": "#b05e3d",
+                      "outline-variant": "#bcc9c6",
+                      "surface-container-low": "#eff4ff",
+                      "error-container": "#ffdad6",
+                      "inverse-primary": "#6bd8cb",
+                      "surface-bright": "#f8f9ff",
+                      "secondary": "#6b38d4",
+                      "on-secondary-container": "#fffbff",
+                      "inverse-surface": "#213145",
+                      "surface": "#f8f9ff",
+                      "on-primary-fixed-variant": "#005049",
+                      "on-tertiary-fixed-variant": "#773215",
+                      "on-primary-fixed": "#00201d",
+                      "on-primary": "#ffffff",
+                      "surface-container-highest": "#d3e4fe",
+                      "on-secondary-fixed": "#23005c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "lg": "2rem",
+                      "unit": "4px",
+                      "md": "1.5rem",
+                      "gutter": "1.5rem",
+                      "xl": "3rem",
+                      "xs": "0.5rem",
+                      "container-max": "1280px",
+                      "sm": "1rem"
+              },
+              "fontFamily": {
+                      "h1": [
+                              "Manrope"
+                      ],
+                      "display": [
+                              "Manrope"
+                      ],
+                      "h2": [
+                              "Manrope"
+                      ],
+                      "body-md": [
+                              "Manrope"
+                      ],
+                      "body-lg": [
+                              "Manrope"
+                      ],
+                      "label-sm": [
+                              "Manrope"
+                      ],
+                      "label-md": [
+                              "Manrope"
+                      ],
+                      "h3": [
+                              "Manrope"
+                      ]
+              },
+              "fontSize": {
+                      "h1": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "h2": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.75",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "h3": [
+                              "20px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md font-sans antialiased min-h-screen flex">
+<!-- SideNavBar (Settings/Admin Intent) -->
+<nav class="hidden md:flex flex-col p-4 gap-2 bg-surface-container-lowest text-primary font-label-md font-medium h-screen w-64 border-r-0 rounded-none shadow-[4px_0_24px_rgba(100,116,139,0.08)] fixed left-0 top-0 bottom-0 z-50">
+<div class="mb-lg px-2 pt-2">
+<h1 class="text-primary font-h2 font-extrabold flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="health_and_safety" data-weight="fill">health_and_safety</span>
+                MindWell
+            </h1>
+<p class="font-label-sm text-on-surface-variant mt-1">Admin Console</p>
+</div>
+<button class="w-full bg-primary text-on-primary font-label-md py-3 px-4 rounded-xl flex items-center justify-center gap-2 mb-md hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+            New Action
+        </button>
+<div class="flex-1 overflow-y-auto flex flex-col gap-1">
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-xl transition-all cursor-pointer active:opacity-80 flex items-center gap-3 px-4 py-3" href="#">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+                Dashboard
+            </a>
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-xl transition-all cursor-pointer active:opacity-80 flex items-center gap-3 px-4 py-3" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+                Directory
+            </a>
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-xl transition-all cursor-pointer active:opacity-80 flex items-center gap-3 px-4 py-3" href="#">
+<span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+                Schedule
+            </a>
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-xl transition-all cursor-pointer active:opacity-80 flex items-center gap-3 px-4 py-3" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+                Insights
+            </a>
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-xl transition-all cursor-pointer active:opacity-80 flex items-center gap-3 px-4 py-3" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+                Library
+            </a>
+<a class="bg-surface-container-high text-primary rounded-xl cursor-pointer active:opacity-80 flex items-center gap-3 px-4 py-3 relative overflow-hidden" href="#">
+<span class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-primary rounded-r-full"></span>
+<span class="material-symbols-outlined" data-icon="settings" data-weight="fill">settings</span>
+                Settings
+            </a>
+</div>
+<div class="mt-auto border-t border-surface-container-highest pt-4 flex flex-col gap-1">
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-xl transition-all cursor-pointer active:opacity-80 flex items-center gap-3 px-4 py-3" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+                Help Center
+            </a>
+<a class="text-on-surface-variant hover:text-error hover:bg-error-container/30 rounded-xl transition-all cursor-pointer active:opacity-80 flex items-center gap-3 px-4 py-3" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                Logout
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-40 flex justify-between items-center w-full px-6 py-3 bg-surface-container-lowest/80 backdrop-blur-md shadow-sm shadow-surface-variant/50">
+<div class="flex items-center gap-4">
+<button class="md:hidden p-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h2 class="font-h3 text-on-surface md:hidden">Settings</h2>
+</div>
+<div class="flex flex-1 max-w-md mx-4">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface text-on-surface border border-outline-variant rounded-xl py-2 pl-10 pr-4 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-body-md transition-all" placeholder="Search accounts, violations..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-full transition-colors active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-full transition-colors active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+</button>
+<button class="ml-2 w-10 h-10 rounded-full overflow-hidden border border-outline-variant hover:border-primary transition-colors cursor-pointer active:scale-95">
+<img alt="Admin Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a person looking confident, used as a profile avatar. The background is a soft, muted grey. The lighting is professional studio quality, emphasizing clarity and approachability within a clinical software UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9eRppVLrUsYVdIS8GrX3ei1mhqA3zmNWCesIsZ7SeLnk5qMnyvHch1cge1pN6BFha6MkFKvV0aD48vNzo96DuUwS63FxK7Wb_X1oyi0ipcwj1rtqX2FhkET3g2RtjyYPHZF_I73ADiigKt6wP3Xzrn4q9KfI0_rxu1eKt_zqoFWDuAl0tV5XKaaygwaU7rWS0-ftBSbwcmvTAG75Agh1ix0Nv2NBAwqs6becedl7xjno9O2M0Lx-cgJ_014u25M7eaAQdsySiXd4"/>
+</button>
+</div>
+</header>
+<!-- Canvas -->
+<div class="p-6 md:p-8 max-w-container-max mx-auto w-full space-y-xl">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="font-h1 text-on-background mb-1">Ban &amp; Suspension Management</h1>
+<p class="font-body-md text-on-surface-variant max-w-2xl">Monitor restricted accounts, review violation reports, and manage platform access to ensure a safe environment for all users.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 border border-outline-variant text-on-surface-variant rounded-xl font-label-md hover:bg-surface-container hover:text-on-surface transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="download">download</span>
+                        Export Log
+                    </button>
+</div>
+</div>
+<!-- Dashboard Stats (Bento style) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_24px_rgba(100,116,139,0.08)] flex items-start gap-4 border border-surface-container-highest">
+<div class="w-12 h-12 rounded-full bg-error-container flex items-center justify-center text-on-error-container shrink-0">
+<span class="material-symbols-outlined" data-icon="block" data-weight="fill">block</span>
+</div>
+<div>
+<p class="font-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Active Bans</p>
+<p class="font-display text-on-background">124</p>
+<p class="font-label-sm text-error mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="trending_up">trending_up</span>
+                            +12 this week
+                        </p>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_24px_rgba(100,116,139,0.08)] flex items-start gap-4 border border-surface-container-highest">
+<div class="w-12 h-12 rounded-full bg-tertiary-container flex items-center justify-center text-on-tertiary-container shrink-0">
+<span class="material-symbols-outlined" data-icon="timer" data-weight="fill">timer</span>
+</div>
+<div>
+<p class="font-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Temporary Suspensions</p>
+<p class="font-display text-on-background">48</p>
+<p class="font-label-sm text-on-surface-variant mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span>
+                            15 expiring soon
+                        </p>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_24px_rgba(100,116,139,0.08)] flex items-start gap-4 border border-surface-container-highest">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant shrink-0">
+<span class="material-symbols-outlined" data-icon="gavel" data-weight="fill">gavel</span>
+</div>
+<div>
+<p class="font-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Pending Appeals</p>
+<p class="font-display text-on-background">7</p>
+<p class="font-label-sm text-primary mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="mark_email_unread">mark_email_unread</span>
+                            Requires review
+                        </p>
+</div>
+</div>
+</div>
+<!-- Main Management Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Restricted Accounts List -->
+<div class="lg:col-span-2 space-y-4">
+<div class="flex items-center justify-between mb-2">
+<h2 class="font-h2 text-on-background">Restricted Accounts</h2>
+<div class="flex gap-2">
+<select class="bg-surface border border-outline-variant text-on-surface text-label-md rounded-lg px-3 py-1.5 focus:ring-primary focus:border-primary">
+<option>All Statuses</option>
+<option>Permanent Ban</option>
+<option>Suspended</option>
+</select>
+<select class="bg-surface border border-outline-variant text-on-surface text-label-md rounded-lg px-3 py-1.5 focus:ring-primary focus:border-primary">
+<option>Newest First</option>
+<option>Severity</option>
+</select>
+</div>
+</div>
+<!-- Account Card 1 (Severe) -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_24px_rgba(100,116,139,0.08)] border-l-4 border-l-error relative overflow-hidden group">
+<div class="absolute top-0 right-0 bg-error text-on-error font-label-sm px-3 py-1 rounded-bl-lg">Permanent Ban</div>
+<div class="flex flex-col md:flex-row gap-6">
+<div class="flex items-start gap-4 flex-1">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center shrink-0 border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="person_off">person_off</span>
+</div>
+<div>
+<h3 class="font-h3 text-on-background">Client_ID_88492</h3>
+<p class="font-label-sm text-on-surface-variant mb-3">Joined: Mar 2023 • 14 Sessions</p>
+<div class="bg-error-container/30 rounded-lg p-3 border border-error-container">
+<p class="font-label-sm text-error font-semibold mb-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="warning">warning</span>
+                                            Violation: Severe Terms of Service Breach
+                                        </p>
+<p class="font-body-md text-on-surface-variant text-sm">Multiple reports of inappropriate behavior towards providers during sessions. System flagged consistent pattern matching zero-tolerance policy.</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col justify-center gap-2 border-t md:border-t-0 md:border-l border-surface-container-highest pt-4 md:pt-0 md:pl-6 min-w-[160px]">
+<button class="w-full bg-surface-container text-on-surface font-label-md py-2 px-4 rounded-lg hover:bg-surface-container-high transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="visibility">visibility</span>
+                                    Review Logs
+                                </button>
+<button class="w-full bg-error text-on-error font-label-md py-2 px-4 rounded-lg hover:bg-error/90 transition-colors flex items-center justify-center gap-2 opacity-50 cursor-not-allowed">
+<span class="material-symbols-outlined text-[18px]" data-icon="lock">lock</span>
+                                    Ban Applied
+                                </button>
+</div>
+</div>
+</div>
+<!-- Account Card 2 (Suspension) -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_24px_rgba(100,116,139,0.08)] border-l-4 border-l-tertiary relative overflow-hidden">
+<div class="absolute top-0 right-0 bg-tertiary-container text-on-tertiary-container font-label-sm px-3 py-1 rounded-bl-lg">Suspended (14 Days)</div>
+<div class="flex flex-col md:flex-row gap-6">
+<div class="flex items-start gap-4 flex-1">
+<img alt="Provider Profile" class="w-12 h-12 rounded-full object-cover shrink-0 border border-outline-variant" data-alt="A professional headshot of a therapist in a brightly lit office, used as a profile avatar for a suspended professional account. The styling implies a clinical setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjPdpiPn9dFVTvKtaQrHyNm6IIkDi0gBlHafFhj-QfGYpc7nHBZ4d6ae-qbWybFAUXu_uo54t--dubapZHI-sTnCnAnWthxSP2xZDRBhukPssAq2oBWtH-sCrmv8ZszyI-q6vvGM9XPRvSQzklV8qDa4kp1vANQVqL2FzfJ4lV67V_4PP_z15e3vwCneuZPSrO6L0JdRILOMjVAlXiaa8ZAflhkVDDz2acVjzstNpApGGLCW2rGYiCU8VCQLt9fVsSFmUp526hEec"/>
+<div>
+<h3 class="font-h3 text-on-background flex items-center gap-2">
+                                        Dr. Sarah Jenkins
+                                        <span class="bg-secondary-fixed/50 text-on-secondary-fixed font-label-sm px-2 py-0.5 rounded-full uppercase text-[10px]">Pro</span>
+</h3>
+<p class="font-label-sm text-on-surface-variant mb-3">Therapist • Suspended: Oct 24, 2023</p>
+<div class="bg-surface-container-high rounded-lg p-3 border border-outline-variant/50">
+<p class="font-label-sm text-on-surface font-semibold mb-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="policy">policy</span>
+                                            Violation: Missed Appointments Pattern
+                                        </p>
+<p class="font-body-md text-on-surface-variant text-sm">Provider missed 3 scheduled sessions without prior client notification within a 30-day window. Auto-suspended pending review.</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col justify-center gap-2 border-t md:border-t-0 md:border-l border-surface-container-highest pt-4 md:pt-0 md:pl-6 min-w-[160px]">
+<button class="w-full bg-surface text-on-surface border border-outline-variant font-label-md py-2 px-4 rounded-lg hover:bg-surface-container-low transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="contact_mail">contact_mail</span>
+                                    Message
+                                </button>
+<button class="w-full bg-primary text-on-primary font-label-md py-2 px-4 rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="settings_backup_restore">settings_backup_restore</span>
+                                    Restore Access
+                                </button>
+<button class="w-full text-error font-label-sm py-1 mt-1 hover:underline">Escalate to Ban</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar: System Decision Log -->
+<div class="lg:col-span-1 space-y-4">
+<h2 class="font-h2 text-on-background mb-2">System Decision Log</h2>
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_4px_24px_rgba(100,116,139,0.08)] border border-surface-container-highest overflow-hidden flex flex-col h-[600px]">
+<div class="p-4 border-b border-surface-container-highest bg-surface-bright flex justify-between items-center">
+<span class="font-label-md text-on-surface">Recent Activity</span>
+<button class="text-primary hover:text-primary-container p-1 rounded-md hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-4 space-y-6">
+<!-- Log Item -->
+<div class="relative pl-6 before:absolute before:left-[11px] before:top-6 before:bottom-[-24px] before:w-px before:bg-surface-container-highest last:before:hidden">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-error-container text-error flex items-center justify-center border-4 border-surface-container-lowest">
+<span class="material-symbols-outlined text-[12px]" data-icon="gavel" data-weight="fill">gavel</span>
+</div>
+<div>
+<p class="font-label-sm text-on-surface-variant mb-0.5">Today, 10:42 AM</p>
+<p class="font-label-md text-on-background">Admin 'M. Lawson' applied Permanent Ban</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1 bg-surface rounded-md p-2 border border-outline-variant/30">Target: Client_ID_88492. Reason code: TOS-V1-SEVERE.</p>
+</div>
+</div>
+<!-- Log Item -->
+<div class="relative pl-6 before:absolute before:left-[11px] before:top-6 before:bottom-[-24px] before:w-px before:bg-surface-container-highest last:before:hidden">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center border-4 border-surface-container-lowest">
+<span class="material-symbols-outlined text-[12px]" data-icon="smart_toy" data-weight="fill">smart_toy</span>
+</div>
+<div>
+<p class="font-label-sm text-on-surface-variant mb-0.5">Yesterday, 14:15 PM</p>
+<p class="font-label-md text-on-background">System Auto-Suspension Triggered</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Target: Dr. Sarah Jenkins. Rule: 3 missed sessions (30d window).</p>
+</div>
+</div>
+<!-- Log Item -->
+<div class="relative pl-6 before:absolute before:left-[11px] before:top-6 before:bottom-[-24px] before:w-px before:bg-surface-container-highest last:before:hidden">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center border-4 border-surface-container-lowest">
+<span class="material-symbols-outlined text-[12px]" data-icon="settings_backup_restore" data-weight="fill">settings_backup_restore</span>
+</div>
+<div>
+<p class="font-label-sm text-on-surface-variant mb-0.5">Oct 22, 09:00 AM</p>
+<p class="font-label-md text-on-background">Access Restored Post-Appeal</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Target: Client_ID_4412. Reviewed by: Admin Board.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

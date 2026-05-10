@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MindWell - Report Generation Center</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#6b38d4",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#006a61",
+                        "on-surface-variant": "#3d4947",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#23005c",
+                        "inverse-primary": "#6bd8cb",
+                        "on-primary-container": "#f4fffc",
+                        "on-secondary-fixed-variant": "#5516be",
+                        "secondary-fixed-dim": "#d0bcff",
+                        "surface-bright": "#f8f9ff",
+                        "outline-variant": "#bcc9c6",
+                        "on-primary-fixed": "#00201d",
+                        "tertiary-fixed-dim": "#ffb59a",
+                        "tertiary-container": "#b05e3d",
+                        "primary-fixed": "#89f5e7",
+                        "surface": "#f8f9ff",
+                        "on-tertiary-fixed-variant": "#773215",
+                        "on-background": "#0b1c30",
+                        "surface-variant": "#d3e4fe",
+                        "inverse-surface": "#213145",
+                        "on-tertiary-fixed": "#370e00",
+                        "on-surface": "#0b1c30",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-high": "#dce9ff",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#fffbff",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-secondary-container": "#fffbff",
+                        "background": "#f8f9ff",
+                        "surface-dim": "#cbdbf5",
+                        "outline": "#6d7a77",
+                        "primary-container": "#008378",
+                        "secondary-container": "#8455ef",
+                        "secondary-fixed": "#e9ddff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#ffdbce",
+                        "primary": "#00685f",
+                        "surface-container": "#e5eeff",
+                        "tertiary": "#924628",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#d3e4fe"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "0.5rem",
+                        "sm": "1rem",
+                        "lg": "2rem",
+                        "md": "1.5rem",
+                        "xl": "3rem",
+                        "unit": "4px",
+                        "gutter": "1.5rem",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "h1": ["Manrope"],
+                        "h3": ["Manrope"],
+                        "h2": ["Manrope"],
+                        "display": ["Manrope"],
+                        "body-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "1.75", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "h1": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "h3": ["20px", { "lineHeight": "1.5", "fontWeight": "600" }],
+                        "h2": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "display": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar (Generated from Shared Components JSON) -->
+<nav class="h-screen w-64 border-r border-slate-200 dark:border-slate-800 rounded-none shadow-[4px_0_24px_rgba(100,116,139,0.08)] bg-white dark:bg-slate-900 fixed left-0 top-0 bottom-0 flex flex-col p-4 gap-2 z-50">
+<!-- Header -->
+<div class="flex items-center gap-3 px-3 py-4 mb-4">
+<div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center overflow-hidden">
+<img alt="MindWell Logo" class="w-full h-full object-cover" data-alt="A macro photograph of a smooth, polished teal gemstone resting on a pure white surface, representing clarity and mental well-being. The lighting is soft and diffused, creating a serene and clinical yet approachable mood. The color palette is restricted to pristine whites and a calming, therapeutic teal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzz42gX_YF_CheGyYbqDAT7c2HSFURUwjpS0yV-loe_EVHdRe7VAOMJAYPQRPDjVV26dO00vCc8hgiNmYOfbfZYONcLvcJrVMk1g0nMg8bB79wCIAUF_RaI8P5-i6ZAIsIjkKm4FIIEwFapCbPj4u76W7U63dezlVlm3cp4WTvfyzRvcykqcvHEPo5pvDyzddprS45xco00DOKXghjsGCAfQoGqFQp0MwLiUebC7ic2pk71AbeIRvgvvjCkR5j5Lo1x-qekAnJ3x0"/>
+</div>
+<div>
+<h1 class="text-teal-700 dark:text-teal-400 font-extrabold font-manrope text-lg leading-tight tracking-tight">MindWell</h1>
+<p class="font-manrope text-xs text-slate-500 font-medium">Mental Health Care</p>
+</div>
+</div>
+<!-- CTA -->
+<button class="mb-4 mx-3 px-4 py-2.5 bg-primary text-on-primary font-manrope text-sm font-semibold rounded-xl hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-[0_2px_8px_rgba(0,104,95,0.2)] flex justify-center items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1; font-size: 18px;">add</span>
+            New Session
+        </button>
+<!-- Main Navigation -->
+<div class="flex-1 flex flex-col gap-1 overflow-y-auto">
+<!-- Dashboard -->
+<a class="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all cursor-pointer active:opacity-80 p-3 flex items-center gap-3 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+                Dashboard
+            </a>
+<!-- Directory -->
+<a class="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all cursor-pointer active:opacity-80 p-3 flex items-center gap-3 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+                Directory
+            </a>
+<!-- Schedule -->
+<a class="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all cursor-pointer active:opacity-80 p-3 flex items-center gap-3 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+                Schedule
+            </a>
+<!-- Insights (Active) -->
+<a class="bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-xl cursor-pointer active:opacity-80 p-3 flex items-center gap-3 font-manrope text-sm font-medium shadow-sm border border-teal-100" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring" style="font-variation-settings: 'FILL' 1;">monitoring</span>
+                Insights
+            </a>
+<!-- Library -->
+<a class="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all cursor-pointer active:opacity-80 p-3 flex items-center gap-3 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+                Library
+            </a>
+<!-- Settings -->
+<a class="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all cursor-pointer active:opacity-80 p-3 flex items-center gap-3 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+</div>
+<!-- Footer Navigation -->
+<div class="mt-auto pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-1">
+<a class="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all cursor-pointer active:opacity-80 p-3 flex items-center gap-3 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+                Help Center
+            </a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all cursor-pointer active:opacity-80 p-3 flex items-center gap-3 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                Logout
+            </a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="ml-64 flex-1 h-screen overflow-y-auto bg-background p-xl">
+<div class="max-w-[1280px] mx-auto">
+<!-- Page Header -->
+<header class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div>
+<h1 class="font-display text-display text-on-background mb-2">Report Generation</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Analyze client progress, review therapeutic trends, and generate comprehensive PDF documentation.</p>
+</div>
+<div class="flex items-center gap-4">
+<!-- Period Selector Segmented Control -->
+<div class="flex p-1 bg-surface-container-high rounded-lg shadow-inner">
+<button class="px-6 py-2 rounded-md bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm transition-all">Monthly</button>
+<button class="px-6 py-2 rounded-md text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all">Weekly</button>
+</div>
+<!-- Primary Action -->
+<button class="bg-primary hover:bg-primary-container text-on-primary hover:text-on-primary-container font-label-md text-label-md px-6 py-3 rounded-xl flex items-center gap-2 shadow-[0_4px_16px_rgba(0,104,95,0.2)] transition-all">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+                        Export to PDF
+                    </button>
+</div>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Full Width AI Insight Hero Card -->
+<div class="col-span-12 bg-surface-container-lowest rounded-xl p-8 shadow-[0_4px_16px_rgba(100,116,139,0.06)] border border-outline-variant/30 relative overflow-hidden flex flex-col md:flex-row gap-8 items-center">
+<!-- Decorative background element -->
+<div class="absolute -right-20 -top-20 w-64 h-64 bg-secondary-container/20 rounded-full blur-3xl pointer-events-none"></div>
+<div class="flex-1 z-10">
+<div class="inline-flex items-center gap-1.5 bg-surface-variant text-on-surface-variant px-3 py-1.5 rounded-full font-label-sm text-label-sm mb-4 border border-outline-variant/50">
+<span class="material-symbols-outlined text-[16px] text-secondary">auto_awesome</span>
+                            AI Generated Summary
+                        </div>
+<h2 class="font-h2 text-h2 text-on-background mb-4 leading-tight">Overall client mood stability has improved by 14% this month, correlating with consistent schedule adherence.</h2>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                            The data suggests that the implementation of the new CBT modules in week 2 had a positive impact on emotional regulation. Productivity scores remain stable, but show a slight dip during mid-week intervals. Recommendation: Focus next sessions on Wednesday stress-management strategies.
+                        </p>
+</div>
+</div>
+<!-- Mood Trend Chart Card (2/3 width) -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest rounded-xl p-8 shadow-[0_4px_16px_rgba(100,116,139,0.06)] border border-outline-variant/30 flex flex-col">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h3 class="font-h3 text-h3 text-on-background">Mood Progression</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm mt-1">Self-reported emotional baseline</p>
+</div>
+<div class="flex items-center gap-2 text-sm">
+<span class="inline-block w-3 h-3 rounded-full bg-primary"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Positive Trend</span>
+</div>
+</div>
+<!-- Simulated Chart Canvas -->
+<div class="flex-1 w-full min-h-[240px] relative border-b border-l border-outline-variant/30">
+<!-- Y-Axis Labels -->
+<div class="absolute -left-6 top-0 bottom-0 flex flex-col justify-between text-xs text-outline font-label-sm h-full pb-6">
+<span>High</span>
+<span>Neutral</span>
+<span>Low</span>
+</div>
+<!-- Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none pb-6">
+<div class="w-full border-t border-dashed border-outline-variant/30"></div>
+<div class="w-full border-t border-dashed border-outline-variant/30"></div>
+<div class="w-full border-t border-dashed border-outline-variant/30"></div>
+</div>
+<!-- Smooth Bezier Line Graph (SVG) -->
+<svg class="absolute inset-0 w-full h-[calc(100%-24px)] overflow-visible" preserveaspectratio="none" viewbox="0 0 100 100">
+<!-- Shadow path -->
+<path d="M0,70 C20,65 30,80 50,40 C70,0 80,30 100,20 L100,100 L0,100 Z" fill="url(#tealGradient)" opacity="0.1"></path>
+<!-- Stroke path -->
+<path class="text-primary drop-shadow-md" d="M0,70 C20,65 30,80 50,40 C70,0 80,30 100,20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<!-- Data Points -->
+<circle class="text-primary" cx="50" cy="40" fill="white" r="3" stroke="currentColor" stroke-width="2"></circle>
+<circle class="text-primary" cx="100" cy="20" fill="white" r="3" stroke="currentColor" stroke-width="2"></circle>
+<defs>
+<lineargradient id="tealGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="var(--tw-colors-primary)"></stop>
+<stop offset="100%" stop-color="transparent"></stop>
+</lineargradient>
+</defs>
+</svg>
+<!-- X-Axis Labels -->
+<div class="absolute left-0 right-0 bottom-0 flex justify-between text-xs text-outline font-label-sm pt-2 translate-y-full">
+<span>Wk 1</span>
+<span>Wk 2</span>
+<span>Wk 3</span>
+<span>Wk 4</span>
+</div>
+</div>
+</div>
+<!-- Productivity Score Card (1/3 width) -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container-lowest rounded-xl p-8 shadow-[0_4px_16px_rgba(100,116,139,0.06)] border border-outline-variant/30 flex flex-col justify-between">
+<div>
+<h3 class="font-h3 text-h3 text-on-background mb-1">Functional Output</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm mb-8">Daily task completion rate</p>
+</div>
+<div class="flex items-center justify-center py-6">
+<!-- Circular Progress Indicator -->
+<div class="relative w-40 h-40">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+<circle class="text-surface-container-high" cx="50" cy="50" fill="none" r="45" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-secondary" cx="50" cy="50" fill="none" r="45" stroke="currentColor" stroke-dasharray="282.7" stroke-dashoffset="62.19" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-display text-[32px] font-bold text-on-background leading-none">78%</span>
+<span class="font-label-sm text-label-sm text-secondary mt-1 flex items-center">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +3%
+                                </span>
+</div>
+</div>
+</div>
+<div class="mt-4 bg-surface rounded-lg p-4 flex items-start gap-3">
+<span class="material-symbols-outlined text-tertiary">info</span>
+<p class="font-body-md text-body-md text-sm text-on-surface-variant">Scores indicate sustained focus levels, though slightly below the target 85% threshold.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

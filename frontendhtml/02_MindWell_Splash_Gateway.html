@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MindWell - Gateway</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#3d4947",
+                        "on-primary-container": "#f4fffc",
+                        "surface-bright": "#f8f9ff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-secondary-fixed": "#23005c",
+                        "secondary-container": "#8455ef",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#fffbff",
+                        "on-tertiary-fixed-variant": "#773215",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#89f5e7",
+                        "surface-container": "#e5eeff",
+                        "on-primary-fixed-variant": "#005049",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary-fixed": "#ffdbce",
+                        "inverse-surface": "#213145",
+                        "inverse-primary": "#6bd8cb",
+                        "secondary": "#6b38d4",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#d0bcff",
+                        "outline": "#6d7a77",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#008378",
+                        "surface-container-high": "#dce9ff",
+                        "primary": "#00685f",
+                        "surface-tint": "#006a61",
+                        "on-surface": "#0b1c30",
+                        "secondary-fixed": "#e9ddff",
+                        "background": "#f8f9ff",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#eff4ff",
+                        "on-primary-fixed": "#00201d",
+                        "on-secondary-fixed-variant": "#5516be",
+                        "outline-variant": "#bcc9c6",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#fffbff",
+                        "tertiary-container": "#b05e3d",
+                        "tertiary-fixed-dim": "#ffb59a",
+                        "on-tertiary-fixed": "#370e00",
+                        "surface": "#f8f9ff",
+                        "on-error": "#ffffff",
+                        "tertiary": "#924628",
+                        "on-background": "#0b1c30",
+                        "surface-variant": "#d3e4fe"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "0.5rem",
+                        "container-max": "1280px",
+                        "gutter": "1.5rem",
+                        "md": "1.5rem",
+                        "unit": "4px",
+                        "lg": "2rem",
+                        "sm": "1rem",
+                        "xl": "3rem"
+                    },
+                    "fontFamily": {
+                        "h3": ["Manrope"],
+                        "h2": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "display": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "h1": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "h3": ["20px", {"lineHeight": "1.5", "fontWeight": "600"}],
+                        "h2": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "1.75", "fontWeight": "400"}],
+                        "display": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "h1": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface antialiased text-on-surface min-h-screen flex items-center justify-center relative overflow-hidden">
+<div class="absolute inset-0 z-0 bg-cover bg-center opacity-40 mix-blend-multiply" data-alt="A serene, minimalist digital art piece serving as a full-screen background. Soft, flowing abstract gradient waves of calming teal and pale lavender intersect gently across a bright white canvas. The lighting is heavily diffused and therapeutic, creating a pristine light-mode aesthetic that evokes a profound sense of tranquility, safety, and modern clinical professionalism without any harsh geometric lines or sterile medical imagery." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBB4nksJXrZYmeVavc1RnqwXVhy9B_9Rrg3nVKzvCVa39QIHpev3lZJTjPsEvlh5pXNxgyXHFgPPHmQnMcR3wC2V1id1wEErErI6kAMBAuy5V4D1y7sDGX1QKxT6Bt4FN91Gu8s2NgpIAhwzckGYyiZaCkLKydKLcI5EnZG5q5zli2LROuTmH-3Pydk8X31hYzZc4ilsVzsid7qGTEBHwUVKVdHUTU-jEsxlakY-mZAlJZH09EuHn260YliaZU6_DJ9MkqjmQtbUgs');"></div>
+<main class="relative z-10 w-full max-w-lg px-6">
+<div class="bg-surface-container-lowest/90 backdrop-blur-xl rounded-xl p-xl shadow-[0_8px_32px_rgba(100,116,139,0.08)] flex flex-col items-center text-center border border-outline-variant/30">
+<div class="w-20 h-20 bg-primary-container rounded-full flex items-center justify-center mb-md shadow-sm">
+<span class="material-symbols-outlined font-h1 text-h1 text-on-primary-container" style="font-variation-settings: 'FILL' 1;">spa</span>
+</div>
+<h1 class="font-display text-display text-primary mb-xs">MindWell</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-xl max-w-sm">
+                Your Journey to Mental Wellness Starts Here
+            </p>
+<div class="flex flex-col w-full gap-sm mb-lg">
+<button class="w-full flex items-center justify-center py-sm px-lg bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:bg-surface-tint transition-all duration-300 shadow-sm group">
+                    Client Entry
+                    <span class="material-symbols-outlined ml-2 text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<button class="w-full flex items-center justify-center py-sm px-lg bg-surface-container text-primary rounded-lg font-label-md text-label-md hover:bg-surface-container-high border border-primary-fixed/30 transition-all duration-300 shadow-sm">
+                    Professional Portal
+                    <span class="material-symbols-outlined ml-2 text-[18px]">medical_services</span>
+</button>
+</div>
+<div class="flex flex-row items-center justify-center w-full pt-md border-t border-outline-variant/30 gap-lg">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Learn More</a>
+<div class="w-px h-3 bg-outline-variant"></div>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Login/Signup</a>
+</div>
+</div>
+</main>
+</body></html>

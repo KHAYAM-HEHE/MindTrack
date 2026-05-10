@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Employee Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#e9ddff",
+                    "background": "#f8f9ff",
+                    "secondary-fixed-dim": "#d0bcff",
+                    "primary-container": "#008378",
+                    "on-background": "#0b1c30",
+                    "secondary-container": "#8455ef",
+                    "primary": "#00685f",
+                    "tertiary-fixed-dim": "#ffb59a",
+                    "tertiary": "#924628",
+                    "surface-variant": "#d3e4fe",
+                    "on-surface": "#0b1c30",
+                    "on-secondary-fixed-variant": "#5516be",
+                    "on-tertiary-container": "#fffbff",
+                    "on-primary-container": "#f4fffc",
+                    "inverse-on-surface": "#eaf1ff",
+                    "surface-dim": "#cbdbf5",
+                    "surface-container": "#e5eeff",
+                    "error": "#ba1a1a",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#6d7a77",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed": "#ffdbce",
+                    "primary-fixed-dim": "#6bd8cb",
+                    "on-secondary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#dce9ff",
+                    "primary-fixed": "#89f5e7",
+                    "on-surface-variant": "#3d4947",
+                    "on-error-container": "#93000a",
+                    "surface-tint": "#006a61",
+                    "on-tertiary-fixed": "#370e00",
+                    "tertiary-container": "#b05e3d",
+                    "outline-variant": "#bcc9c6",
+                    "surface-container-low": "#eff4ff",
+                    "error-container": "#ffdad6",
+                    "inverse-primary": "#6bd8cb",
+                    "surface-bright": "#f8f9ff",
+                    "secondary": "#6b38d4",
+                    "on-secondary-container": "#fffbff",
+                    "inverse-surface": "#213145",
+                    "surface": "#f8f9ff",
+                    "on-primary-fixed-variant": "#005049",
+                    "on-tertiary-fixed-variant": "#773215",
+                    "on-primary-fixed": "#00201d",
+                    "on-primary": "#ffffff",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-secondary-fixed": "#23005c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "2rem",
+                    "unit": "4px",
+                    "md": "1.5rem",
+                    "gutter": "1.5rem",
+                    "xl": "3rem",
+                    "xs": "0.5rem",
+                    "container-max": "1280px",
+                    "sm": "1rem"
+            },
+            "fontFamily": {
+                    "h1": ["Manrope"],
+                    "display": ["Manrope"],
+                    "h2": ["Manrope"],
+                    "body-md": ["Manrope"],
+                    "body-lg": ["Manrope"],
+                    "label-sm": ["Manrope"],
+                    "label-md": ["Manrope"],
+                    "h3": ["Manrope"]
+            },
+            "fontSize": {
+                    "h1": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "h2": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.75", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "h3": ["20px", {"lineHeight": "1.5", "fontWeight": "600"}]
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md flex h-screen overflow-hidden">
+<!-- SideNavBar (JSON Configured) -->
+<nav class="bg-white border-r border-slate-200 shadow-[4px_0_24px_rgba(100,116,139,0.08)] fixed left-0 top-0 bottom-0 flex flex-col p-4 gap-2 h-screen w-64 rounded-none z-50 hidden md:flex">
+<!-- Header -->
+<div class="flex items-center gap-3 px-2 py-4 mb-4">
+<div class="w-10 h-10 rounded-xl bg-teal-50 flex items-center justify-center text-teal-600">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">spa</span>
+</div>
+<div>
+<h1 class="text-teal-700 font-extrabold font-manrope text-lg leading-none">MindWell</h1>
+<p class="text-slate-500 font-manrope text-xs mt-1">Mental Health Care</p>
+</div>
+</div>
+<!-- CTA -->
+<button class="w-full bg-teal-600 hover:bg-teal-700 text-white font-manrope text-sm font-medium py-3 px-4 rounded-xl mb-4 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+            New Session
+        </button>
+<!-- Main Nav Links -->
+<div class="flex-1 flex flex-col gap-1">
+<!-- Dashboard (Inactive) -->
+<a class="text-slate-500 hover:text-teal-600 hover:bg-slate-50 rounded-xl transition-all cursor-pointer active:opacity-80 flex items-center gap-3 px-3 py-2.5 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-[20px]">grid_view</span>
+                Dashboard
+            </a>
+<!-- Directory (Active) -->
+<a class="bg-teal-50 text-teal-700 rounded-xl cursor-pointer active:opacity-80 flex items-center gap-3 px-3 py-2.5 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">group</span>
+                Directory
+            </a>
+<!-- Schedule (Inactive) -->
+<a class="text-slate-500 hover:text-teal-600 hover:bg-slate-50 rounded-xl transition-all cursor-pointer active:opacity-80 flex items-center gap-3 px-3 py-2.5 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-[20px]">event_note</span>
+                Schedule
+            </a>
+<!-- Insights (Inactive) -->
+<a class="text-slate-500 hover:text-teal-600 hover:bg-slate-50 rounded-xl transition-all cursor-pointer active:opacity-80 flex items-center gap-3 px-3 py-2.5 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-[20px]">monitoring</span>
+                Insights
+            </a>
+<!-- Library (Inactive) -->
+<a class="text-slate-500 hover:text-teal-600 hover:bg-slate-50 rounded-xl transition-all cursor-pointer active:opacity-80 flex items-center gap-3 px-3 py-2.5 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-[20px]">menu_book</span>
+                Library
+            </a>
+<!-- Settings (Inactive) -->
+<a class="text-slate-500 hover:text-teal-600 hover:bg-slate-50 rounded-xl transition-all cursor-pointer active:opacity-80 flex items-center gap-3 px-3 py-2.5 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+                Settings
+            </a>
+</div>
+<!-- Footer Links -->
+<div class="mt-auto border-t border-slate-200 pt-4 flex flex-col gap-1">
+<a class="text-slate-500 hover:text-teal-600 hover:bg-slate-50 rounded-xl transition-all cursor-pointer active:opacity-80 flex items-center gap-3 px-3 py-2.5 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+                Help Center
+            </a>
+<a class="text-slate-500 hover:text-teal-600 hover:bg-slate-50 rounded-xl transition-all cursor-pointer active:opacity-80 flex items-center gap-3 px-3 py-2.5 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+                Logout
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 ml-0 md:ml-64 flex flex-col h-screen overflow-hidden">
+<!-- TopAppBar (JSON Configured) -->
+<header class="bg-white/80 backdrop-blur-md sticky top-0 z-40 flex justify-between items-center w-full px-6 py-3 border-b border-slate-200/60 shadow-sm shadow-slate-200/50">
+<!-- Mobile Menu Toggle (Invisible on Desktop) -->
+<button class="md:hidden text-teal-600 p-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<!-- Brand (Hidden on Desktop if SideNav is present, but kept for strict JSON compliance if requested, here acting as breadcrumb area) -->
+<div class="text-xl font-bold tracking-tight text-teal-700 hidden md:block">
+<!-- Empty spacer or contextual title if needed, JSON says style_brand_logo so putting it here -->
+</div>
+<!-- Search Bar on Right & Trailing Icons -->
+<div class="flex items-center gap-4 ml-auto">
+<!-- Search Bar -->
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">search</span>
+<input class="pl-10 pr-4 py-2 bg-slate-50 border-none rounded-full text-sm focus:ring-2 focus:ring-teal-500 w-64 text-slate-700 font-manrope antialiased placeholder-slate-400" placeholder="Search across MindWell..." type="text"/>
+</div>
+<!-- Icons -->
+<div class="flex items-center gap-1">
+<button class="p-2 text-slate-500 hover:bg-teal-50/50 rounded-full transition-colors active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined text-[22px]">notifications</span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-teal-50/50 rounded-full transition-colors active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined text-[22px]">chat_bubble</span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-teal-50/50 rounded-full transition-colors active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined text-[22px]">settings</span>
+</button>
+</div>
+<!-- Profile Avatar -->
+<button class="ml-2 w-8 h-8 rounded-full overflow-hidden border-2 border-transparent hover:border-teal-500 transition-colors">
+<img alt="User profile settings" class="w-full h-full object-cover" data-alt="A small circular profile picture of a professional healthcare worker smiling warmly in a bright, soft-lit clinical environment. The background is a highly blurred, soothing calm teal color." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzHTDHxn-rCV7nzGWM3-SydHRFCdZksOksK8pfKlb6mrGkf-pNqR312yVuTIou64-YrVtNqhP5241N3QS-Sz9UXIJYksAqZgTTqyVqr_ZyU3cRg0nbIEkUB30i8-fZwqwngKHJFtXu-WXJmV5tWOeOA6stirR4EmgOLLssMKse4DwbZRP56LBw-j76huFO2cB2xEBrk5lspwjYH5TiVJhh7opQ8viJ5AonLMDSNFmuIl7vK9roeYZDkwot0dHqUOwMcrSoqiYssSc"/>
+</button>
+</div>
+</header>
+<!-- Canvas / Page Content -->
+<div class="flex-1 overflow-y-auto p-md lg:p-xl">
+<div class="max-w-container-max mx-auto space-y-md">
+<!-- Page Header & Action Bar -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-lg">
+<div>
+<h2 class="font-h1 text-h1 text-on-surface mb-xs">Employee Directory</h2>
+<p class="font-body-md text-body-md text-outline">Manage clinical staff, administrative roles, and system permissions.</p>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-surface-tint transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+                        Add New Staff
+                    </button>
+</div>
+<!-- Filters & Search (Bento-style Bar) -->
+<div class="bg-surface border border-outline-variant rounded-xl p-xs flex flex-col md:flex-row gap-xs shadow-[0_4px_16px_rgba(100,116,139,0.05)]">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-3 bg-transparent border-none rounded-lg text-on-surface font-body-md focus:ring-0 focus:bg-surface-container-lowest transition-colors placeholder:text-outline-variant" placeholder="Search by name or email..." type="text"/>
+</div>
+<div class="w-px bg-outline-variant hidden md:block my-2"></div>
+<div class="flex flex-wrap sm:flex-nowrap gap-xs p-1">
+<select class="bg-surface-container-lowest border-none font-body-md text-on-surface text-sm py-2 px-4 rounded-lg focus:ring-2 focus:ring-primary-container cursor-pointer min-w-[140px]">
+<option value="">All Roles</option>
+<option value="therapist">Therapist</option>
+<option value="psychiatrist">Psychiatrist</option>
+<option value="admin">Administrator</option>
+</select>
+<select class="bg-surface-container-lowest border-none font-body-md text-on-surface text-sm py-2 px-4 rounded-lg focus:ring-2 focus:ring-primary-container cursor-pointer min-w-[160px]">
+<option value="">All Departments</option>
+<option value="clinical">Clinical Care</option>
+<option value="operations">Operations</option>
+<option value="hr">Human Resources</option>
+</select>
+<button class="bg-surface-container-lowest text-outline hover:text-on-surface p-2 rounded-lg flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Directory Grid (Glassmorphism inspired cards) -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-md">
+<!-- Card 1 -->
+<div class="bg-surface rounded-xl border border-outline-variant p-md flex flex-col gap-4 relative overflow-hidden group hover:shadow-[0_8px_24px_rgba(100,116,139,0.12)] transition-shadow duration-300">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary-container"></div>
+<div class="flex items-start justify-between">
+<div class="flex gap-4 items-center">
+<img class="w-14 h-14 rounded-full object-cover shadow-sm" data-alt="A professional headshot of a female therapist with dark curly hair wearing a soft white blouse, set against a pristine, minimalist white background with gentle, diffused natural lighting. The overall mood is approachable, clinical, and calm." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcw2zpWu88QX3bIDuGqpz5m9wS6D9IFcjAsjRQvjZugkrCBlWpLn6UYnYtITxP7sHQMvT7AZ4WyEXTfUXWE3x49-fyJeTgIETjJ9ahEQOvdnV1inXUX-hrTRmelo3EyVcwIUNGCcfoKVt0GbtRB9vreaUVSq54lbAgvX_hjEBVh6R6VkYuVDNUfTgtAA9NSFkhTU_ktL9uOMgj3F8hYKkxB6AGxPmgohlhDWPc5_57qQM_1m3CnQIvOHCaWCX_zoUjDlIO3IfJrug"/>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface leading-tight">Dr. Sarah Jenkins</h3>
+<p class="font-body-md text-body-md text-outline text-sm">Lead Psychiatrist</p>
+</div>
+</div>
+<span class="bg-primary-container/10 text-primary-fixed-dim font-label-sm text-label-sm px-2.5 py-1 rounded-full uppercase tracking-wider">Active</span>
+</div>
+<div class="space-y-2 mt-2">
+<div class="flex items-center gap-2 text-on-surface font-body-md text-sm">
+<span class="material-symbols-outlined text-[16px] text-outline">apartment</span>
+                                Clinical Care
+                            </div>
+<div class="flex items-center gap-2 text-on-surface font-body-md text-sm">
+<span class="material-symbols-outlined text-[16px] text-outline">mail</span>
+                                s.jenkins@mindwell.org
+                            </div>
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant/50 flex justify-between gap-2">
+<button class="flex-1 bg-surface-container-lowest border border-outline-variant hover:border-primary text-on-surface font-label-md text-label-md py-2 rounded-lg flex justify-center items-center gap-1.5 transition-colors group/btn">
+<span class="material-symbols-outlined text-[18px] text-outline group-hover/btn:text-primary transition-colors">key</span>
+                                Credentials
+                            </button>
+<button class="flex-1 bg-surface-container-lowest border border-outline-variant hover:border-primary text-on-surface font-label-md text-label-md py-2 rounded-lg flex justify-center items-center gap-1.5 transition-colors group/btn">
+<span class="material-symbols-outlined text-[18px] text-outline group-hover/btn:text-primary transition-colors">admin_panel_settings</span>
+                                Permissions
+                            </button>
+<button class="w-10 bg-surface-container-lowest border border-outline-variant hover:border-error hover:text-error text-outline py-2 rounded-lg flex justify-center items-center transition-colors" title="Deactivate">
+<span class="material-symbols-outlined text-[18px]">block</span>
+</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface rounded-xl border border-outline-variant p-md flex flex-col gap-4 relative overflow-hidden group hover:shadow-[0_8px_24px_rgba(100,116,139,0.12)] transition-shadow duration-300">
+<div class="absolute top-0 left-0 w-1 h-full bg-secondary-container"></div>
+<div class="flex items-start justify-between">
+<div class="flex gap-4 items-center">
+<div class="w-14 h-14 rounded-full bg-secondary-container/20 text-secondary-container flex items-center justify-center font-h2 text-h2 shadow-sm">
+                                    MC
+                                </div>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface leading-tight">Marcus Chen</h3>
+<p class="font-body-md text-body-md text-outline text-sm">Senior Therapist</p>
+</div>
+</div>
+<span class="bg-primary-container/10 text-primary-fixed-dim font-label-sm text-label-sm px-2.5 py-1 rounded-full uppercase tracking-wider">Active</span>
+</div>
+<div class="space-y-2 mt-2">
+<div class="flex items-center gap-2 text-on-surface font-body-md text-sm">
+<span class="material-symbols-outlined text-[16px] text-outline">apartment</span>
+                                Clinical Care
+                            </div>
+<div class="flex items-center gap-2 text-on-surface font-body-md text-sm">
+<span class="material-symbols-outlined text-[16px] text-outline">mail</span>
+                                m.chen@mindwell.org
+                            </div>
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant/50 flex justify-between gap-2">
+<button class="flex-1 bg-surface-container-lowest border border-outline-variant hover:border-primary text-on-surface font-label-md text-label-md py-2 rounded-lg flex justify-center items-center gap-1.5 transition-colors group/btn">
+<span class="material-symbols-outlined text-[18px] text-outline group-hover/btn:text-primary transition-colors">key</span>
+                                Credentials
+                            </button>
+<button class="flex-1 bg-surface-container-lowest border border-outline-variant hover:border-primary text-on-surface font-label-md text-label-md py-2 rounded-lg flex justify-center items-center gap-1.5 transition-colors group/btn">
+<span class="material-symbols-outlined text-[18px] text-outline group-hover/btn:text-primary transition-colors">admin_panel_settings</span>
+                                Permissions
+                            </button>
+<button class="w-10 bg-surface-container-lowest border border-outline-variant hover:border-error hover:text-error text-outline py-2 rounded-lg flex justify-center items-center transition-colors" title="Deactivate">
+<span class="material-symbols-outlined text-[18px]">block</span>
+</button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface rounded-xl border border-outline-variant p-md flex flex-col gap-4 relative overflow-hidden group hover:shadow-[0_8px_24px_rgba(100,116,139,0.12)] transition-shadow duration-300 opacity-75">
+<div class="absolute top-0 left-0 w-1 h-full bg-outline-variant"></div>
+<div class="flex items-start justify-between">
+<div class="flex gap-4 items-center">
+<img class="w-14 h-14 rounded-full object-cover shadow-sm grayscale" data-alt="A professional portrait of a male administrative coordinator with short blonde hair, wearing a neutral grey sweater. The background is a plain, clinical slate grey. The lighting is soft and flat, suggesting a calm but inactive status." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi_mTdN7PRFOoueLSYuFaDduN94L3Q9f-7eueDRyEKFPuB5NXC8fuUXQoM55xXBlOOizbtMbeUxD6aR1EhH99GdcFjOvPuB18ov7AQqpRq8nyHG3eCgSp58wKNpZscnagDWvu_9zIMNg76xx0QgyZ6nLt5XnDdQHluof_x5myKPdCG1NM6X-aQnC9LkRgI0_ZUYGU8z6clb08YNSyc4mRDDJhgyxBew_tGSaV2ED1vcJYUvbx4QVSCLhZTrcGYfeTq45o4sWOZ8nY"/>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface leading-tight">Liam Davis</h3>
+<p class="font-body-md text-body-md text-outline text-sm">Operations Coord.</p>
+</div>
+</div>
+<span class="bg-surface-container-high text-outline font-label-sm text-label-sm px-2.5 py-1 rounded-full uppercase tracking-wider">Inactive</span>
+</div>
+<div class="space-y-2 mt-2">
+<div class="flex items-center gap-2 text-on-surface font-body-md text-sm">
+<span class="material-symbols-outlined text-[16px] text-outline">apartment</span>
+                                Operations
+                            </div>
+<div class="flex items-center gap-2 text-on-surface font-body-md text-sm">
+<span class="material-symbols-outlined text-[16px] text-outline">mail</span>
+                                l.davis@mindwell.org
+                            </div>
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant/50 flex justify-between gap-2">
+<button class="flex-1 bg-surface-container-lowest border border-outline-variant hover:border-primary text-on-surface font-label-md text-label-md py-2 rounded-lg flex justify-center items-center gap-1.5 transition-colors group/btn">
+<span class="material-symbols-outlined text-[18px] text-outline group-hover/btn:text-primary transition-colors">key</span>
+                                Credentials
+                            </button>
+<button class="flex-1 bg-surface-container-lowest border border-outline-variant hover:border-primary text-on-surface font-label-md text-label-md py-2 rounded-lg flex justify-center items-center gap-1.5 transition-colors group/btn">
+<span class="material-symbols-outlined text-[18px] text-outline group-hover/btn:text-primary transition-colors">admin_panel_settings</span>
+                                Permissions
+                            </button>
+<button class="w-10 bg-surface-container-lowest border border-outline-variant hover:border-primary hover:text-primary text-outline py-2 rounded-lg flex justify-center items-center transition-colors" title="Reactivate">
+<span class="material-symbols-outlined text-[18px]">restore</span>
+</button>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface rounded-xl border border-outline-variant p-md flex flex-col gap-4 relative overflow-hidden group hover:shadow-[0_8px_24px_rgba(100,116,139,0.12)] transition-shadow duration-300">
+<div class="absolute top-0 left-0 w-1 h-full bg-secondary-container"></div>
+<div class="flex items-start justify-between">
+<div class="flex gap-4 items-center">
+<img class="w-14 h-14 rounded-full object-cover shadow-sm" data-alt="A warm and inviting portrait of a young female therapist wearing glasses and a soft lavender blouse. She is smiling gently. The background is a clean, bright, modern minimalist office setting with a hint of a green plant out of focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAduRTExbWhS4xBUTb8VV4lr_ZCAzbsJNbMPEYrtOpc3n52Pvd_eIdiW1kZfD8MKqp9jDNxbkLmdDHieLvc0AlQGZIfPg3-9XDyCOfhtyQEhIvbbvmzEujye-ZXLN8Kd4nEw2z6rl-ZTRv6FEVwdvymJ3n6dsc_j38LUommWwDWTL8C-cE6-6QZoMt4xKOIf3kp41bWTx9xW6dT3hdiyLLj8EkN5hM6UyrA_SXSvl6hXntwwcrHpU4pbJq-tRL4-RMYZoYJfwOaEiE"/>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface leading-tight">Emily Tran</h3>
+<p class="font-body-md text-body-md text-outline text-sm">Therapist</p>
+</div>
+</div>
+<span class="bg-primary-container/10 text-primary-fixed-dim font-label-sm text-label-sm px-2.5 py-1 rounded-full uppercase tracking-wider">Active</span>
+</div>
+<div class="space-y-2 mt-2">
+<div class="flex items-center gap-2 text-on-surface font-body-md text-sm">
+<span class="material-symbols-outlined text-[16px] text-outline">apartment</span>
+                                Clinical Care
+                            </div>
+<div class="flex items-center gap-2 text-on-surface font-body-md text-sm">
+<span class="material-symbols-outlined text-[16px] text-outline">mail</span>
+                                e.tran@mindwell.org
+                            </div>
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant/50 flex justify-between gap-2">
+<button class="flex-1 bg-surface-container-lowest border border-outline-variant hover:border-primary text-on-surface font-label-md text-label-md py-2 rounded-lg flex justify-center items-center gap-1.5 transition-colors group/btn">
+<span class="material-symbols-outlined text-[18px] text-outline group-hover/btn:text-primary transition-colors">key</span>
+                                Credentials
+                            </button>
+<button class="flex-1 bg-surface-container-lowest border border-outline-variant hover:border-primary text-on-surface font-label-md text-label-md py-2 rounded-lg flex justify-center items-center gap-1.5 transition-colors group/btn">
+<span class="material-symbols-outlined text-[18px] text-outline group-hover/btn:text-primary transition-colors">admin_panel_settings</span>
+                                Permissions
+                            </button>
+<button class="w-10 bg-surface-container-lowest border border-outline-variant hover:border-error hover:text-error text-outline py-2 rounded-lg flex justify-center items-center transition-colors" title="Deactivate">
+<span class="material-symbols-outlined text-[18px]">block</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Pagination / Load More -->
+<div class="flex justify-center mt-xl pb-lg">
+<button class="bg-transparent border border-outline-variant text-on-surface font-label-md text-label-md px-6 py-2 rounded-lg hover:bg-surface-container-low transition-colors shadow-sm">
+                        Load More Staff
+                    </button>
+</div>
+</div>
+</div>
+</main>
+</body></html>

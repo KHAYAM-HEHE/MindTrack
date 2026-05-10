@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Two-Factor Authentication Setup</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary": "#ffffff",
+                      "primary-fixed": "#89f5e7",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-tertiary-fixed": "#370e00",
+                      "on-tertiary-fixed-variant": "#773215",
+                      "on-primary-container": "#f4fffc",
+                      "surface-container-low": "#eff4ff",
+                      "on-primary-fixed": "#00201d",
+                      "tertiary-fixed-dim": "#ffb59a",
+                      "secondary-fixed": "#e9ddff",
+                      "secondary-fixed-dim": "#d0bcff",
+                      "surface-tint": "#006a61",
+                      "tertiary-container": "#b05e3d",
+                      "surface-container-highest": "#d3e4fe",
+                      "on-secondary-container": "#fffbff",
+                      "error": "#ba1a1a",
+                      "tertiary": "#924628",
+                      "primary": "#00685f",
+                      "surface-container": "#e5eeff",
+                      "primary-fixed-dim": "#6bd8cb",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed": "#23005c",
+                      "on-surface": "#0b1c30",
+                      "surface-variant": "#d3e4fe",
+                      "on-secondary-fixed-variant": "#5516be",
+                      "outline": "#6d7a77",
+                      "on-error": "#ffffff",
+                      "secondary": "#6b38d4",
+                      "on-tertiary-container": "#fffbff",
+                      "surface-bright": "#f8f9ff",
+                      "surface": "#f8f9ff",
+                      "secondary-container": "#8455ef",
+                      "surface-container-lowest": "#ffffff",
+                      "on-background": "#0b1c30",
+                      "on-surface-variant": "#3d4947",
+                      "surface-container-high": "#dce9ff",
+                      "tertiary-fixed": "#ffdbce",
+                      "on-error-container": "#93000a",
+                      "inverse-surface": "#213145",
+                      "background": "#f8f9ff",
+                      "inverse-primary": "#6bd8cb",
+                      "on-secondary": "#ffffff",
+                      "on-primary-fixed-variant": "#005049",
+                      "surface-dim": "#cbdbf5",
+                      "primary-container": "#008378",
+                      "on-tertiary": "#ffffff",
+                      "outline-variant": "#bcc9c6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "1.5rem",
+                      "sm": "1rem",
+                      "unit": "4px",
+                      "md": "1.5rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "xs": "0.5rem",
+                      "container-max": "1280px"
+              },
+              "fontFamily": {
+                      "h2": ["Manrope"],
+                      "label-md": ["Manrope"],
+                      "display": ["Manrope"],
+                      "label-sm": ["Manrope"],
+                      "body-lg": ["Manrope"],
+                      "body-md": ["Manrope"],
+                      "h1": ["Manrope"],
+                      "h3": ["Manrope"]
+              },
+              "fontSize": {
+                      "h2": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                      "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                      "display": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                      "label-sm": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                      "body-lg": ["18px", { "lineHeight": "1.75", "fontWeight": "400" }],
+                      "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                      "h1": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                      "h3": ["20px", { "lineHeight": "1.5", "fontWeight": "600" }]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        /* Custom scrollbar for recovery codes if needed */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background-color: #bcc9c6; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background min-h-screen flex items-center justify-center p-4 md:p-gutter font-body-md text-body-md antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- 
+      Semantic Shell Suppression Context: 
+      This is a focused, transactional setup screen (Onboarding/Security Settings). 
+      To prioritize the complex task and prevent user distraction or accidental exit, 
+      the global SideNavBar and TopAppBar are intentionally excluded as per the design mandate.
+    -->
+<main class="w-full max-w-[1040px] bg-surface-container-lowest rounded-xl shadow-[0_8px_32px_rgba(100,116,139,0.06)] border border-outline-variant/20 flex flex-col lg:flex-row overflow-hidden relative z-10">
+<!-- Left Panel: Context & Reassurance -->
+<section class="lg:w-5/12 bg-surface-container-low p-xl flex flex-col justify-between relative overflow-hidden">
+<!-- Decorative soft background element -->
+<div class="absolute -top-32 -left-32 w-96 h-96 bg-primary-fixed/20 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="relative z-10">
+<span class="material-symbols-outlined text-[48px] text-primary mb-md block" style="font-variation-settings: 'FILL' 1;">shield_person</span>
+<h1 class="font-h1 text-h1 text-on-surface mb-sm">Secure Your Access</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-xl">Setting up Two-Factor Authentication (2FA) adds a critical layer of protection to your MindWell Professional dashboard.</p>
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant/30 flex gap-md items-start">
+<span class="material-symbols-outlined text-tertiary-container mt-1 shrink-0" style="font-variation-settings: 'FILL' 1;">privacy_tip</span>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Professional Requirement</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs text-sm">To comply with global healthcare data protection standards, all Professional accounts must utilize 2FA to ensure absolute client confidentiality and prevent unauthorized breaches.</p>
+</div>
+</div>
+</div>
+<!-- Reassuring Abstract Visual -->
+<div class="mt-xl hidden lg:block rounded-xl overflow-hidden h-48 relative border border-outline-variant/20 shadow-inner z-10 bg-surface-container">
+<img alt="Security abstract" class="object-cover w-full h-full opacity-60 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700" data-alt="A clean, modern 3D abstract illustration representing digital security and safety. The composition features soft, rounded geometric shapes interlocking like a gentle puzzle, rendered in soothing tones of calm teal, soft lavender, and pristine white. The lighting is bright, diffused studio lighting typical of high-end clinical software marketing. The mood is reassuring, professional, and entirely free of harsh metallic or typical aggressive cybersecurity hacker tropes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAw3_Z2qNXejV5Ze6TS7grt3SHtL1Fmj8mbFagdEqmhDNgaXJCKUSB4jP7Uj9HyY8_QkVihdsdZEHQgBqxVPUco6xT_XPcQ-k2g78-pUQi6KDf2ZPrRB112npfMJD1HyVbroLA2vZKjXwgAq7gd33JH5lnMFAln-yTOv6IRF3_qmWx9qw29eiIkwoUJru-6OOBlj8ixvKigTRs6t7Rvoli-k4priJrKFnfgS9DMckb0zfdWrVZ6bmPZPT4qA3qhFSeW3ZLUI2yS6g0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low/80 to-transparent"></div>
+</div>
+</section>
+<!-- Right Panel: Actionable Steps Grid -->
+<section class="lg:w-7/12 p-xl flex flex-col">
+<header class="flex items-center justify-between border-b border-outline-variant/30 pb-sm mb-lg">
+<h2 class="font-h2 text-h2 text-on-surface">Setup Instructions</h2>
+<button class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 group">
+<span class="material-symbols-outlined text-[18px] group-hover:-translate-x-1 transition-transform">arrow_back</span> Cancel
+                </button>
+</header>
+<div class="flex-grow flex flex-col gap-xl">
+<!-- Step 1 & 2 Side-by-Side on wider screens -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-xl">
+<!-- Step 1: Scan QR -->
+<div class="flex flex-col gap-sm">
+<div class="flex items-center gap-sm mb-xs">
+<div class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-label-md text-label-md shadow-sm">1</div>
+<h3 class="font-label-md text-label-md text-on-surface">Scan QR Code</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm h-12">Open your authenticator app (e.g., Google Authenticator) and scan this image.</p>
+<div class="mt-xs p-6 bg-surface border border-outline-variant/40 rounded-xl flex justify-center items-center shadow-[inset_0_2px_12px_rgba(100,116,139,0.04)] relative group cursor-pointer">
+<div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl"></div>
+<img alt="Setup QR Code" class="w-40 h-40 rounded-sm mix-blend-darken relative z-10" data-alt="A high-resolution, perfectly square black and white QR code centered symmetrically on a pristine white background. The intricate digital pattern of the QR code is crisp and legible, designed specifically for secure mobile authentication scanning. The surrounding UI environment implies a modern, high-end clinical software aesthetic, utilizing soft lighting and minimal distractions to ensure the user's focus remains entirely on completing the two-factor authentication setup process securely." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBsT3djCnCJYehK5rU69Pd4osXoLyDwF86_aDtho7HKp_-nTLDEaBpcIhP8FBqH2Az5C21fFzYC4ZnCuocej-KYreY7HKcsZFlMSxBuAdYnBkJexfviETM2B3WexlEOhmzyATiqvWf78aHMxa-Tlv1910GA73YaDOyTNb09BGcYe5BKPmgcJbV-L5CraNS9Hwt4mF50urouN8tmqMBec_c6SYMBynKxW65dAj6u5Jaz9x8En-VrbRvj44KXSkhvzHNFKBVldsO1ac"/>
+</div>
+<button class="mt-sm text-left font-label-md text-label-md text-primary hover:text-primary-container transition-colors w-fit underline decoration-primary/30 underline-offset-4">Can't scan? Use setup key</button>
+</div>
+<!-- Step 2: Verify -->
+<div class="flex flex-col gap-sm">
+<div class="flex items-center gap-sm mb-xs">
+<div class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-label-md text-label-md shadow-sm">2</div>
+<h3 class="font-label-md text-label-md text-on-surface">Verify Code</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm h-12">Enter the 6-digit code generated by your app to verify the connection.</p>
+<div class="mt-xs flex-grow flex flex-col justify-center">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2 uppercase tracking-widest pl-1">Authentication Code</label>
+<input autocomplete="one-time-code" class="w-full h-14 px-sm border border-outline-variant/80 rounded-lg font-h2 text-h2 text-center tracking-[0.3em] text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all bg-surface-container-lowest placeholder:text-outline-variant/50 shadow-sm" maxlength="7" placeholder="000 000" type="text"/>
+<p class="font-label-sm text-label-sm text-on-surface-variant/70 mt-3 text-center flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[14px]">timer</span> Code resets every 30 seconds
+                            </p>
+</div>
+</div>
+</div>
+<!-- Step 3: Recovery Codes -->
+<div class="pt-lg border-t border-outline-variant/30 mt-sm">
+<div class="flex items-center gap-sm mb-md">
+<div class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-label-md text-label-md shadow-sm">3</div>
+<h3 class="font-label-md text-label-md text-on-surface">Save Recovery Codes</h3>
+</div>
+<div class="bg-error-container/30 border border-error-container/50 rounded-xl p-md mb-md shadow-sm">
+<div class="flex gap-sm items-start">
+<span class="material-symbols-outlined text-error mt-0.5" style="font-variation-settings: 'FILL' 1;">warning</span>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm leading-relaxed">Please save these codes in a secure, offline location. They are the <strong>only way</strong> to regain access to your Professional account if you lose your authentication device.</p>
+</div>
+</div>
+<div class="relative group">
+<div class="grid grid-cols-2 gap-sm bg-surface-container p-lg rounded-xl border border-dashed border-outline-variant/80 font-mono font-label-md text-label-md text-on-surface tracking-widest relative z-10 transition-colors group-hover:bg-surface-container-high/50">
+<div class="flex items-center justify-center py-2 bg-surface-container-lowest rounded shadow-sm">A8B2-9F1C</div>
+<div class="flex items-center justify-center py-2 bg-surface-container-lowest rounded shadow-sm">7D4E-6G3H</div>
+<div class="flex items-center justify-center py-2 bg-surface-container-lowest rounded shadow-sm">J5K9-L2M4</div>
+<div class="flex items-center justify-center py-2 bg-surface-container-lowest rounded shadow-sm">N1P6-Q8R7</div>
+</div>
+<div class="flex justify-end mt-sm gap-sm absolute right-2 -bottom-10 z-20">
+<button class="px-3 py-1.5 font-label-md text-label-md text-primary flex items-center gap-1.5 hover:bg-primary/10 rounded-lg transition-colors bg-surface-container-lowest shadow-sm border border-outline-variant/20">
+<span class="material-symbols-outlined text-[18px]">content_copy</span> Copy
+                            </button>
+<button class="px-3 py-1.5 font-label-md text-label-md text-primary flex items-center gap-1.5 hover:bg-primary/10 rounded-lg transition-colors bg-surface-container-lowest shadow-sm border border-outline-variant/20">
+<span class="material-symbols-outlined text-[18px]">download</span> Download
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Action -->
+<footer class="mt-14 pt-md flex justify-between items-center border-t border-outline-variant/20">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1.5 bg-surface-container px-3 py-1.5 rounded-full">
+<span class="material-symbols-outlined text-[14px]">lock</span> End-to-End Encrypted
+                </span>
+<button class="bg-primary hover:bg-primary-container hover:text-on-primary-container text-on-primary font-label-md text-label-md px-xl py-3 rounded-xl shadow-sm hover:shadow transition-all active:scale-[0.98] focus:ring-4 focus:ring-primary/20 outline-none flex items-center gap-2">
+                    Complete Setup <span class="material-symbols-outlined text-[20px]">check_circle</span>
+</button>
+</footer>
+</section>
+</main>
+</body></html>

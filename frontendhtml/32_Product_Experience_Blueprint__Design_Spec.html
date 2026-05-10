@@ -1,0 +1,64 @@
+# MindWell Unified Mental Health Platform - Product Blueprint
+
+## A. Product Experience Blueprint
+### Information Architecture
+- **Public Domain**: Marketing/Entry, Auth, Legal.
+- **Client (Patient) Space**: Wellness tracking, professional matching, care management.
+- **Professional Space**: Practice management, client care, verification.
+- **Admin/Ops Space**: Verification queues, complaint handling, user management, audit.
+
+### Route Map
+- `/` - Splash / Gateway
+- `/auth/signup`, `/auth/login`, `/auth/2fa/setup`, `/auth/2fa/verify`
+- `/shared/profile`, `/shared/settings`, `/shared/notifications`
+- `/client/dashboard`, `/client/directory`, `/client/goals`, `/client/meds`, `/client/reports`
+- `/pro/dashboard`, `/pro/verification`, `/pro/clients`, `/pro/appointments`
+- `/admin/dashboard`, `/admin/verification-queue`, `/admin/complaints`, `/admin/audit`
+
+### Navigation Model
+- **Client/Pro**: Permanent sidebar (collapsible) with bottom-placed profile/settings.
+- **Admin**: Top-bar breadcrumbs + sidebar with multi-level operational menus.
+- **Mobile**: Bottom navigation bar for Clients; Hamburger menu for Pros/Admins.
+
+### Role Switch & Gating
+- User session contains `role` and `status` (e.g., `verified: boolean`).
+- `ProtectedRoute` component wraps role-specific trees.
+- Attempting to access unauthorized routes redirects to `/unauthorized`.
+
+## B. Page-by-Page Design Spec (Samples)
+### Client Dashboard
+- **Goal**: Daily grounding and quick actions.
+- **Key Components**: Mood Pulse Widget, Task Checklist, Next Appointment Card.
+- **API**: `GET /api/v1/client/summary`
+- **State**: Empty state shows "Start your first mood check-in" prompt.
+
+### Professional Dashboard
+- **Goal**: Manage daily practice and high-priority requests.
+- **Key Components**: Today's Schedule Table, Pending Request Toast, Status Toggle (Online/Offline).
+- **API**: `GET /api/v1/professional/dashboard`
+
+## C. User Flows
+- **Signup**: Email/Google -> Choose Role -> Accept Legal -> 2FA (if Pro) -> Profile Setup.
+- **Report Generation**: Select Period -> Preview Visuals -> Generate AI Insights -> Export PDF via `@react-pdf/renderer`.
+
+## D. Layout Description
+- **Desktop**: 240px sidebar, fluid main content area, 12-column grid.
+- **Components**: Rounded corners (12px), subtle shadows, high-contrast typography (Inter/Outfit).
+
+## E. Design System Starter
+- **Colors**:
+  - Primary: Calm Teal (`#0D9488`)
+  - Secondary: Soft Lavender (`#8B5CF6`)
+  - Safety/Error: Coral Red (`#EF4444`)
+  - Neutrals: Slate Grey (`#F8FAFC` to `#0F172A`)
+- **Typography**: Sans-serif, Scale: 12, 14, 16, 20, 24, 32, 48.
+
+## F. Reusable Component Inventory
+- **Global**: Button, Input, Modal, Toast, Badge, Tabs.
+- **Data**: TrendChart (Line), StatusTable, ChatBubble.
+- **Logic**: PDFExporter, ErrorBoundary, RoleGate.
+
+## G. Frontend Build Handoff
+- **Stack**: Next.js (Pages/App router) + Tailwind CSS + Lucide React (Icons).
+- **Structure**: `src/features/[feature-name]/{components, hooks, api}`.
+- **State**: React Query for server state; Zustand for UI state (sidebar, theme).

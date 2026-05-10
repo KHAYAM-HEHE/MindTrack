@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Role &amp; Permission Management - MindWell</title>
+<!-- Google Fonts: Manrope -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary": "#ffffff",
+                      "primary-fixed": "#89f5e7",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-tertiary-fixed": "#370e00",
+                      "on-tertiary-fixed-variant": "#773215",
+                      "on-primary-container": "#f4fffc",
+                      "surface-container-low": "#eff4ff",
+                      "on-primary-fixed": "#00201d",
+                      "tertiary-fixed-dim": "#ffb59a",
+                      "secondary-fixed": "#e9ddff",
+                      "secondary-fixed-dim": "#d0bcff",
+                      "surface-tint": "#006a61",
+                      "tertiary-container": "#b05e3d",
+                      "surface-container-highest": "#d3e4fe",
+                      "on-secondary-container": "#fffbff",
+                      "error": "#ba1a1a",
+                      "tertiary": "#924628",
+                      "primary": "#00685f",
+                      "surface-container": "#e5eeff",
+                      "primary-fixed-dim": "#6bd8cb",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed": "#23005c",
+                      "on-surface": "#0b1c30",
+                      "surface-variant": "#d3e4fe",
+                      "on-secondary-fixed-variant": "#5516be",
+                      "outline": "#6d7a77",
+                      "on-error": "#ffffff",
+                      "secondary": "#6b38d4",
+                      "on-tertiary-container": "#fffbff",
+                      "surface-bright": "#f8f9ff",
+                      "surface": "#f8f9ff",
+                      "secondary-container": "#8455ef",
+                      "surface-container-lowest": "#ffffff",
+                      "on-background": "#0b1c30",
+                      "on-surface-variant": "#3d4947",
+                      "surface-container-high": "#dce9ff",
+                      "tertiary-fixed": "#ffdbce",
+                      "on-error-container": "#93000a",
+                      "inverse-surface": "#213145",
+                      "background": "#f8f9ff",
+                      "inverse-primary": "#6bd8cb",
+                      "on-secondary": "#ffffff",
+                      "on-primary-fixed-variant": "#005049",
+                      "surface-dim": "#cbdbf5",
+                      "primary-container": "#008378",
+                      "on-tertiary": "#ffffff",
+                      "outline-variant": "#bcc9c6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "1.5rem",
+                      "sm": "1rem",
+                      "unit": "4px",
+                      "md": "1.5rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "xs": "0.5rem",
+                      "container-max": "1280px"
+              },
+              "fontFamily": {
+                      "h2": ["Manrope"],
+                      "label-md": ["Manrope"],
+                      "display": ["Manrope"],
+                      "label-sm": ["Manrope"],
+                      "body-lg": ["Manrope"],
+                      "body-md": ["Manrope"],
+                      "h1": ["Manrope"],
+                      "h3": ["Manrope"]
+              },
+              "fontSize": {
+                      "h2": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "display": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "body-lg": ["18px", {"lineHeight": "1.75", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "h1": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "h3": ["20px", {"lineHeight": "1.5", "fontWeight": "600"}]
+              }
+            }
+          }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased flex min-h-screen">
+<!-- Shared Component: SideNavBar -->
+<aside class="bg-white text-teal-600 font-manrope text-sm font-medium h-screen w-64 border-r rounded-none border-slate-200 shadow-[4px_0_24px_rgba(100,116,139,0.08)] fixed left-0 top-0 bottom-0 flex flex-col p-4 gap-2 z-50">
+<!-- Header -->
+<div class="px-4 py-6 mb-4 flex flex-col items-start gap-2 border-b border-slate-200">
+<span class="text-teal-700 font-extrabold text-h2 font-h2 tracking-tight">MindWell</span>
+<span class="text-slate-500 font-label-sm text-label-sm">Mental Health Care</span>
+</div>
+<!-- Primary Action -->
+<button class="bg-primary text-on-primary font-label-md text-label-md rounded-lg py-2 px-4 w-full flex items-center justify-center gap-2 mb-6 hover:opacity-90 transition-opacity shadow-[0_4px_12px_rgba(0,104,95,0.2)]">
+<span class="material-symbols-outlined" style="font-size: 18px;">add</span>
+            New Session
+        </button>
+<!-- Navigation Links -->
+<nav class="flex-1 flex flex-col gap-1">
+<!-- Inactive -->
+<a class="text-slate-500 hover:text-teal-600 hover:bg-slate-50 rounded-xl transition-all cursor-pointer active:opacity-80 flex items-center gap-3 px-4 py-3" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">grid_view</span>
+                Dashboard
+            </a>
+<!-- Inactive -->
+<a class="text-slate-500 hover:text-teal-600 hover:bg-slate-50 rounded-xl transition-all cursor-pointer active:opacity-80 flex items-center gap-3 px-4 py-3" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">group</span>
+                Directory
+            </a>
+<!-- Inactive -->
+<a class="text-slate-500 hover:text-teal-600 hover:bg-slate-50 rounded-xl transition-all cursor-pointer active:opacity-80 flex items-center gap-3 px-4 py-3" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">event_note</span>
+                Schedule
+            </a>
+<!-- Inactive -->
+<a class="text-slate-500 hover:text-teal-600 hover:bg-slate-50 rounded-xl transition-all cursor-pointer active:opacity-80 flex items-center gap-3 px-4 py-3" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">monitoring</span>
+                Insights
+            </a>
+<!-- Inactive -->
+<a class="text-slate-500 hover:text-teal-600 hover:bg-slate-50 rounded-xl transition-all cursor-pointer active:opacity-80 flex items-center gap-3 px-4 py-3" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">menu_book</span>
+                Library
+            </a>
+<!-- Active (Settings matches Role Management intent) -->
+<a class="bg-teal-50 text-teal-700 rounded-xl cursor-pointer active:opacity-80 flex items-center gap-3 px-4 py-3" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+                Settings
+            </a>
+</nav>
+<!-- Footer Links -->
+<div class="mt-auto flex flex-col gap-1 border-t border-slate-200 pt-4">
+<a class="text-slate-500 hover:text-teal-600 hover:bg-slate-50 rounded-xl transition-all cursor-pointer active:opacity-80 flex items-center gap-3 px-4 py-3" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">help_outline</span>
+                Help Center
+            </a>
+<a class="text-slate-500 hover:text-teal-600 hover:bg-slate-50 rounded-xl transition-all cursor-pointer active:opacity-80 flex items-center gap-3 px-4 py-3" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">logout</span>
+                Logout
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-64 flex flex-col min-h-screen">
+<!-- Shared Component: TopAppBar -->
+<header class="bg-white/80 backdrop-blur-md text-teal-600 font-manrope antialiased text-slate-700 border-b border-slate-200/60 shadow-sm shadow-slate-200/50 sticky top-0 z-40 flex justify-between items-center w-full px-6 py-3">
+<div class="flex-1">
+<!-- Search could go here if left aligned, but instructions say right. Leaving empty space. -->
+</div>
+<div class="flex items-center gap-4">
+<button class="text-slate-500 hover:bg-teal-50/50 transition-colors active:scale-95 duration-200 cursor-pointer p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-slate-500 hover:bg-teal-50/50 transition-colors active:scale-95 duration-200 cursor-pointer p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">chat_bubble</span>
+</button>
+<button class="text-slate-500 hover:bg-teal-50/50 transition-colors active:scale-95 duration-200 cursor-pointer p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-8 w-px bg-slate-200/60 mx-2"></div>
+<button class="flex items-center gap-2 hover:bg-teal-50/50 transition-colors active:scale-95 duration-200 cursor-pointer p-1 pr-3 rounded-full">
+<img alt="User profile settings" class="w-8 h-8 rounded-full object-cover border border-slate-200/60" data-alt="A professional headshot of a confident, middle-aged male healthcare clinic owner wearing a crisp navy suit over a light blue shirt. The lighting is soft and studio-quality, emphasizing a modern, trustworthy, and clinical aesthetic. The background is a highly blurred, serene office setting featuring subtle elements of teal and slate grey to match the MindWell brand color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAy26tWg8pG58L7fUTj8oUOj2_saxqaeAF9Thfu1rfVZTolPbvryjC5lE-_BOIH0YoNXDq3LakO1xL2mFz7CHQ9rjJpL1Ip_jFMdq06B2lMLbEFI4f57QYj9xfYUI6E7eFoH5nr6OSJXEti_i3LlIhWAkKxygTmoOjIYphFTIx1SfSAMLG0ga1jXY9QVQlI7MJLW-IrIq8vzGskSc64U4Ksd_JGhd2Hfyogj3OVHmbBykgUCuxJxejb6HmtLhe4JQPUCK9JO05Tgow"/>
+</button>
+</div>
+</header>
+<!-- Page Canvas -->
+<div class="p-xl flex-1 flex flex-col gap-xl max-w-container-max mx-auto w-full">
+<!-- Page Header -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="font-h1 text-h1 text-on-surface mb-2">Role &amp; Permission Management</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                        Manage organizational access levels, audit staff permissions, and assign roles across the clinical and administrative network.
+                    </p>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md rounded-lg py-3 px-6 flex items-center justify-center gap-2 hover:bg-primary-container transition-colors shadow-[0_4px_16px_rgba(0,104,95,0.15)] whitespace-nowrap self-start md:self-auto">
+<span class="material-symbols-outlined" style="font-size: 20px;">add_moderator</span>
+                    Add New Role
+                </button>
+</section>
+<!-- Audit Summaries (Bento Grid) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Stat Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_24px_rgba(100,116,139,0.06)] border border-outline-variant/30 flex flex-col relative overflow-hidden group">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors duration-500"></div>
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-surface-container rounded-lg text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shield_person</span>
+</div>
+<span class="bg-surface-container text-primary font-label-sm text-label-sm px-2 py-1 rounded-md">System</span>
+</div>
+<h3 class="font-body-md text-body-md text-on-surface-variant mb-1">Total Active Staff Profiles</h3>
+<div class="flex items-baseline gap-2">
+<span class="font-display text-display text-on-surface">142</span>
+<span class="font-label-sm text-label-sm text-primary flex items-center"><span class="material-symbols-outlined" style="font-size: 14px;">arrow_upward</span> 4 this month</span>
+</div>
+</div>
+<!-- Stat Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_24px_rgba(100,116,139,0.06)] border border-outline-variant/30 flex flex-col relative overflow-hidden group">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-secondary/5 rounded-full blur-2xl group-hover:bg-secondary/10 transition-colors duration-500"></div>
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-secondary-container/20 rounded-lg text-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">admin_panel_settings</span>
+</div>
+<span class="bg-secondary-container/20 text-secondary font-label-sm text-label-sm px-2 py-1 rounded-md">Critical</span>
+</div>
+<h3 class="font-body-md text-body-md text-on-surface-variant mb-1">High-Privilege Access</h3>
+<div class="flex items-baseline gap-2">
+<span class="font-display text-display text-on-surface">18</span>
+<span class="font-body-md text-body-md text-on-surface-variant">users</span>
+</div>
+</div>
+<!-- Stat Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_24px_rgba(100,116,139,0.06)] border border-outline-variant/30 flex flex-col">
+<h3 class="font-h3 text-h3 text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-outline">history</span> Recent Audit Log
+                    </h3>
+<div class="flex flex-col gap-3 flex-1 justify-center">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="font-body-md text-body-md text-on-surface">Sarah J. granted Clinical Lead</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">2h ago</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-outline"></div>
+<span class="font-body-md text-body-md text-on-surface">Guest role policy updated</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">1d ago</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-error"></div>
+<span class="font-body-md text-body-md text-on-surface">Failed access attempt (Billing)</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">2d ago</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Staff Table Container -->
+<section class="bg-surface-container-lowest rounded-xl shadow-[0_8px_32px_rgba(100,116,139,0.04)] border border-outline-variant/30 flex flex-col flex-1 overflow-hidden">
+<!-- Table Controls / Filter Bar -->
+<div class="p-6 border-b border-outline-variant/30 flex flex-col sm:flex-row justify-between items-center gap-4 bg-surface-bright/50">
+<div class="relative w-full sm:w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-shadow" placeholder="Search staff, roles, or emails..." type="text"/>
+</div>
+<div class="flex gap-2 w-full sm:w-auto">
+<button class="px-4 py-2 border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface-variant flex items-center gap-2 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" style="font-size: 18px;">filter_list</span>
+                            Filter
+                        </button>
+<button class="px-4 py-2 border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface-variant flex items-center gap-2 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" style="font-size: 18px;">download</span>
+                            Export
+                        </button>
+</div>
+</div>
+<!-- Table Content -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-lowest border-b border-outline-variant/50">
+<th class="py-4 px-6 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Staff Member</th>
+<th class="py-4 px-6 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Current Role</th>
+<th class="py-4 px-6 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Access Level</th>
+<th class="py-4 px-6 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Last Active</th>
+<th class="py-4 px-6 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<!-- Row 1: Clinical Lead -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="py-4 px-6">
+<div class="flex items-center gap-4">
+<img alt="Dr. Elena Rodriguez" class="w-10 h-10 rounded-full object-cover border border-outline-variant/30" data-alt="A portrait of a warm, professional female therapist in her 40s wearing a soft grey cardigan over a white blouse. She has a gentle smile. The background is a brightly lit, minimalist clinic space with a subtle plant out of focus. The overall image has a serene, light-mode aesthetic with soft pastel undertones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAj_z9Vhtoi5-BFR0lB_1yZVg5fmBkmdbWHdFVPbCGd88WL0yne2bsGGXZfULSE2mLLCW_tRiEB4SXn6nheVSX4M8-RPjcA6H-_VsKuf-8-j9yHn3BkTnCA_eCIDFpav1S5mNO4YlBfa3txFnOWhbzmmNr_1d_Iq7HGVnbIquUNK6ra4eNDulnHqej_Kte9DLfNWQcQ1uInLsBvV5_bVFhSeLVgvau2V9SyNJSh9omUSQgwdFKyuVSeBzAwg-Tqb-QJj7TbUBNXaNU"/>
+<div>
+<div class="font-label-md text-label-md text-on-surface">Dr. Elena Rodriguez</div>
+<div class="font-body-md text-body-md text-on-surface-variant text-sm">elena.r@mindwell.clinic</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm tracking-wide uppercase border border-primary/20">
+                                        Clinical Lead
+                                    </span>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-2">
+<div class="w-16 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+<div class="w-3/4 h-full bg-primary rounded-full"></div>
+</div>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Tier 3</span>
+</div>
+</td>
+<td class="py-4 px-6 font-body-md text-body-md text-on-surface-variant">Today, 09:41 AM</td>
+<td class="py-4 px-6 text-right">
+<button class="p-2 text-outline hover:text-primary transition-colors rounded-lg hover:bg-primary/5">
+<span class="material-symbols-outlined" style="font-size: 20px;">edit</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: Admin -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="py-4 px-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary/10 border border-secondary/20 flex items-center justify-center text-secondary font-label-md">
+                                            MJ
+                                        </div>
+<div>
+<div class="font-label-md text-label-md text-on-surface">Marcus Johnson</div>
+<div class="font-body-md text-body-md text-on-surface-variant text-sm">operations@mindwell.clinic</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-secondary/10 text-secondary font-label-sm text-label-sm tracking-wide uppercase border border-secondary/20">
+                                        System Admin
+                                    </span>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-2">
+<div class="w-16 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+<div class="w-full h-full bg-secondary rounded-full"></div>
+</div>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Full Access</span>
+</div>
+</td>
+<td class="py-4 px-6 font-body-md text-body-md text-on-surface-variant">Yesterday</td>
+<td class="py-4 px-6 text-right">
+<button class="p-2 text-outline hover:text-primary transition-colors rounded-lg hover:bg-primary/5">
+<span class="material-symbols-outlined" style="font-size: 20px;">edit</span>
+</button>
+</td>
+</tr>
+<!-- Row 3: HR -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="py-4 px-6">
+<div class="flex items-center gap-4">
+<img alt="Sarah Chen" class="w-10 h-10 rounded-full object-cover border border-outline-variant/30" data-alt="A bright, inviting portrait of an HR professional in a modern office environment. She is an Asian woman in her 30s wearing a tailored lavender blazer. The lighting is natural and illuminating, highlighting a sense of clarity and organization. The background features minimalist, white architectural details." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBES8dtUpCQJtXW0648PHOyd5S0QAK9K5wqktnQXmMfnVyMu1tcJWdvt5RsXk5_Ft2g09ZR3U4G8gaeXwfoerMHzE0rhAbyurZDa6hwh3vayi44QKfTxKEfJN1BKBkPyeG0dRjLyoO8K3DB0dhYic5Etqvd4WmkBO72ozucQCGGlJjqUveVJ48VFzoKg8HpzZIwKsl1IF42yUB4YxjOZvmbDAO0N2-636G_a3u02056tN-JVXVpWO3GwB4EnbQvCPP9bllo4TkXZaE"/>
+<div>
+<div class="font-label-md text-label-md text-on-surface">Sarah Chen</div>
+<div class="font-body-md text-body-md text-on-surface-variant text-sm">hr@mindwell.clinic</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm tracking-wide uppercase border border-outline-variant/50">
+                                        HR Manager
+                                    </span>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-2">
+<div class="w-16 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+<div class="w-1/2 h-full bg-outline rounded-full"></div>
+</div>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Tier 2</span>
+</div>
+</td>
+<td class="py-4 px-6 font-body-md text-body-md text-on-surface-variant">Oct 12, 2023</td>
+<td class="py-4 px-6 text-right">
+<button class="p-2 text-outline hover:text-primary transition-colors rounded-lg hover:bg-primary/5">
+<span class="material-symbols-outlined" style="font-size: 20px;">edit</span>
+</button>
+</td>
+</tr>
+<!-- Row 4: Provider -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="py-4 px-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high border border-outline-variant/30 flex items-center justify-center text-on-surface-variant font-label-md">
+                                            DW
+                                        </div>
+<div>
+<div class="font-label-md text-label-md text-on-surface">David Wright</div>
+<div class="font-body-md text-body-md text-on-surface-variant text-sm">david.w@mindwell.clinic</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm tracking-wide uppercase border border-outline-variant/30">
+                                        Therapist
+                                    </span>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-2">
+<div class="w-16 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+<div class="w-1/4 h-full bg-outline rounded-full"></div>
+</div>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Tier 1</span>
+</div>
+</td>
+<td class="py-4 px-6 font-body-md text-body-md text-on-surface-variant">Oct 10, 2023</td>
+<td class="py-4 px-6 text-right">
+<button class="p-2 text-outline hover:text-primary transition-colors rounded-lg hover:bg-primary/5">
+<span class="material-symbols-outlined" style="font-size: 20px;">edit</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="p-4 border-t border-outline-variant/30 flex items-center justify-between bg-surface-container-lowest">
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Showing 1 to 4 of 142 entries</span>
+<div class="flex gap-1">
+<button class="p-1 rounded-md text-outline hover:bg-surface-container hover:text-on-surface transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="px-3 py-1 rounded-md bg-primary/10 text-primary font-label-md text-label-md">1</button>
+<button class="px-3 py-1 rounded-md text-on-surface-variant hover:bg-surface-container transition-colors font-label-md text-label-md">2</button>
+<button class="px-3 py-1 rounded-md text-on-surface-variant hover:bg-surface-container transition-colors font-label-md text-label-md">3</button>
+<button class="p-1 rounded-md text-outline hover:bg-surface-container hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+</main>
+</body></html>

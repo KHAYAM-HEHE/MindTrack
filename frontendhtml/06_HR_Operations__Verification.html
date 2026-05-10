@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HR Management Dashboard - MindWell</title>
+<!-- Google Fonts: Manrope -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#6b38d4",
+                    "on-secondary": "#ffffff",
+                    "surface-tint": "#006a61",
+                    "on-surface-variant": "#3d4947",
+                    "on-primary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed": "#23005c",
+                    "inverse-primary": "#6bd8cb",
+                    "on-primary-container": "#f4fffc",
+                    "on-secondary-fixed-variant": "#5516be",
+                    "secondary-fixed-dim": "#d0bcff",
+                    "surface-bright": "#f8f9ff",
+                    "outline-variant": "#bcc9c6",
+                    "on-primary-fixed": "#00201d",
+                    "tertiary-fixed-dim": "#ffb59a",
+                    "tertiary-container": "#b05e3d",
+                    "primary-fixed": "#89f5e7",
+                    "surface": "#f8f9ff",
+                    "on-tertiary-fixed-variant": "#773215",
+                    "on-background": "#0b1c30",
+                    "surface-variant": "#d3e4fe",
+                    "inverse-surface": "#213145",
+                    "on-tertiary-fixed": "#370e00",
+                    "on-surface": "#0b1c30",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#6bd8cb",
+                    "surface-container-low": "#eff4ff",
+                    "surface-container-high": "#dce9ff",
+                    "on-error": "#ffffff",
+                    "on-tertiary-container": "#fffbff",
+                    "on-primary-fixed-variant": "#005049",
+                    "on-tertiary": "#ffffff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-secondary-container": "#fffbff",
+                    "background": "#f8f9ff",
+                    "surface-dim": "#cbdbf5",
+                    "outline": "#6d7a77",
+                    "primary-container": "#008378",
+                    "secondary-container": "#8455ef",
+                    "secondary-fixed": "#e9ddff",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed": "#ffdbce",
+                    "primary": "#00685f",
+                    "surface-container": "#e5eeff",
+                    "tertiary": "#924628",
+                    "error": "#ba1a1a",
+                    "surface-container-highest": "#d3e4fe"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "0.5rem",
+                    "sm": "1rem",
+                    "lg": "2rem",
+                    "md": "1.5rem",
+                    "xl": "3rem",
+                    "unit": "4px",
+                    "gutter": "1.5rem",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Manrope"],
+                    "label-sm": ["Manrope"],
+                    "label-md": ["Manrope"],
+                    "h1": ["Manrope"],
+                    "h3": ["Manrope"],
+                    "h2": ["Manrope"],
+                    "display": ["Manrope"],
+                    "body-md": ["Manrope"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "1.75", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "h1": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "h3": ["20px", {"lineHeight": "1.5", "fontWeight": "600"}],
+                    "h2": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "display": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased h-screen flex overflow-hidden">
+<!-- SideNavBar (Shared Component) -->
+<nav class="hidden md:flex flex-col bg-white dark:bg-slate-900 font-manrope text-sm font-medium h-screen w-64 border-r rounded-none border-slate-200 dark:border-slate-800 shadow-[4px_0_24px_rgba(100,116,139,0.08)] fixed left-0 top-0 bottom-0 p-4 gap-2 z-50">
+<!-- Header -->
+<div class="flex items-center gap-3 px-3 py-4 mb-4">
+<div class="w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-900/30 flex items-center justify-center overflow-hidden">
+<img alt="MindWell Logo" class="w-full h-full object-cover" data-alt="A stylized, minimalist logo design featuring an abstract teal leaf or wave pattern, rendered in a bright, modern light-mode setting. The graphic is clean and professional, symbolizing mental health and serenity. The background is pure white to contrast smoothly with the calm teal tones of the logo mark." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDA9m5XO4QSgc_mh4ALEHpcuhNekCzgXycqblVhvtOZ6FUTzsSOa61MlyMmQ2YkbcXhsLsEFwchi1X-7uisCI5lZSGBY_kOQs_2jcHrDRfgEhS092jWmIdoKe7Q7wTjQj_0CUcafTyh9cgrguwwUDx7raQ7nlSsZH7HtDQHewLrSmV8UPKMd0EdUlnvlEZqFzgDPOUpsRkw-J5Tv0K1gE8VLWD3JKQhHK4GfxlNXRBqrb3VFCEDxzyLOh724stBKc82Rp08bmOmkMk"/>
+</div>
+<div>
+<h2 class="text-teal-700 dark:text-teal-400 font-extrabold text-lg tracking-tight">MindWell</h2>
+<p class="text-slate-500 dark:text-slate-400 text-xs">Mental Health Care</p>
+</div>
+</div>
+<!-- Main Nav Links -->
+<div class="flex flex-col gap-1 flex-1">
+<a class="flex items-center gap-3 px-3 py-2.5 bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-xl cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Directory</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">event_note</span>
+<span>Schedule</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span>Insights</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span>Library</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</div>
+<!-- Footer Actions -->
+<div class="mt-auto flex flex-col gap-1 border-t border-slate-200 dark:border-slate-800 pt-4">
+<button class="w-full flex items-center justify-center gap-2 bg-teal-600 text-white hover:bg-teal-700 py-2.5 rounded-xl font-semibold mb-2 transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined text-sm">add</span>
+                New Session
+            </button>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span>Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 md:ml-64 flex flex-col min-h-screen relative w-full">
+<!-- TopAppBar (Shared Component) -->
+<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md font-manrope antialiased text-slate-700 dark:text-slate-200 docked full-width top-0 border-b border-slate-200/60 dark:border-slate-800/60 shadow-sm shadow-slate-200/50 dark:shadow-none sticky z-40 flex justify-between items-center w-full px-6 py-3">
+<div class="flex items-center gap-4">
+<!-- Mobile Menu Trigger (hidden on desktop) -->
+<button class="md:hidden p-2 text-slate-500 hover:bg-teal-50/50 rounded-lg">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="text-xl font-bold tracking-tight text-teal-700 dark:text-teal-400 md:hidden">MindWell</div>
+</div>
+<!-- Search Bar (Right Aligned) -->
+<div class="flex items-center gap-6">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-800 border-none rounded-full text-sm focus:ring-2 focus:ring-teal-500/20 w-64 transition-all" placeholder="Search..." type="text"/>
+</div>
+<!-- Trailing Icons -->
+<div class="flex items-center gap-2">
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-teal-50/50 dark:hover:bg-teal-900/20 transition-colors rounded-full active:scale-95 duration-200 cursor-pointer relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full border-2 border-white dark:border-slate-900"></span>
+</button>
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-teal-50/50 dark:hover:bg-teal-900/20 transition-colors rounded-full active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined">chat_bubble</span>
+</button>
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-teal-50/50 dark:hover:bg-teal-900/20 transition-colors rounded-full active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<!-- Profile Avatar -->
+<button class="ml-2 w-9 h-9 rounded-full overflow-hidden border-2 border-slate-200 hover:border-teal-500 transition-colors">
+<img alt="User profile settings" class="w-full h-full object-cover" data-alt="A small, circular profile picture of a professional man in his 40s wearing a light blue dress shirt. He has a warm, confident expression. The lighting is soft and even, typical of a professional studio headshot, ensuring the image looks clean and fits seamlessly into a modern digital interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdftO25GawzOQwCBQU29bHcPEc0PojghAFWNtSQHVdqd6l5ho35BS4RwHFk0bPNtHGQYTWb2-WQUz37W02zl9KLsZutFEKjXcGfUTyDqx-LU7bXuM8ZW6A2-tB82kxXltEShhRi5Iz9vkuCiSbPaCBCldYjprM63rWEegxl8S9BlR_Xy7TJ3kwCSa-g_XVlTOQuYUrkCp9GhppCwhaVeVSueSC4TjmZ957dgElGVYvCpK0B9z-NlDp0ndff7tDM5i8vj264W2XXQs"/>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Dashboard Canvas -->
+<main class="flex-1 overflow-y-auto p-gutter lg:p-xl space-y-xl bg-background">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="font-h1 text-h1 text-on-background mb-1">HR Operations Overview</h1>
+<p class="font-body-md text-body-md text-outline">Manage internal directory, verifications, and structural balance.</p>
+</div>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md hover:bg-surface-tint transition-colors shadow-sm shadow-primary/20">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 600;">person_add</span>
+                    Add Internal Staff
+                </button>
+</div>
+<!-- KPI Board (Bento Grid) -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Total Employees -->
+<div class="md:col-span-4 bg-surface-container-lowest rounded-xl p-6 shadow-sm shadow-[#64748B]/10 border border-outline-variant/30 flex flex-col justify-between">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-surface-container rounded-lg text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">groups</span>
+</div>
+<span class="inline-flex items-center gap-1 text-primary bg-primary-fixed/30 px-2 py-1 rounded-full font-label-sm">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+                            +4%
+                        </span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-outline mb-1">Active Professionals</p>
+<h2 class="font-display text-display text-on-background">248</h2>
+</div>
+</div>
+<!-- Verification Queue Pending -->
+<div class="md:col-span-4 bg-surface-container-lowest rounded-xl p-6 shadow-sm shadow-[#64748B]/10 border border-outline-variant/30 flex flex-col justify-between">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-tertiary-fixed/40 rounded-lg text-tertiary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<span class="inline-flex items-center gap-1 text-tertiary bg-tertiary-fixed/30 px-2 py-1 rounded-full font-label-sm">
+                            Requires Action
+                        </span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-outline mb-1">Pending Verifications</p>
+<div class="flex items-baseline gap-2">
+<h2 class="font-display text-display text-on-background">12</h2>
+<span class="font-body-md text-outline">profiles</span>
+</div>
+</div>
+</div>
+<!-- Ticket Balancing -->
+<div class="md:col-span-4 bg-surface-container-lowest rounded-xl p-6 shadow-sm shadow-[#64748B]/10 border border-outline-variant/30 flex flex-col justify-between relative overflow-hidden">
+<div class="absolute right-0 top-0 w-32 h-32 bg-secondary-container/20 rounded-bl-full -z-10"></div>
+<div class="flex justify-between items-start mb-6 z-10">
+<div class="p-3 bg-secondary-container rounded-lg text-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">confirmation_number</span>
+</div>
+</div>
+<div class="z-10">
+<p class="font-label-md text-label-md text-outline mb-1">Open HR Tickets</p>
+<h2 class="font-display text-display text-on-background">34</h2>
+<div class="mt-3 w-full bg-surface-variant rounded-full h-1.5">
+<div class="bg-secondary h-1.5 rounded-full" style="width: 65%"></div>
+</div>
+<p class="font-label-sm text-outline mt-2">65% assigned to HR Ops</p>
+</div>
+</div>
+</section>
+<!-- Verification Queue Section -->
+<section>
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-h3 text-h3 text-on-background">Verification Queue</h3>
+<button class="text-primary font-label-md hover:underline">View All Requests</button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+<!-- Queue Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm shadow-[#64748B]/10 border border-outline-variant/30 flex items-center gap-4 transition-all hover:shadow-md">
+<img alt="Dr. Sarah Jenkins" class="w-14 h-14 rounded-full object-cover border border-outline-variant/50" data-alt="A high-resolution, professional headshot of a female healthcare practitioner in her mid-30s. She is smiling warmly and wearing a crisp white medical coat over a soft lavender blouse. The background is a gently blurred, bright clinical office setting with natural light pouring in from a large window. The overall aesthetic is modern, clean, and optimistic, utilizing a light-mode color palette with soft teals and bright whites to convey safety and clinical professionalism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJNTT4yto9nBdIFDkWsP5dJ-KRur_sZMIHtfIaxYiZEcL0dLPC6T-sidBTPD61CmfREprZZqaOtw-RBegz5ub5ZNFfBLElxnMTXONiP7UUmuDP_farjkuAcpv1Nv0pltmKkvYt3u0j-zCX2pYhemkJRjHWYqZozIn3S4TIiPG1HFhBx7SgwoqjhWn9hPGJfDEAXtw___AgxMUE2fVquiuNDCE_p3pA39XnUR4DqtPRejJio61sU2xhT5NplWz1Ax2FcrajU5pXdbY"/>
+<div class="flex-1">
+<h4 class="font-h3 text-[18px] text-on-background leading-tight">Dr. Sarah Jenkins</h4>
+<p class="font-body-md text-sm text-outline">Clinical Psychologist • Lic: #88392-CA</p>
+</div>
+<div class="flex gap-2">
+<button class="p-2 text-outline hover:text-error hover:bg-error-container/50 rounded-lg transition-colors" title="Reject">
+<span class="material-symbols-outlined">close</span>
+</button>
+<button class="p-2 bg-primary/10 text-primary hover:bg-primary hover:text-on-primary rounded-lg transition-colors" title="Approve">
+<span class="material-symbols-outlined">check</span>
+</button>
+</div>
+</div>
+<!-- Queue Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm shadow-[#64748B]/10 border border-outline-variant/30 flex items-center gap-4 transition-all hover:shadow-md">
+<img alt="Marcus Thorne, LCSW" class="w-14 h-14 rounded-full object-cover border border-outline-variant/50" data-alt="A clear, professional portrait of a male licensed clinical social worker in his 40s. He wears a neutral, light-grey blazer over a simple white shirt, projecting a calm, approachable, and empathetic demeanor. The background is a soft, minimalist light-grey wall, ensuring no distractions. The lighting is diffused and bright, aligning perfectly with a modern, high-trust digital health platform aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZj1T9z8ejajhbgvcv-iNnI_CbntQnHelnZGDhr7dH2u0KoQAITYdFt9ItCJyoMRKwsmpUUrGVySm3WmNVsCP7ArLrn_hkD_CY3EmDd_WoWll2lU76rzlkwJcoD1NrKvVParK1RSVJuQxM3NkdFJ65MINeNeKKGV3_q54sgHAcZI-TE_KcdXKgt_SNRHD4eCXmzoHjNsyolo6R_pK4bv7_k9D5Fm0L9dTMLg_PWSXIX32ZBNAg4QptRhMKk5CxyaoL5TWjyC19Pec"/>
+<div class="flex-1">
+<h4 class="font-h3 text-[18px] text-on-background leading-tight">Marcus Thorne, LCSW</h4>
+<p class="font-body-md text-sm text-outline">Therapist • Lic: #44211-NY</p>
+</div>
+<div class="flex gap-2">
+<button class="p-2 text-outline hover:text-error hover:bg-error-container/50 rounded-lg transition-colors" title="Reject">
+<span class="material-symbols-outlined">close</span>
+</button>
+<button class="p-2 bg-primary/10 text-primary hover:bg-primary hover:text-on-primary rounded-lg transition-colors" title="Approve">
+<span class="material-symbols-outlined">check</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Employee Directory Table -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm shadow-[#64748B]/10 border border-outline-variant/30 overflow-hidden">
+<div class="p-6 border-b border-outline-variant/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<h3 class="font-h3 text-h3 text-on-background">Internal Directory</h3>
+<!-- Table Actions -->
+<div class="flex items-center gap-3">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+<input class="pl-9 pr-4 py-2 border border-outline-variant/50 rounded-lg text-sm focus:border-primary focus:ring-1 focus:ring-primary w-full sm:w-64 font-body-md placeholder:text-outline/70" placeholder="Search staff..." type="text"/>
+</div>
+<button class="p-2 border border-outline-variant/50 rounded-lg text-outline hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-bright border-b border-outline-variant/30">
+<th class="py-4 px-6 font-label-md text-label-md text-on-surface-variant">Employee</th>
+<th class="py-4 px-6 font-label-md text-label-md text-on-surface-variant">Department</th>
+<th class="py-4 px-6 font-label-md text-label-md text-on-surface-variant">System Role</th>
+<th class="py-4 px-6 font-label-md text-label-md text-on-surface-variant">Status</th>
+<th class="py-4 px-6 font-label-md text-label-md text-on-surface-variant text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-on-background">
+<!-- Row 1 -->
+<tr class="border-b border-outline-variant/10 hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-secondary flex items-center justify-center font-bold text-sm">
+                                            EW
+                                        </div>
+<div>
+<div class="font-semibold text-on-surface">Elena Weaver</div>
+<div class="text-sm text-outline">elena.w@mindwell.com</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-6">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-surface-variant text-on-surface-variant">
+                                        Clinical Ops
+                                    </span>
+</td>
+<td class="py-3 px-6">
+<select class="block w-full pl-3 pr-8 py-1.5 text-sm border-outline-variant/50 rounded-lg focus:ring-primary focus:border-primary bg-white text-on-surface font-body-md shadow-sm">
+<option>Practitioner</option>
+<option selected="">Clinical Lead</option>
+<option>Admin</option>
+</select>
+</td>
+<td class="py-3 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-primary/10 text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                        Active
+                                    </span>
+</td>
+<td class="py-3 px-6 text-right">
+<button class="p-1.5 text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="border-b border-outline-variant/10 hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-container/20 text-tertiary flex items-center justify-center font-bold text-sm">
+                                            JL
+                                        </div>
+<div>
+<div class="font-semibold text-on-surface">James Lin</div>
+<div class="text-sm text-outline">j.lin@mindwell.com</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-6">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-surface-variant text-on-surface-variant">
+                                        Engineering
+                                    </span>
+</td>
+<td class="py-3 px-6">
+<select class="block w-full pl-3 pr-8 py-1.5 text-sm border-outline-variant/50 rounded-lg focus:ring-primary focus:border-primary bg-white text-on-surface font-body-md shadow-sm">
+<option>Practitioner</option>
+<option>Clinical Lead</option>
+<option selected="">Admin</option>
+</select>
+</td>
+<td class="py-3 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-primary/10 text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                        Active
+                                    </span>
+</td>
+<td class="py-3 px-6 text-right">
+<button class="p-1.5 text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3 px-6">
+<div class="flex items-center gap-3">
+<img alt="Aisha Patel" class="w-10 h-10 rounded-full object-cover" data-alt="A bright, cheerful headshot of a young professional woman with dark hair pulled back. She is wearing a soft lavender sweater. The background is a clean, out-of-focus office environment with white walls and subtle indoor plants. The lighting is natural and flattering, designed for a modern corporate directory thumbnail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLxbvSBRITOWkAS8Tpm4GkoxrTBuYQfJ4PASqxW6_sHxeLMs-01UJAyc_t50wzfHqdDoVCBCsfdN_WRRj93Dq_lFwMkc7adMHTN0VJvD9CWMBRNrrb1TULvVV05_Qz3e7hwUHVZZjYlV27TvP9ltx2HBF6ztOKVtx7EblVUUgo8iLcJzNtdZLCdmGbJ7q_T8C7heCOOiv2KCV0T4m-QyiUBOqMF80ahnOxx5UtSV7lWp3jplPGndZd84M2UE0xetPozziWrRjBWP8"/>
+<div>
+<div class="font-semibold text-on-surface">Aisha Patel</div>
+<div class="text-sm text-outline">a.patel@mindwell.com</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-6">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-surface-variant text-on-surface-variant">
+                                        Support
+                                    </span>
+</td>
+<td class="py-3 px-6">
+<select class="block w-full pl-3 pr-8 py-1.5 text-sm border-outline-variant/50 rounded-lg focus:ring-primary focus:border-primary bg-white text-on-surface font-body-md shadow-sm">
+<option>Practitioner</option>
+<option selected="">Support Agent</option>
+<option>Admin</option>
+</select>
+</td>
+<td class="py-3 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-outline-variant/30 text-outline">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                                        On Leave
+                                    </span>
+</td>
+<td class="py-3 px-6 text-right">
+<button class="p-1.5 text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="p-4 border-t border-outline-variant/30 flex items-center justify-between text-sm text-outline bg-surface-bright">
+<span>Showing 1 to 3 of 248 employees</span>
+<div class="flex gap-1">
+<button class="px-3 py-1 border border-outline-variant/50 rounded hover:bg-surface-variant disabled:opacity-50" disabled="">Prev</button>
+<button class="px-3 py-1 border border-outline-variant/50 rounded hover:bg-surface-variant bg-white">1</button>
+<button class="px-3 py-1 border border-outline-variant/50 rounded hover:bg-surface-variant">2</button>
+<button class="px-3 py-1 border border-outline-variant/50 rounded hover:bg-surface-variant">Next</button>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

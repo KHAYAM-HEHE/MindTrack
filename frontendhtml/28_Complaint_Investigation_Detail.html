@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Moderation Investigation - MindWell</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#89f5e7",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-tertiary-fixed": "#370e00",
+                        "on-tertiary-fixed-variant": "#773215",
+                        "on-primary-container": "#f4fffc",
+                        "surface-container-low": "#eff4ff",
+                        "on-primary-fixed": "#00201d",
+                        "tertiary-fixed-dim": "#ffb59a",
+                        "secondary-fixed": "#e9ddff",
+                        "secondary-fixed-dim": "#d0bcff",
+                        "surface-tint": "#006a61",
+                        "tertiary-container": "#b05e3d",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-secondary-container": "#fffbff",
+                        "error": "#ba1a1a",
+                        "tertiary": "#924628",
+                        "primary": "#00685f",
+                        "surface-container": "#e5eeff",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#23005c",
+                        "on-surface": "#0b1c30",
+                        "surface-variant": "#d3e4fe",
+                        "on-secondary-fixed-variant": "#5516be",
+                        "outline": "#6d7a77",
+                        "on-error": "#ffffff",
+                        "secondary": "#6b38d4",
+                        "on-tertiary-container": "#fffbff",
+                        "surface-bright": "#f8f9ff",
+                        "surface": "#f8f9ff",
+                        "secondary-container": "#8455ef",
+                        "surface-container-lowest": "#ffffff",
+                        "on-background": "#0b1c30",
+                        "on-surface-variant": "#3d4947",
+                        "surface-container-high": "#dce9ff",
+                        "tertiary-fixed": "#ffdbce",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#213145",
+                        "background": "#f8f9ff",
+                        "inverse-primary": "#6bd8cb",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#005049",
+                        "surface-dim": "#cbdbf5",
+                        "primary-container": "#008378",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#bcc9c6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "1.5rem",
+                        "sm": "1rem",
+                        "unit": "4px",
+                        "md": "1.5rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "xs": "0.5rem",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "display": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "h1": ["Manrope"],
+                        "h3": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "h2": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "display": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.75", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "h1": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "h3": ["20px", { "lineHeight": "1.5", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background font-body-md text-body-md text-on-background min-h-screen flex flex-col">
+<!-- Contextual Header for Task-Focused View -->
+<header class="bg-surface-container-lowest border-b border-outline-variant px-gutter py-sm sticky top-0 z-40 shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<button aria-label="Go back" class="p-xs rounded-full hover:bg-surface-container transition-colors text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div>
+<h1 class="font-h3 text-h3 text-on-surface">Investigation: Case #MW-2023-0841</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Opened: Oct 24, 2023 • 09:12 AM</p>
+</div>
+</div>
+<div>
+<span class="inline-flex items-center gap-xs px-sm py-xs rounded-full bg-surface-variant text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<span class="material-symbols-outlined" style="font-size: 16px;">pending</span>
+                Pending Review
+            </span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-gutter py-xl">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-xl">
+<!-- Left Column: Case Details & Evidence (8 cols) -->
+<div class="lg:col-span-8 flex flex-col gap-lg">
+<!-- Report Summary Card -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm p-gutter border border-outline-variant">
+<div class="flex items-start justify-between mb-md">
+<div>
+<h2 class="font-h2 text-h2 text-on-surface mb-unit">Complaint Summary</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Category: <strong class="text-error font-medium">Inappropriate Conduct</strong></p>
+</div>
+<span class="material-symbols-outlined text-error" style="font-size: 32px; font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div class="grid grid-cols-2 gap-md p-md bg-surface-container-low rounded-lg mb-md">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-unit">Reported By (Client)</p>
+<div class="flex items-center gap-xs">
+<img alt="Client Avatar" class="w-8 h-8 rounded-full object-cover" data-alt="A small, circular profile picture of a young woman with a neutral, calm expression. The lighting is soft and natural, aligning with a modern, clinical aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCY7YOUZduxmWIG39UPoooukrfWTnulQljPJ4RjBzwmKeyF3YFx2_x9-gbCtmllXtIfzV33dj98NBo0irsoPkhADeLFsRxQpN20qRuG0gJUBhPR_V7ysK6v1r5pprm_6946NBfucMF_gRXrPUiGMtO72b-LLGYAv4eaihnTTCVtZftImuXNlYX3RDmRTyHdOGZmq0lGhKT6QAH7y1jSdxeajlTrYWKxUOobWrU8YEUvcUKqIPlVudqZBrMlrrvhURn4vPMHAu1IRIw"/>
+<span class="font-label-md text-label-md text-on-surface">Sarah J.</span>
+</div>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-unit">Reported User (Pro)</p>
+<div class="flex items-center gap-xs">
+<img alt="Pro Avatar" class="w-8 h-8 rounded-full object-cover" data-alt="A small, circular profile picture of a middle-aged male healthcare professional looking directly at the camera. The background is a stark, clean white, conveying a sense of sterile professionalism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCupssGELfBtuJo7vSyjGiFFomf2vJ_Kj2MYQd7-kFobQVHa1DpRiwTMEd06olfptk6YBeYix6JUgT6Q3xptoGO6Cerb_oeshMDeAR67jwX8FJv6CnlrKpGBg3q5BK3VBP6o1ecFaUWg3-Hx80I2Fez7Zm0AvJEY9H80_mV1lvlvmDFjYc5Zn4KWywlkgBY1SPL0C5-lDWMU_8PpY2CN1OOx5p8S3uazTREDeV6AlNyyPnb8xhSy4PgyA5pk1skoRqh1aLJDdmya3s"/>
+<span class="font-label-md text-label-md text-on-surface">Dr. Robert M.</span>
+</div>
+</div>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-unit">Client's Description</p>
+<p class="font-body-md text-body-md text-on-surface italic">"During our session yesterday, the provider made several comments that felt unprofessional and crossed personal boundaries regarding my appearance, which made me extremely uncomfortable and deviated entirely from our treatment plan."</p>
+</div>
+</section>
+<!-- Evidence Log: Chat Transcript -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm p-gutter border border-outline-variant flex flex-col h-full">
+<div class="flex items-center justify-between mb-md pb-sm border-b border-outline-variant">
+<h2 class="font-h2 text-h2 text-on-surface flex items-center gap-xs">
+<span class="material-symbols-outlined">forum</span>
+                            Session Transcript Snippet
+                        </h2>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined" style="font-size: 16px;">schedule</span>
+                            Oct 23, 14:00 - 14:45
+                        </span>
+</div>
+<div class="flex flex-col gap-md flex-grow overflow-y-auto pr-sm">
+<!-- Neutral Message (Pro) -->
+<div class="flex items-start gap-sm">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center flex-shrink-0 text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-size: 18px;">badge</span>
+</div>
+<div class="max-w-[80%]">
+<div class="bg-surface-container rounded-2xl rounded-tl-none p-sm">
+<p class="font-body-md text-body-md text-on-surface">How have the coping strategies we discussed last week been working out for you?</p>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-unit block">14:15 PM</span>
+</div>
+</div>
+<!-- Neutral Message (Client) -->
+<div class="flex items-start gap-sm flex-row-reverse">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0 text-on-secondary-container">
+<span class="material-symbols-outlined" style="font-size: 18px;">person</span>
+</div>
+<div class="max-w-[80%] flex flex-col items-end">
+<div class="bg-surface-variant rounded-2xl rounded-tr-none p-sm">
+<p class="font-body-md text-body-md text-on-surface">They've been somewhat helpful, but I still struggle in crowded places.</p>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-unit block">14:17 PM</span>
+</div>
+</div>
+<!-- FLAGGED Message (Pro) -->
+<div class="flex items-start gap-sm mt-sm">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center flex-shrink-0 text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-size: 18px;">badge</span>
+</div>
+<div class="max-w-[80%] relative">
+<div class="absolute -left-3 top-1/2 -translate-y-1/2 w-1 h-8 bg-error rounded-full"></div>
+<div class="bg-error-container border border-error/30 rounded-2xl rounded-tl-none p-sm">
+<p class="font-body-md text-body-md text-on-error-container">I see. Well, perhaps it's because you always dress so provocatively when you go out. Have you considered that?</p>
+</div>
+<div class="flex items-center gap-xs mt-unit">
+<span class="font-label-sm text-label-sm text-on-surface-variant">14:18 PM</span>
+<span class="font-label-sm text-label-sm text-error flex items-center gap-[2px]">
+<span class="material-symbols-outlined" style="font-size: 14px;">flag</span> Flagged Content
+                                    </span>
+</div>
+</div>
+</div>
+<!-- Neutral Message (Client) -->
+<div class="flex items-start gap-sm flex-row-reverse mt-sm">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0 text-on-secondary-container">
+<span class="material-symbols-outlined" style="font-size: 18px;">person</span>
+</div>
+<div class="max-w-[80%] flex flex-col items-end">
+<div class="bg-surface-variant rounded-2xl rounded-tr-none p-sm">
+<p class="font-body-md text-body-md text-on-surface">Excuse me? I don't think that's relevant or appropriate.</p>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-unit block">14:19 PM</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Decision Panel (4 cols) -->
+<div class="lg:col-span-4">
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-gutter border border-outline-variant sticky top-[100px] flex flex-col gap-md">
+<div>
+<h2 class="font-h2 text-h2 text-on-surface mb-unit">Adjudication</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Review the evidence and determine the appropriate action.</p>
+</div>
+<div class="flex flex-col gap-sm">
+<label class="font-label-md text-label-md text-on-surface" for="admin-notes">Internal Reasoning / Notes</label>
+<textarea class="w-full bg-surface border border-outline rounded-lg p-sm font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-shadow resize-none placeholder:text-on-surface-variant/50" id="admin-notes" placeholder="Detail the rationale for your decision here. This is visible only to other administrators." rows="5"></textarea>
+</div>
+<div class="border-t border-outline-variant pt-md flex flex-col gap-sm">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase text-center mb-xs">Select Action</p>
+<button class="w-full bg-primary hover:bg-primary-container text-on-primary hover:text-on-primary-container font-label-md text-label-md py-sm rounded-lg transition-colors flex items-center justify-center gap-xs shadow-sm">
+<span class="material-symbols-outlined" style="font-size: 20px;">check_circle</span>
+                            Uphold Complaint (Strike)
+                        </button>
+<button class="w-full bg-surface border border-outline hover:bg-surface-container-low text-on-surface font-label-md text-label-md py-sm rounded-lg transition-colors flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined" style="font-size: 20px;">cancel</span>
+                            Dismiss Complaint
+                        </button>
+<button class="w-full bg-tertiary-container hover:bg-tertiary text-on-tertiary-container hover:text-on-tertiary font-label-md text-label-md py-sm rounded-lg transition-colors flex items-center justify-center gap-xs mt-sm">
+<span class="material-symbols-outlined" style="font-size: 20px;">gavel</span>
+                            Escalate to Legal/HR
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
