@@ -142,7 +142,7 @@ export default function AdminShell({ children, title = "Admin" }) {
             Logout
           </button>
         </header>
-        <div className="p-4 md:p-8 flex-1 max-w-7xl mx-auto w-full">{children}</div>
+        <div className="mx-auto w-full min-w-0 max-w-7xl flex-1 overflow-x-hidden p-4 md:p-8">{children}</div>
       </main>
     </div>
   );

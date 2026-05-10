@@ -7,35 +7,38 @@ export default function LandingPage() {
       <div className="pointer-events-none absolute -left-28 -top-28 h-96 w-96 rounded-full bg-primary-fixed/40 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-28 -right-28 h-96 w-96 rounded-full bg-secondary-fixed-dim/40 blur-3xl" />
 
-      <header className="relative z-10 mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6">
-        <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary text-on-primary shadow-sm">
+      <header className="relative z-10 mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-6">
+        <div className="flex min-w-0 items-center gap-3">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary text-on-primary shadow-sm">
             <Leaf size={22} strokeWidth={2.5} />
           </div>
-          <div>
-            <h1 className="text-xl font-bold text-primary">MindTrack</h1>
-            <p className="text-xs text-on-surface-variant">Mental Health Care Platform</p>
+          <div className="min-w-0">
+            <h1 className="truncate text-lg font-bold text-primary sm:text-xl">MindTrack</h1>
+            <p className="truncate text-xs text-on-surface-variant">Mental Health Care Platform</p>
           </div>
         </div>
-        <nav className="flex items-center gap-2">
+        <nav className="flex shrink-0 flex-wrap items-center gap-2 sm:justify-end">
           <Link
-            className="rounded-lg px-4 py-2 text-sm font-medium text-on-surface-variant hover:bg-surface-container-high"
+            className="rounded-lg px-3 py-2 text-sm font-medium text-on-surface-variant hover:bg-surface-container-high sm:px-4"
             to="/auth/login"
           >
             Sign In
           </Link>
-          <Link className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-on-primary hover:bg-primary-container" to="/auth/signup">
+          <Link
+            className="rounded-lg bg-primary px-3 py-2 text-sm font-medium text-on-primary hover:bg-primary-container sm:px-4"
+            to="/auth/signup"
+          >
             Get Started
           </Link>
         </nav>
       </header>
 
-      <main className="relative z-10 mx-auto grid w-full max-w-6xl gap-10 px-6 pb-16 pt-8 lg:grid-cols-2 lg:items-center">
-        <section>
+      <main className="relative z-10 mx-auto grid w-full max-w-6xl gap-10 px-4 pb-14 pt-6 sm:px-6 sm:pb-16 sm:pt-8 lg:grid-cols-2 lg:items-center">
+        <section className="min-w-0">
           <p className="mb-3 inline-flex items-center rounded-full bg-primary-fixed px-3 py-1 text-xs font-semibold text-on-primary-fixed">
             Role-Based Unified Platform
           </p>
-          <h2 className="text-4xl font-bold leading-tight text-on-background md:text-5xl">
+          <h2 className="text-3xl font-bold leading-tight text-on-background sm:text-4xl md:text-5xl">
             One ecosystem for
             <span className="text-primary"> clients, psychiatrists, HR, and admins.</span>
           </h2>

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../store/authStore";
 import { useAppStore } from "../../store/appStore";
@@ -35,33 +34,34 @@ const sections = [
   },
 ];
 
-export default function ClientSidebar({ sticky = true }) {
+/**
+ * Nav links + logout. Used inside desktop sidebar and mobile drawer.
+ * @param {{ onNavigate?: () => void, showBrand?: boolean }} props
+ */
+export function ClientSidebarNav({ onNavigate, showBrand = true }) {
   const navigate = useNavigate();
-  const token = useAuthStore((s) => s.token);
   const clearSession = useAuthStore((s) => s.clearSession);
-  const connectChat = useAppStore((s) => s.connectChat);
-  const fetchNotificationUnreadCount = useAppStore((s) => s.fetchNotificationUnreadCount);
   const notificationUnreadCount = useAppStore((s) => s.notificationUnreadCount);
 
-  useEffect(() => {
-    if (!token) return;
-    connectChat(token);
-    fetchNotificationUnreadCount(token);
-  }, [token, connectChat, fetchNotificationUnreadCount]);
+  const afterNav = () => {
+    onNavigate?.();
+  };
 
   return (
-    <aside className={`${sticky ? "sticky top-20 h-fit" : ""} rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-3 shadow-sm`}>
-      <div className="mb-3 flex items-center gap-3 rounded-xl bg-surface px-3 py-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-container text-on-primary-container">
-          <span className="material-symbols-outlined" style={{ fontVariationSettings: '"FILL" 1' }}>
-            spa
-          </span>
+    <>
+      {showBrand ? (
+        <div className="mb-3 flex items-center gap-3 rounded-xl bg-surface px-3 py-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-container text-on-primary-container">
+            <span className="material-symbols-outlined" style={{ fontVariationSettings: '"FILL" 1' }}>
+              spa
+            </span>
+          </div>
+          <div className="min-w-0">
+            <h3 className="truncate text-sm font-extrabold text-primary">MindTrack</h3>
+            <p className="text-xs text-on-surface-variant">Mental Health Care</p>
+          </div>
         </div>
-        <div>
-          <h3 className="text-sm font-extrabold text-primary">MindTrack</h3>
-          <p className="text-xs text-on-surface-variant">Mental Health Care</p>
-        </div>
-      </div>
+      ) : null}
 
       <nav className="space-y-3">
         {sections.map((section) => (
@@ -72,16 +72,17 @@ export default function ClientSidebar({ sticky = true }) {
                 <NavLink
                   key={item.to}
                   to={item.to}
+                  onClick={afterNav}
                   className={({ isActive }) =>
-                    `flex w-full items-center gap-2 rounded-xl px-3 py-2 text-sm ${
+                    `flex w-full min-w-0 items-center gap-2 rounded-xl px-3 py-2 text-sm ${
                       isActive ? "bg-surface-container-low font-semibold text-primary" : "text-on-surface-variant hover:bg-surface-container"
                     }`
                   }
                 >
-                  <span className="material-symbols-outlined text-[18px]">{item.icon}</span>
-                  <span className="flex-1">{item.label}</span>
+                  <span className="material-symbols-outlined shrink-0 text-[18px]">{item.icon}</span>
+                  <span className="min-w-0 flex-1 truncate">{item.label}</span>
                   {item.to === "/client/notifications" && notificationUnreadCount > 0 ? (
-                    <span className="min-w-[1.25rem] rounded-full bg-error px-1.5 py-0.5 text-center text-[10px] font-bold leading-none text-on-error">
+                    <span className="min-w-[1.25rem] shrink-0 rounded-full bg-error px-1.5 py-0.5 text-center text-[10px] font-bold leading-none text-on-error">
                       {notificationUnreadCount > 99 ? "99+" : notificationUnreadCount}
                     </span>
                   ) : null}
@@ -93,15 +94,28 @@ export default function ClientSidebar({ sticky = true }) {
       </nav>
 
       <button
+        type="button"
         className="mt-4 w-full rounded-xl border border-outline-variant px-3 py-2 text-sm text-on-surface hover:bg-surface-container-low"
         onClick={() => {
+          afterNav();
           clearSession();
           navigate("/auth/login");
         }}
       >
         Logout
       </button>
-    </aside>
+    </>
   );
 }
 
+export default function ClientSidebar({ sticky = true }) {
+  return (
+    <aside
+      className={`${
+        sticky ? "sticky top-20 h-fit" : ""
+      } rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-3 shadow-sm`}
+    >
+      <ClientSidebarNav />
+    </aside>
+  );
+}

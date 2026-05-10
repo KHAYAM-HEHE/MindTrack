@@ -33,7 +33,7 @@ function PsychiatristNavLinks({ pathname, notificationUnreadCount, onNavigate, n
             }`}
           >
             <span className="material-symbols-outlined">{item.icon}</span>
-            <span className="flex-1 font-label-md">{item.label}</span>
+            <span className="min-w-0 flex-1 truncate font-label-md">{item.label}</span>
             {showBadge ? (
               <span className="min-w-[1.25rem] rounded-full bg-error px-1.5 py-0.5 text-center text-[10px] font-bold leading-none text-on-error">
                 {notificationUnreadCount > 99 ? "99+" : notificationUnreadCount}
@@ -152,7 +152,7 @@ export function PsychiatristShell({ title, subtitle, children }) {
             </button>
           </div>
         </header>
-        <div className="w-full p-4 md:mx-auto md:max-w-container-max md:p-8">{children}</div>
+        <div className="w-full min-w-0 overflow-x-hidden p-4 md:mx-auto md:max-w-container-max md:p-8">{children}</div>
       </main>
     </div>
   );

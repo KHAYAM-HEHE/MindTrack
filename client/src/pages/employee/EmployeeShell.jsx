@@ -153,10 +153,10 @@ export default function EmployeeShell({ title, subtitle, children }) {
           </div>
         </header>
 
-        <main className="flex-1 overflow-y-auto p-6">
+        <main className="flex-1 overflow-y-auto overflow-x-hidden p-4 sm:p-6">
           <div className="mx-auto max-w-7xl space-y-6">
-            <div>
-              <h2 className="text-3xl font-semibold text-on-background">{title}</h2>
+            <div className="min-w-0">
+              <h2 className="text-2xl font-semibold text-on-background sm:text-3xl">{title}</h2>
               {subtitle ? <p className="mt-1 text-sm text-on-surface-variant">{subtitle}</p> : null}
             </div>
             {children}

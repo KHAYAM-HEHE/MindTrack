@@ -109,7 +109,7 @@ export default function PsychiatristSchedulePage() {
     <PsychiatristShell title="Schedule" subtitle="Create sessions and view your calendar">
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-12">
         <section className="xl:col-span-7 rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-5 shadow-sm">
-          <div className="mb-4 flex items-center justify-between">
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
             <button
               type="button"
               className="rounded-lg border border-outline-variant px-3 py-1.5 text-sm text-on-surface hover:bg-surface-container-low"
@@ -117,7 +117,7 @@ export default function PsychiatristSchedulePage() {
             >
               Previous
             </button>
-            <h3 className="font-h3 text-h3 text-on-surface">
+            <h3 className="min-w-0 flex-1 text-center text-base font-semibold text-on-surface sm:text-h3">
               {month.toLocaleString(undefined, { month: "long", year: "numeric" })}
             </h3>
             <button
@@ -128,7 +128,9 @@ export default function PsychiatristSchedulePage() {
               Next
             </button>
           </div>
-          <div className="grid grid-cols-7 gap-1 text-center text-xs font-semibold text-on-surface-variant">
+          <div className="-mx-1 overflow-x-auto px-1 pb-1">
+            <div className="min-w-[280px]">
+          <div className="grid grid-cols-7 gap-1 text-center text-[10px] font-semibold text-on-surface-variant sm:text-xs">
             {DAYS.map((d) => (
               <div key={d} className="py-2">
                 {d}
@@ -157,6 +159,8 @@ export default function PsychiatristSchedulePage() {
                 </button>
               )
             )}
+          </div>
+            </div>
           </div>
         </section>
 

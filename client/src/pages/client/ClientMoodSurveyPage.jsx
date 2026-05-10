@@ -60,7 +60,9 @@ export default function ClientMoodSurveyPage() {
         <span className="mb-3 inline-block rounded-full bg-surface-container-high px-3 py-1 text-xs font-medium text-on-surface-variant">
           Daily Check-In
         </span>
-        <h3 className="text-4xl font-bold text-on-background">How are you feeling today?</h3>
+        <h3 className="text-2xl font-bold leading-snug text-on-background sm:text-3xl md:text-4xl">
+          How are you feeling today?
+        </h3>
         <p className="mx-auto mt-2 max-w-2xl text-on-surface-variant">
           DMS is submitted once per day and includes detailed clinical questions for meaningful trend analysis.
         </p>
@@ -72,13 +74,13 @@ export default function ClientMoodSurveyPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-12">
-        <section className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-6 shadow-sm md:col-span-12">
-          <div className="mb-6 flex items-center justify-between">
-            <div>
-              <h4 className="text-xl font-semibold text-on-surface">Energy & Mood Level</h4>
+        <section className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-4 shadow-sm sm:p-6 md:col-span-12">
+          <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="min-w-0">
+              <h4 className="text-lg font-semibold text-on-surface sm:text-xl">Energy & Mood Level</h4>
               <p className="text-sm text-on-surface-variant">Slide to indicate your overall energy today.</p>
             </div>
-            <p className="rounded-full bg-surface-container-low px-3 py-1 text-sm font-semibold text-primary">
+            <p className="shrink-0 self-start rounded-full bg-surface-container-low px-3 py-1 text-sm font-semibold text-primary sm:self-center">
               Score: {score}
             </p>
           </div>
@@ -97,7 +99,7 @@ export default function ClientMoodSurveyPage() {
           </div>
         </section>
 
-        <section className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-6 shadow-sm md:col-span-7">
+        <section className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-4 shadow-sm sm:p-6 md:col-span-7">
           <h4 className="mb-1 text-xl font-semibold text-on-surface">Current Emotions</h4>
           <p className="mb-4 text-sm text-on-surface-variant">Select all that apply.</p>
           <div className="flex flex-wrap gap-2">
@@ -122,7 +124,7 @@ export default function ClientMoodSurveyPage() {
           </div>
         </section>
 
-        <section className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-6 shadow-sm md:col-span-5">
+        <section className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-4 shadow-sm sm:p-6 md:col-span-5">
           <h4 className="mb-4 text-xl font-semibold text-on-surface">Sleep Quality</h4>
           <div className="space-y-2">
             {[
@@ -144,7 +146,7 @@ export default function ClientMoodSurveyPage() {
           </div>
         </section>
 
-        <section className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-6 shadow-sm md:col-span-12">
+        <section className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-4 shadow-sm sm:p-6 md:col-span-12">
           <h4 className="mb-2 text-xl font-semibold text-on-surface">Detailed DMS Questions</h4>
           <p className="mb-4 text-sm text-on-surface-variant">
             Rate each area from 1 (very low) to 10 (very high) to support better analysis.
@@ -172,7 +174,7 @@ export default function ClientMoodSurveyPage() {
           </div>
         </section>
 
-        <section className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-6 shadow-sm md:col-span-12">
+        <section className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-4 shadow-sm sm:p-6 md:col-span-12">
           <label className="mb-2 block text-xl font-semibold text-on-surface">Daily Reflection (Optional)</label>
           <textarea
             className="w-full rounded-lg border border-outline-variant bg-background p-3 text-on-surface"
