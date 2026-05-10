@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://mindtraackbackend.app.zeeshan-abbas.tech/api";
+const API_BASE_URL = "https://mindtraackbackend.app.zeeshan-abbas.tech/api";
 
 export function getApiOrigin() {
   return API_BASE_URL.replace(/\/api\/?$/, "");
