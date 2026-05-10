@@ -13,7 +13,7 @@ export default function AuthPageLayout({ title, subtitle, children, footer }) {
             <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-on-primary shadow-sm">
               <Leaf size={26} strokeWidth={2.5} />
             </div>
-            <h1 className="text-3xl font-bold tracking-tight text-primary">MindWell</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-primary">MindTrack</h1>
             <h2 className="mt-4 text-xl font-semibold text-on-background">{title}</h2>
             <p className="mt-1 text-sm text-on-surface-variant">{subtitle}</p>
           </div>

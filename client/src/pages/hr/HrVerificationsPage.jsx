@@ -14,6 +14,7 @@ export default function HrVerificationsPage() {
   const { admin, loadAdminData, approveVerification, rejectVerification, loading, error } = useAppStore();
   const [processingId, setProcessingId] = useState("");
   const [message, setMessage] = useState("");
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     if (token) loadAdminData(token);
@@ -51,6 +52,8 @@ export default function HrVerificationsPage() {
           <input
             className="w-full rounded-lg border-none bg-transparent py-3 pl-10 pr-4 text-sm text-on-surface outline-none placeholder:text-on-surface-variant"
             placeholder="Search verification requests..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
           />
         </div>
       </div>
@@ -59,7 +62,15 @@ export default function HrVerificationsPage() {
       {error ? <p className="mb-3 rounded-md bg-error-container px-3 py-2 text-sm text-on-error-container">{error}</p> : null}
 
       <div className="grid gap-4 md:grid-cols-2">
-        {admin.verifications.map((item) => {
+        {admin.verifications
+          .filter((item) => {
+            const q = query.trim().toLowerCase();
+            if (!q) return true;
+            return [item.degree, item.institution, item.batch, item.professionalUserId?.name, item.professionalUserId?.email]
+              .filter(Boolean)
+              .some((v) => String(v).toLowerCase().includes(q));
+          })
+          .map((item) => {
           const disabled = loading || processingId === item._id;
           return (
             <article
@@ -72,6 +83,9 @@ export default function HrVerificationsPage() {
                   <p className="text-sm text-on-surface-variant">
                     {item.institution || "Institution unavailable"} {item.batch ? `• Batch ${item.batch}` : ""}
                   </p>
+                  <p className="mt-1 text-xs text-on-surface-variant">
+                    {item.professionalUserId?.name || "Professional"} {item.professionalUserId?.email ? `• ${item.professionalUserId.email}` : ""}
+                  </p>
                   <p className="mt-1 text-xs text-on-surface-variant">ID: {item._id}</p>
                 </div>
                 <span
@@ -79,6 +93,15 @@ export default function HrVerificationsPage() {
                 >
                   {item.status}
                 </span>
+              </div>
+              <div className="mt-3 rounded-lg border border-outline-variant/20 bg-surface p-3 text-xs text-on-surface-variant">
+                {item.cvUrl ? (
+                  <a href={item.cvUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">
+                    Open degree / CV document
+                  </a>
+                ) : (
+                  <span>No degree/CV link uploaded.</span>
+                )}
               </div>
 
               {item.status === "PENDING" ? (

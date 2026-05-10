@@ -1,10 +1,19 @@
 const express = require("express");
 const professionalController = require("../controllers/professionalController");
+const ApiError = require("../utils/ApiError");
+const appointmentReceiptUpload = require("../middlewares/appointmentReceiptUpload");
 const { protect } = require("../middlewares/authMiddleware");
 const { authorize } = require("../middlewares/roleMiddleware");
 const { ROLES } = require("../utils/constants");
 
 const router = express.Router();
+
+const uploadReceiptSingle = (req, res, next) =>
+  appointmentReceiptUpload.single("file")(req, res, (err) => {
+    if (!err) return next();
+    if (err.code === "LIMIT_FILE_SIZE") return next(new ApiError(400, "Receipt file too large"));
+    next(new ApiError(400, err.message || "Upload failed"));
+  });
 
 router.get("/search", professionalController.listProfessionals);
 router.get("/profile/:id", professionalController.getProfessionalById);
@@ -15,8 +24,21 @@ router.post(
   authorize(ROLES.CLIENT),
   professionalController.createReview
 );
+router.post(
+  "/appointments/upload-receipt",
+  protect,
+  authorize(ROLES.CLIENT),
+  uploadReceiptSingle,
+  professionalController.uploadAppointmentReceipt
+);
 router.post("/appointments", protect, professionalController.createAppointment);
 router.get("/appointments", protect, professionalController.listAppointments);
+router.patch(
+  "/appointments/:id/cancel",
+  protect,
+  authorize(ROLES.CLIENT),
+  professionalController.cancelMyAppointment
+);
 router.get(
   "/me/clients",
   protect,

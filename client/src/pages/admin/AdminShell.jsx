@@ -32,7 +32,7 @@ function AdminBrand({ className = "mb-6 mt-2" }) {
         </span>
       </div>
       <div>
-        <div className="font-h3 text-primary">MindWell</div>
+        <div className="font-h3 text-primary">MindTrack</div>
         <div className="font-label-sm text-on-surface-variant">Admin</div>
       </div>
     </div>

@@ -13,7 +13,7 @@ export default function LandingPage() {
             <Leaf size={22} strokeWidth={2.5} />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-primary">MindWell</h1>
+            <h1 className="text-xl font-bold text-primary">MindTrack</h1>
             <p className="text-xs text-on-surface-variant">Mental Health Care Platform</p>
           </div>
         </div>

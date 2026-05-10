@@ -11,8 +11,36 @@ const ApiError = require("../utils/ApiError");
 const { VERIFICATION_STATUS } = require("../utils/constants");
 const notificationService = require("./notificationService");
 
-const listProfessionals = async () =>
-  ProfessionalProfile.find().sort({ rating: -1, reviewCount: -1 });
+const listProfessionals = async () => {
+  const approved = await ProfessionalVerification.find({ status: VERIFICATION_STATUS.APPROVED })
+    .select("professionalUserId")
+    .lean();
+  const approvedIds = [...new Set(approved.map((v) => String(v.professionalUserId)).filter(Boolean))];
+  if (!approvedIds.length) return [];
+
+  const [profiles, users] = await Promise.all([
+    ProfessionalProfile.find({ userId: { $in: approvedIds } }).sort({ rating: -1, reviewCount: -1 }).lean(),
+    User.find({ _id: { $in: approvedIds }, status: "ACTIVE", role: "PROFESSIONAL" })
+      .select("name email")
+      .lean(),
+  ]);
+
+  const userById = Object.fromEntries(users.map((u) => [String(u._id), u]));
+  return profiles
+    .map((p) => {
+      const u = userById[String(p.userId)];
+      if (!u) return null;
+      return {
+        ...p,
+        _id: p._id,
+        userId: p.userId,
+        name: u.name,
+        email: u.email,
+        verified: true,
+      };
+    })
+    .filter(Boolean);
+};
 
 const upsertProfessionalProfile = async (userId, payload) =>
   ProfessionalProfile.findOneAndUpdate({ userId }, payload, {
@@ -43,6 +71,31 @@ const createAppointmentForRole = async (user, body) => {
     if (!body.professionalUserId || !body.startTime || !body.endTime) {
       throw new ApiError(400, "professionalUserId, startTime, and endTime are required");
     }
+    const introChatExists = await ChatSession.exists({
+      clientUserId: user._id,
+      professionalUserId: body.professionalUserId,
+    });
+    if (!introChatExists) {
+      throw new ApiError(400, "Start an intro chat with this professional before booking.");
+    }
+    if (body.paymentStatus !== "PAID" || !body.paymentReference) {
+      throw new ApiError(400, "Payment proof is required before booking.");
+    }
+    const profile = await ProfessionalProfile.findOne({ userId: body.professionalUserId }).lean();
+    const minFee = Number(profile?.consultationFee || 0);
+    const amountPaid = Number(body.amountPaid || 0);
+    if (minFee > 0 && amountPaid < minFee) {
+      throw new ApiError(400, `Amount paid must be at least session fee (${minFee}).`);
+    }
+    const receiptUrl = body.paymentReceiptUrl != null ? String(body.paymentReceiptUrl).trim() : "";
+    if (!receiptUrl) {
+      throw new ApiError(400, "Upload a payment receipt (screenshot or PDF) before booking.");
+    }
+    const ownPrefix = `/uploads/appointments/${user._id}/`;
+    if (!receiptUrl.startsWith(ownPrefix)) {
+      throw new ApiError(400, "Receipt must be uploaded from your account.");
+    }
+
     const doc = await Appointment.create({
       clientUserId: user._id,
       professionalUserId: body.professionalUserId,
@@ -50,6 +103,11 @@ const createAppointmentForRole = async (user, body) => {
       startTime: body.startTime,
       endTime: body.endTime,
       status: body.status || "PENDING",
+      paymentStatus: "PAID",
+      paymentReference: body.paymentReference,
+      amountPaid,
+      paymentReceiptUrl: receiptUrl,
+      notes: body.notes || "",
     });
     const populated = await Appointment.findById(doc._id)
       .populate("clientUserId", "name email")
@@ -78,12 +136,26 @@ const createAppointmentForRole = async (user, body) => {
   throw new ApiError(403, "Only clients and professionals can create appointments");
 };
 
+const cancelAppointmentForClient = async (clientUserId, appointmentId) => {
+  const prev = await Appointment.findOne({ _id: appointmentId, clientUserId }).lean();
+  if (!prev) throw new ApiError(404, "Appointment not found");
+  if (prev.status === "CANCELLED") return prev;
+  const updated = await Appointment.findOneAndUpdate(
+    { _id: appointmentId, clientUserId },
+    { status: "CANCELLED" },
+    { new: true }
+  )
+    .populate("clientUserId", "name email")
+    .populate("professionalUserId", "name email");
+  if (updated) {
+    notificationService.notifyAppointmentStatusChange(updated, prev.status).catch(() => {});
+  }
+  return updated;
+};
+
 const listClientsForProfessional = async (professionalUserId) => {
-  const [fromAppt, fromChat] = await Promise.all([
-    Appointment.distinct("clientUserId", { professionalUserId }),
-    ChatSession.distinct("clientUserId", { professionalUserId }),
-  ]);
-  const ids = [...new Set([...fromAppt.map(String), ...fromChat.map(String)])].filter(Boolean);
+  const fromAppt = await Appointment.distinct("clientUserId", { professionalUserId, status: "CONFIRMED" });
+  const ids = [...new Set(fromAppt.map(String))].filter(Boolean);
   if (!ids.length) return [];
   return User.find({ _id: { $in: ids }, role: "CLIENT" })
     .select("name email")
@@ -92,11 +164,8 @@ const listClientsForProfessional = async (professionalUserId) => {
 };
 
 const assertProfessionalClientRelationship = async (professionalUserId, clientUserId) => {
-  const [appt, chat] = await Promise.all([
-    Appointment.exists({ professionalUserId, clientUserId }),
-    ChatSession.exists({ professionalUserId, clientUserId }),
-  ]);
-  if (!appt && !chat) throw new ApiError(403, "No active relationship with this client");
+  const appt = await Appointment.exists({ professionalUserId, clientUserId, status: "CONFIRMED" });
+  if (!appt) throw new ApiError(403, "Client is not yet approved for your care panel");
 };
 
 const listClientGoalsAndTasks = async (professionalUserId, clientUserId) => {
@@ -141,7 +210,13 @@ const updateGoalForClient = async (professionalUserId, clientUserId, goalId, pay
 
 const updateTaskForClient = async (professionalUserId, clientUserId, taskId, payload) => {
   await assertProfessionalClientRelationship(professionalUserId, clientUserId);
-  return Task.findOneAndUpdate({ _id: taskId, userId: clientUserId }, payload, { new: true });
+  const allowed = {};
+  if (payload.title != null) allowed.title = payload.title;
+  if (payload.frequency != null) allowed.frequency = payload.frequency;
+  if (payload.goalId !== undefined) allowed.goalId = payload.goalId || undefined;
+  if (payload.scheduledDate !== undefined) allowed.scheduledDate = payload.scheduledDate;
+  // Professionals manage planning, not daily completion status.
+  return Task.findOneAndUpdate({ _id: taskId, userId: clientUserId }, allowed, { new: true });
 };
 
 const listAppointments = async (userId) =>
@@ -169,12 +244,24 @@ const listIncomingRequests = async (professionalUserId) =>
     .populate("clientUserId", "name email")
     .sort({ createdAt: -1 });
 
-const updateAppointmentStatus = async (professionalUserId, appointmentId, status) => {
+const updateAppointmentStatus = async (professionalUserId, appointmentId, status, extras = {}) => {
   const prev = await Appointment.findOne({ _id: appointmentId, professionalUserId }).lean();
   if (!prev) return null;
+  const isPendingDecision = prev.status === "PENDING" && (status === "CONFIRMED" || status === "CANCELLED");
+  const notes =
+    extras.paymentVerificationNotes != null ? String(extras.paymentVerificationNotes).trim() : "";
+  if (isPendingDecision && notes.length < 3) {
+    throw new ApiError(
+      400,
+      "Payment verification notes are required when confirming or rejecting a booking request."
+    );
+  }
+  const patch = { status };
+  if (isPendingDecision) patch.paymentVerificationNotes = notes;
+
   const updated = await Appointment.findOneAndUpdate(
     { _id: appointmentId, professionalUserId },
-    { status },
+    patch,
     { new: true }
   )
     .populate("clientUserId", "name email")
@@ -243,6 +330,7 @@ module.exports = {
   submitVerification,
   getMyVerificationStatus,
   createAppointmentForRole,
+  cancelAppointmentForClient,
   listClientsForProfessional,
   assertProfessionalClientRelationship,
   listClientGoalsAndTasks,

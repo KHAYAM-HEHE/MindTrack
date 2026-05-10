@@ -26,7 +26,7 @@ export default function SignupPage() {
         <header className="flex flex-col items-center px-6 pb-0 pt-8 text-center lg:px-8">
           <div className="mb-3 flex items-center gap-2 text-primary">
             <Leaf size={32} strokeWidth={2.5} />
-            <span className="text-2xl font-semibold tracking-tight">MindWell</span>
+            <span className="text-2xl font-semibold tracking-tight">MindTrack</span>
           </div>
           <h1 className="mb-1 text-3xl font-semibold text-on-background">Create your account</h1>
           <p className="max-w-[420px] text-base text-on-surface-variant">
@@ -133,7 +133,7 @@ export default function SignupPage() {
             </div>
             <label className="flex items-start gap-3 text-sm text-on-surface-variant">
               <input className="mt-1 h-5 w-5 rounded border-outline-variant accent-primary" type="checkbox" required />
-              <span>I agree to MindWell Terms of Service and Privacy Policy.</span>
+              <span>I agree to MindTrack Terms of Service and Privacy Policy.</span>
             </label>
             <label className="flex items-start gap-3 text-sm text-on-surface-variant">
               <input className="mt-1 h-5 w-5 rounded border-outline-variant accent-primary" type="checkbox" required />

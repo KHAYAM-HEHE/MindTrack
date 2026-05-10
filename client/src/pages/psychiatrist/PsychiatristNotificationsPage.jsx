@@ -95,7 +95,7 @@ export default function PsychiatristNotificationsPage() {
         <div className="mb-6 rounded-xl border border-outline-variant/30 bg-surface-container-low p-5">
           <h3 className="text-xl font-semibold text-on-surface">Session security</h3>
           <p className="mt-2 text-sm text-on-surface-variant">
-            MindWell may sign you out after inactivity. Use two-factor authentication under Manage Profile for extra protection.
+            MindTrack may sign you out after inactivity. Use two-factor authentication under Manage Profile for extra protection.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <button

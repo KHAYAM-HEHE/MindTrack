@@ -54,7 +54,7 @@ export default function EmployeeShell({ title, subtitle, children }) {
             <span className="material-symbols-outlined">spa</span>
           </div>
           <div>
-            <h1 className="text-lg font-extrabold text-primary">MindWell</h1>
+            <h1 className="text-lg font-extrabold text-primary">MindTrack</h1>
             <p className="text-xs text-on-surface-variant">Mental Health Care</p>
           </div>
         </div>
@@ -84,7 +84,7 @@ export default function EmployeeShell({ title, subtitle, children }) {
           <div className="fixed bottom-0 left-0 top-0 z-[70] flex w-[min(18rem,100vw-2rem)] flex-col bg-surface-container-lowest p-4 shadow-xl md:hidden">
             <div className="mb-3 flex items-start justify-between gap-2 border-b border-outline-variant/50 pb-3">
               <div className="min-w-0 px-1">
-                <h1 className="text-lg font-extrabold tracking-tight text-primary">MindWell</h1>
+                <h1 className="text-lg font-extrabold tracking-tight text-primary">MindTrack</h1>
                 <p className="text-xs text-on-surface-variant">Mental Health Care</p>
               </div>
               <button

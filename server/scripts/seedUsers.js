@@ -4,45 +4,65 @@ const dotenv = require("dotenv");
 const connectDB = require("../src/config/db");
 const User = require("../src/models/User");
 const UserProfile = require("../src/models/UserProfile");
+const ProfessionalProfile = require("../src/models/ProfessionalProfile");
 const { ROLES } = require("../src/utils/constants");
 
 dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
 const demoUsers = [
+  // Admin
   {
-    name: "Client Demo",
-    email: "client@client.com",
-    password: "11223344",
-    role: ROLES.CLIENT,
-    phone: "+10000000001",
-  },
-  {
-    name: "Professional Demo",
-    email: "professional@mindwell.local",
-    password: "Professional123!",
-    role: ROLES.PROFESSIONAL,
-    phone: "+10000000002",
-  },
-  {
-    name: "HR Demo",
-    email: "hr@hr.com",
-    password: "11223344",
-    role: ROLES.HR,
-    phone: "+10000000003",
-  },
-  {
-    name: "Admin Demo",
-    email: "admin@admin.com",
-    password: "11223344",
+    name: "Admin User",
+    email: "admin@mindtrack.com",
+    password: "112233",
     role: ROLES.ADMIN,
-    phone: "+10000000004",
+    phone: "+1-555-0001",
   },
+  // HR Employee
   {
-    name: "Employee Demo",
-    email: "employee@employee.com",
-    password: "11223344",
-    role: ROLES.EMPLOYEE,
-    phone: "+10000000005",
+    name: "HR Manager",
+    email: "hr@mindtrack.com",
+    password: "112233",
+    role: ROLES.HR,
+    phone: "+1-555-0002",
+  },
+  // Psychiatrist 1
+  {
+    name: "Dr. Sarah Johnson",
+    email: "sarah@mindtrack.com",
+    password: "112233",
+    role: ROLES.PROFESSIONAL,
+    phone: "+1-555-0003",
+    specialization: "Psychiatrist",
+    consultationFee: 150,
+  },
+  // Psychiatrist 2
+  {
+    name: "Dr. Michael Chen",
+    email: "chen@mindtrack.com",
+    password: "112233",
+    role: ROLES.PROFESSIONAL,
+    phone: "+1-555-0004",
+    specialization: "Psychiatrist",
+    consultationFee: 150,
+  },
+  // Psychiatrist 3
+  {
+    name: "Dr. Emma Rodriguez",
+    email: "emma@mindtrack.com",
+    password: "112233",
+    role: ROLES.PROFESSIONAL,
+    phone: "+1-555-0005",
+    specialization: "Psychiatrist",
+    consultationFee: 150,
+  },
+  // Client
+  {
+    name: "John Smith",
+    email: "smith@mindtrack.com",
+    password: "112233",
+    role: ROLES.CLIENT,
+    phone: "+1-555-0006",
   },
 ];
 
@@ -71,6 +91,21 @@ async function upsertDemoUser(userData) {
     { upsert: true, setDefaultsOnInsert: true }
   );
 
+  // If user is a professional, create/update professional profile
+  if (userData.role === ROLES.PROFESSIONAL) {
+    await ProfessionalProfile.findOneAndUpdate(
+      { userId: user._id },
+      {
+        userId: user._id,
+        displayName: userData.name,
+        specialization: userData.specialization || "General Practitioner",
+        consultationFee: userData.consultationFee || 100,
+        bio: `${userData.name} - ${userData.specialization || "Professional"}`,
+      },
+      { upsert: true, setDefaultsOnInsert: true }
+    );
+  }
+
   return user;
 }
 
@@ -85,12 +120,16 @@ async function seedUsers() {
       email: user.email,
       role: user.role,
       password: userData.password,
+      specialization: userData.specialization,
     });
   }
 
-  console.log("Seeded demo users:");
+  console.log("\n✅ Seeded demo users:\n");
   for (const user of created) {
-    console.log(`- ${user.role}: ${user.email} / ${user.password}`);
+    const spec = user.specialization ? ` (${user.specialization})` : "";
+    console.log(`  ${user.role}${spec}`);
+    console.log(`    Email: ${user.email}`);
+    console.log(`    Password: ${user.password}\n`);
   }
 }
 

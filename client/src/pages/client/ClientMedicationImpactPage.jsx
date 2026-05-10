@@ -3,6 +3,12 @@ import ClientShell from "./ClientShell";
 import { useAuthStore } from "../../store/authStore";
 import { useAppStore } from "../../store/appStore";
 
+function toDayKey(value) {
+  const d = new Date(value || Date.now());
+  if (Number.isNaN(d.getTime())) return "";
+  return d.toISOString().slice(0, 10);
+}
+
 export default function ClientMedicationImpactPage() {
   const token = useAuthStore((s) => s.token);
   const { client, loadClientData } = useAppStore();
@@ -23,6 +29,44 @@ export default function ClientMedicationImpactPage() {
     return Math.round((taken / client.meds.length) * 100);
   }, [client.meds]);
 
+  const trendRows = useMemo(() => {
+    const days = Array.from({ length: 7 }, (_, idx) => {
+      const d = new Date();
+      d.setDate(d.getDate() - (6 - idx));
+      return toDayKey(d.toISOString());
+    });
+    const moodByDay = new Map(days.map((d) => [d, []]));
+    const medByDay = new Map(days.map((d) => [d, { total: 0, taken: 0 }]));
+
+    client.moods.forEach((m) => {
+      const key = toDayKey(m.surveyDate || m.createdAt);
+      if (!moodByDay.has(key)) return;
+      const score = Number(m.moodScore ?? m.score);
+      if (Number.isFinite(score)) moodByDay.get(key).push(score);
+    });
+
+    client.meds.forEach((m) => {
+      const key = toDayKey(m.intakeTime || m.createdAt);
+      if (!medByDay.has(key)) return;
+      const entry = medByDay.get(key);
+      entry.total += 1;
+      if (m.adherenceStatus !== "MISSED") entry.taken += 1;
+    });
+
+    return days.map((day) => {
+      const moods = moodByDay.get(day);
+      const med = medByDay.get(day);
+      const moodAvg = moods.length ? Number((moods.reduce((acc, v) => acc + v, 0) / moods.length).toFixed(1)) : 0;
+      const adherenceRate = med.total ? Math.round((med.taken / med.total) * 100) : 0;
+      return {
+        key: day,
+        label: new Date(day).toLocaleDateString([], { weekday: "short" }),
+        mood: moodAvg,
+        adherence: adherenceRate,
+      };
+    });
+  }, [client.moods, client.meds]);
+
   return (
     <ClientShell title="Medication Impact Insights">
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -42,23 +86,33 @@ export default function ClientMedicationImpactPage() {
 
       <div className="mt-5 rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-5 shadow-sm">
         <h3 className="mb-2 text-xl font-semibold text-on-surface">Adherence vs Mood Trend</h3>
-        <p className="mb-4 text-sm text-on-surface-variant">Live baseline visualization from your current medication and mood logs.</p>
-        <div className="h-56 rounded-lg border border-outline-variant/30 bg-background p-3">
-          <svg className="h-full w-full" preserveAspectRatio="none" viewBox="0 0 100 100">
-            <path
-              d="M0,20 C15,25 25,10 40,15 C55,20 65,5 80,10 C90,12 95,5 100,5"
-              fill="none"
-              stroke="var(--color-primary)"
-              strokeWidth="3"
-            />
-            <path
-              d="M0,40 C20,35 30,50 45,45 C60,40 70,30 85,25 C95,20 98,15 100,10"
-              fill="none"
-              stroke="var(--color-secondary)"
-              strokeWidth="2"
-              strokeDasharray="4 3"
-            />
-          </svg>
+        <p className="mb-4 text-sm text-on-surface-variant">Based on real logs from your last 7 days.</p>
+        <div className="rounded-lg border border-outline-variant/30 bg-background p-4">
+          <div className="grid gap-2">
+            {trendRows.map((row) => (
+              <div key={row.key} className="grid grid-cols-[50px_1fr] items-center gap-3">
+                <span className="text-xs text-on-surface-variant">{row.label}</span>
+                <div className="space-y-1">
+                  <div className="h-2 overflow-hidden rounded-full bg-surface-container-high">
+                    <div className="h-full rounded-full bg-primary" style={{ width: `${Math.min(100, Math.max(0, row.adherence))}%` }} />
+                  </div>
+                  <div className="h-2 overflow-hidden rounded-full bg-surface-container-high">
+                    <div className="h-full rounded-full bg-secondary" style={{ width: `${Math.min(100, Math.max(0, row.mood * 10))}%` }} />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 flex flex-wrap gap-4 text-xs text-on-surface-variant">
+            <p className="flex items-center gap-2">
+              <span className="inline-block h-2 w-2 rounded-full bg-primary" />
+              Medication adherence %
+            </p>
+            <p className="flex items-center gap-2">
+              <span className="inline-block h-2 w-2 rounded-full bg-secondary" />
+              Mood score (scaled to 100)
+            </p>
+          </div>
         </div>
       </div>
 

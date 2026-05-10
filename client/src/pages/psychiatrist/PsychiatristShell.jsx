@@ -66,7 +66,7 @@ export function PsychiatristShell({ title, subtitle, children }) {
     <div className="bg-background text-on-background min-h-screen font-body-md md:flex">
       <aside className="fixed bottom-0 left-0 top-0 z-50 hidden w-64 flex-col gap-2 border-r border-outline-variant bg-surface-container-lowest p-4 shadow-sm md:flex">
         <div className="mb-4 px-4 py-6">
-          <h1 className="font-h2 font-extrabold tracking-tight text-primary">MindWell</h1>
+          <h1 className="font-h2 font-extrabold tracking-tight text-primary">MindTrack</h1>
           <p className="font-label-sm text-on-surface-variant">Professional Portal</p>
         </div>
         <PsychiatristNavLinks
@@ -87,7 +87,7 @@ export function PsychiatristShell({ title, subtitle, children }) {
           <div className="fixed bottom-0 left-0 top-0 z-[70] flex w-[min(18rem,100vw-2rem)] flex-col bg-surface-container-lowest p-4 shadow-xl md:hidden">
             <div className="mb-3 flex items-start justify-between gap-2 border-b border-outline-variant/50 pb-3">
               <div className="min-w-0 px-1">
-                <h1 className="font-h2 font-extrabold tracking-tight text-primary">MindWell</h1>
+                <h1 className="font-h2 font-extrabold tracking-tight text-primary">MindTrack</h1>
                 <p className="font-label-sm text-on-surface-variant">Professional Portal</p>
               </div>
               <button

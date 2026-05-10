@@ -34,6 +34,11 @@ const recommendGoalsTasks = asyncHandler(async (req, res) => {
   res.json({ success: true, data });
 });
 
+const getAiQuote = asyncHandler(async (req, res) => {
+  const data = await recommendationService.recommendQuoteForClientUser(req.user._id);
+  res.json({ success: true, data });
+});
+
 const createTask = asyncHandler(async (req, res) => {
   const data = await userService.createTask(req.user._id, req.body);
   res.status(201).json({ success: true, data });
@@ -108,6 +113,7 @@ module.exports = {
   listGoals,
   updateGoal,
   recommendGoalsTasks,
+  getAiQuote,
   createTask,
   listTasks,
   updateTask,

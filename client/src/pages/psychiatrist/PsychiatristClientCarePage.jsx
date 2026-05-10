@@ -140,16 +140,10 @@ export default function PsychiatristClientCarePage() {
     await loadCare(clientId);
   };
 
-  const patchTaskDone = async (taskId, done) => {
-    if (!clientId || !token) return;
-    await professionalApi.updateClientTask(clientId, taskId, { completionStatus: done ? "DONE" : "PENDING" }, token);
-    await loadCare(clientId);
-  };
-
   return (
     <PsychiatristShell
       title="Goals & tasks"
-      subtitle="Long-term goals and daily tasks for clients you see in appointments or chat"
+      subtitle="Long-term goals and daily tasks for clients with confirmed sessions"
     >
       <div className="mb-6 flex flex-col gap-4 rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-4 shadow-sm md:flex-row md:items-end">
         <div className="min-w-[240px] flex-1">
@@ -175,7 +169,7 @@ export default function PsychiatristClientCarePage() {
           </select>
         </div>
         <p className="text-xs text-on-surface-variant md:max-w-md">
-          Only clients with at least one appointment or chat session with you appear here.
+          Only clients with psychiatrist-verified and confirmed appointments appear here.
         </p>
       </div>
 
@@ -368,6 +362,9 @@ export default function PsychiatristClientCarePage() {
 
         <section className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-5 shadow-sm">
           <h3 className="mb-4 font-h3 text-h3 text-on-surface">Client daily tasks</h3>
+          <p className="mb-3 text-xs text-on-surface-variant">
+            Completion is tracked by the client. You can review and plan tasks, but cannot mark them done.
+          </p>
           {loading ? <p className="text-sm text-on-surface-variant">Loading…</p> : null}
           {!clientId ? <p className="text-sm text-on-surface-variant">Select a client.</p> : null}
           {clientId && !loading && tasks.length === 0 ? (
@@ -388,13 +385,9 @@ export default function PsychiatristClientCarePage() {
                       {linked ? ` · Goal: ${typeof linked === "object" ? linked.title : ""}` : ""}
                     </p>
                   </div>
-                  <button
-                    type="button"
-                    className="shrink-0 rounded-lg border border-outline-variant px-2 py-1 text-xs text-on-surface hover:bg-surface-container-low"
-                    onClick={() => patchTaskDone(t._id, !done)}
-                  >
-                    {done ? "Undo" : "Done"}
-                  </button>
+                  <span className={`shrink-0 rounded-full px-2 py-1 text-[11px] font-semibold ${done ? "bg-primary/10 text-primary" : "bg-surface-container-high text-on-surface-variant"}`}>
+                    {done ? "Client completed" : "Pending"}
+                  </span>
                 </li>
               );
             })}

@@ -11,7 +11,7 @@ export default function ClientShell({ title, children }) {
       <header className="sticky top-0 z-30 border-b border-outline-variant/30 bg-surface-container-lowest/90 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
           <div>
-            <h1 className="text-lg font-extrabold text-primary">MindWell</h1>
+            <h1 className="text-lg font-extrabold text-primary">MindTrack</h1>
             <p className="text-xs text-on-surface-variant">Mental Health Care</p>
           </div>
           <button

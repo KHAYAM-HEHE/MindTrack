@@ -49,7 +49,7 @@ export default function ClientProfilePage() {
               {(user?.name || "U").slice(0, 1).toUpperCase()}
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-on-surface">{user?.name || "MindWell User"}</h3>
+              <h3 className="text-lg font-semibold text-on-surface">{user?.name || "MindTrack User"}</h3>
               <p className="text-sm text-on-surface-variant">{user?.email || "-"}</p>
             </div>
           </div>

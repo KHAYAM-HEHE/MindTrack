@@ -1,4 +1,4 @@
-import { http } from "../lib/http";
+import { http, httpForm } from "../lib/http";
 
 export const professionalApi = {
   getMyProfile: (token) => http("/professionals/me/profile", {}, token),
@@ -9,6 +9,8 @@ export const professionalApi = {
   getMyVerificationStatus: (token) => http("/professionals/me/verification-status", {}, token),
   listRequests: (token) => http("/professionals/requests", {}, token),
   listAppointments: (token) => http("/professionals/appointments", {}, token),
+  uploadAppointmentReceipt: (formData, token) =>
+    httpForm("/professionals/appointments/upload-receipt", formData, token),
   /** Client books with professionalUserId; professional books with clientUserId. */
   createAppointment: (body, token) =>
     http("/professionals/appointments", { method: "POST", body: JSON.stringify(body) }, token),
@@ -25,8 +27,11 @@ export const professionalApi = {
     http(`/professionals/clients/${clientUserId}/tasks/${taskId}`, { method: "PATCH", body: JSON.stringify(body) }, token),
   recommendClientGoalsTasks: (clientUserId, body, token) =>
     http(`/professionals/clients/${clientUserId}/recommendations/goals-tasks`, { method: "POST", body: JSON.stringify(body) }, token),
-  updateAppointmentStatus: (id, status, token) =>
-    http(`/professionals/appointments/${id}/status`, { method: "PATCH", body: JSON.stringify({ status }) }, token),
+  updateAppointmentStatus: (id, status, token, paymentVerificationNotes) =>
+    http(`/professionals/appointments/${id}/status`, {
+      method: "PATCH",
+      body: JSON.stringify({ status, paymentVerificationNotes }),
+    }, token),
   listReviews: (professionalUserId, token) => http(`/professionals/${professionalUserId}/reviews`, {}, token),
   createReview: (professionalUserId, body, token) =>
     http(`/professionals/${professionalUserId}/reviews`, { method: "POST", body: JSON.stringify(body) }, token),

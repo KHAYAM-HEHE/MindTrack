@@ -13,15 +13,7 @@ const getPlatformReport = asyncHandler(async (_req, res) => {
 });
 
 const getMedicationImpactReport = asyncHandler(async (req, res) => {
-  const base = await reportService.buildReport(req.user._id, "monthly");
-  const data = {
-    ...base,
-    period: "medication-impact",
-    metrics: {
-      ...base.metrics,
-      medicationImpactScore: Number((base.metrics.moodAverage * (base.metrics.completionRate / 100)).toFixed(2)),
-    },
-  };
+  const data = await reportService.buildMedicationImpactReport(req.user._id, "monthly");
   res.json({ success: true, data });
 });
 

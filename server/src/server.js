@@ -42,6 +42,17 @@ const startServer = async () => {
     });
   });
 
+  server.on("error", (err) => {
+    if (err.code === "EADDRINUSE") {
+      console.error(
+        `[MindTrack] Port ${PORT} is already in use (EADDRINUSE). Stop the other Node process on this port or set PORT in .env. On Windows: netstat -ano | findstr :${PORT}`
+      );
+    } else {
+      console.error("[MindTrack] HTTP server error:", err.message);
+    }
+    process.exit(1);
+  });
+
   server.listen(PORT, () => {
     // eslint-disable-next-line no-console
     console.log(`Server running on port ${PORT}`);

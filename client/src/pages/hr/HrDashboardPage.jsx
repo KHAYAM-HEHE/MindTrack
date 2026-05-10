@@ -76,6 +76,16 @@ export default function HrDashboardPage() {
                 <p className="text-xs text-on-surface-variant">
                   {item.institution || "Institution not provided"} {item.batch ? `• ${item.batch}` : ""}
                 </p>
+                {item.cvUrl ? (
+                  <a
+                    href={item.cvUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-1 inline-block text-xs font-semibold text-primary hover:underline"
+                  >
+                    View degree / CV link
+                  </a>
+                ) : null}
                 <span
                   className={`mt-2 inline-flex rounded-full px-2 py-0.5 text-xs ${statusClass[item.status] || "bg-surface-container-high text-on-surface-variant"}`}
                 >

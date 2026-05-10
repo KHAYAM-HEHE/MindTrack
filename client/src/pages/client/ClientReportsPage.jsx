@@ -1,12 +1,13 @@
 import { useMemo, useState } from "react";
-import { FileText, Info, Sparkles, TrendingUp } from "lucide-react";
+import { FileText, Info, Sparkles } from "lucide-react";
 import ClientShell from "./ClientShell";
 import { useAuthStore } from "../../store/authStore";
 import { useAppStore } from "../../store/appStore";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import ClientReportDocument from "../../reports/ClientReportDocument";
 
-const ranges = ["daily", "weekly", "monthly", "yearly", "medication-impact"];
+const dmsRanges = ["daily", "weekly", "monthly", "yearly"];
+const medicationRanges = ["medication-impact"];
 
 const quickRanges = [
   { value: "monthly", label: "Monthly" },
@@ -30,46 +31,100 @@ function insightText(report) {
 export default function ClientReportsPage() {
   const token = useAuthStore((s) => s.token);
   const { client, loadReport, loading, error } = useAppStore();
+  const [reportType, setReportType] = useState("DMS");
   const [range, setRange] = useState("monthly");
   const report = client.reports?.[range] || null;
+  const isMedicationReport = reportType === "MEDICATION";
+  const dmsQuestionMetrics = report?.metrics?.detailedQuestionAverages || {};
+  const dmsQuestionRows = [
+    { key: "focusScore", label: "Focus and concentration" },
+    { key: "socialConnectionScore", label: "Social connectedness" },
+    { key: "irritabilityScore", label: "Irritability / emotional reactivity" },
+  ];
+  const dmsSeries = report?.breakdown?.dailySeries || [];
+  const medSeries = report?.breakdown?.dayComparisons || [];
+  const perMedication = report?.breakdown?.perMedicationImpact || [];
 
-  const taskPct = useMemo(() => {
-    const done = client.tasks?.filter((t) => t?.completionStatus === "DONE").length || 0;
-    const total = client.tasks?.length || 0;
-    if (!total) return 0;
-    return Math.min(100, Math.round((done / total) * 100));
-  }, [client.tasks]);
-
-  const circleOffset = useMemo(() => {
-    const circumference = 2 * Math.PI * 45;
-    return circumference - (taskPct / 100) * circumference;
-  }, [taskPct]);
+  const chartPoints = useMemo(() => {
+    if (isMedicationReport) {
+      return medSeries.map((item) => ({
+        label: new Date(item.day).toLocaleDateString([], { month: "short", day: "numeric" }),
+        value: Number(item.moodAverage || 0),
+        secondary: Number(item.adherenceRate || 0),
+      }));
+    }
+    return dmsSeries.map((item) => ({
+      label: new Date(item.date).toLocaleDateString([], { month: "short", day: "numeric" }),
+      value: Number(item.moodAverage || 0),
+      secondary: Number(item.anxietyAverage || 0),
+    }));
+  }, [isMedicationReport, dmsSeries, medSeries]);
 
   return (
     <ClientShell title="Report Generation Center">
       <header className="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-end">
         <div>
-          <h1 className="mb-2 font-h1 text-h1 text-on-background">Report Generation</h1>
+          <h1 className="mb-2 font-h1 text-h1 text-on-background">Clinical Reports</h1>
           <p className="max-w-2xl font-body-lg text-body-lg text-on-surface-variant">
-            Analyze your progress, review trends, and generate comprehensive PDF documentation.
+            DMS reports are based on your once-daily mood survey entries. Medication reports track impact on DMS outcomes separately.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex rounded-lg bg-surface-container-high p-1 shadow-inner">
-            {quickRanges.map(({ value, label }) => (
+            <button
+              type="button"
+              className={`rounded-md px-5 py-2 text-sm font-label-md ${
+                reportType === "DMS"
+                  ? "bg-surface-container-lowest text-on-surface shadow-sm"
+                  : "text-on-surface-variant hover:text-on-surface"
+              }`}
+              onClick={() => {
+                setReportType("DMS");
+                setRange("monthly");
+              }}
+            >
+              DMS Reports
+            </button>
+            <button
+              type="button"
+              className={`rounded-md px-5 py-2 text-sm font-label-md ${
+                reportType === "MEDICATION"
+                  ? "bg-surface-container-lowest text-on-surface shadow-sm"
+                  : "text-on-surface-variant hover:text-on-surface"
+              }`}
+              onClick={() => {
+                setReportType("MEDICATION");
+                setRange("medication-impact");
+              }}
+            >
+              Medication Impact
+            </button>
+          </div>
+          <div className="flex rounded-lg bg-surface-container-high p-1 shadow-inner">
+            {reportType === "DMS" ? (
+              quickRanges.map(({ value, label }) => (
+                <button
+                  key={value}
+                  type="button"
+                  className={`rounded-md px-5 py-2 text-sm font-label-md ${
+                    range === value
+                      ? "bg-surface-container-lowest text-on-surface shadow-sm"
+                      : "text-on-surface-variant hover:text-on-surface"
+                  }`}
+                  onClick={() => setRange(value)}
+                >
+                  {label}
+                </button>
+              ))
+            ) : (
               <button
-                key={value}
                 type="button"
-                className={`rounded-md px-5 py-2 text-sm font-label-md ${
-                  range === value
-                    ? "bg-surface-container-lowest text-on-surface shadow-sm"
-                    : "text-on-surface-variant hover:text-on-surface"
-                }`}
-                onClick={() => setRange(value)}
+                className="rounded-md bg-surface-container-lowest px-5 py-2 text-sm font-label-md text-on-surface shadow-sm"
+                onClick={() => setRange("medication-impact")}
               >
-                {label}
+                Monthly Impact
               </button>
-            ))}
+            )}
           </div>
           <button
             type="button"
@@ -92,13 +147,15 @@ export default function ClientReportsPage() {
       </header>
 
       <div className="mb-6 flex flex-wrap items-center gap-3">
-        <label className="text-sm text-on-surface-variant">All ranges:</label>
+        <label className="text-sm text-on-surface-variant">
+          {reportType === "DMS" ? "DMS ranges:" : "Medication ranges:"}
+        </label>
         <select
           className="rounded-xl border border-outline-variant bg-background px-3 py-2 text-sm"
           value={range}
           onChange={(e) => setRange(e.target.value)}
         >
-          {ranges.map((r) => (
+          {(reportType === "DMS" ? dmsRanges : medicationRanges).map((r) => (
             <option key={r} value={r}>
               {r}
             </option>
@@ -126,97 +183,127 @@ export default function ClientReportsPage() {
         <div className="col-span-12 flex flex-col rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-6 shadow-sm lg:col-span-8 lg:p-8">
           <div className="mb-6 flex items-start justify-between gap-4">
             <div>
-              <h3 className="font-h3 text-h3 text-on-background">Mood Progression</h3>
-              <p className="mt-1 text-sm text-on-surface-variant">Self-reported emotional baseline</p>
+              <h3 className="font-h3 text-h3 text-on-background">{isMedicationReport ? "Medication impact on DMS" : "DMS progression"}</h3>
+              <p className="mt-1 text-sm text-on-surface-variant">
+                {isMedicationReport
+                  ? "How adherence aligns with daily mood survey outcomes."
+                  : "Self-reported daily mood survey pattern for this period."}
+              </p>
             </div>
             <div className="flex items-center gap-2 text-sm">
               <span className="inline-block h-3 w-3 rounded-full bg-primary" />
-              <span className="font-label-sm text-on-surface-variant">Positive trend</span>
+              <span className="font-label-sm text-on-surface-variant">{isMedicationReport ? "Mood score" : "Mood average"}</span>
             </div>
           </div>
-          <div className="relative min-h-[240px] w-full flex-1 border-b border-l border-outline-variant/30 pb-6">
-            <div className="absolute -left-1 bottom-6 top-0 flex h-[calc(100%-24px)] flex-col justify-between text-xs text-outline">
-              <span>High</span>
-              <span>Neutral</span>
-              <span>Low</span>
-            </div>
-            <div className="pointer-events-none absolute inset-0 bottom-6 flex flex-col justify-between pb-6">
-              <div className="w-full border-t border-dashed border-outline-variant/30" />
-              <div className="w-full border-t border-dashed border-outline-variant/30" />
-              <div className="w-full border-t border-dashed border-outline-variant/30" />
-            </div>
-            <svg className="absolute inset-0 h-[calc(100%-24px)] w-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 100 100">
-              <defs>
-                <linearGradient id="tealGradientReport" x1="0" x2="0" y1="0" y2="1">
-                  <stop offset="0%" stopColor="var(--color-primary)" stopOpacity="0.35" />
-                  <stop offset="100%" stopColor="var(--color-primary)" stopOpacity="0" />
-                </linearGradient>
-              </defs>
-              <path
-                d="M0,70 C20,65 30,80 50,40 C70,0 80,30 100,20 L100,100 L0,100 Z"
-                fill="url(#tealGradientReport)"
-                opacity="0.25"
-              />
-              <path
-                className="text-primary drop-shadow-md"
-                d="M0,70 C20,65 30,80 50,40 C70,0 80,30 100,20"
-                fill="none"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="3"
-              />
-              <circle className="text-primary" cx="50" cy="40" fill="var(--color-surface-container-lowest)" r="3" stroke="currentColor" strokeWidth="2" />
-              <circle className="text-primary" cx="100" cy="20" fill="var(--color-surface-container-lowest)" r="3" stroke="currentColor" strokeWidth="2" />
-            </svg>
-            <div className="absolute bottom-0 left-0 right-0 flex translate-y-full justify-between pt-2 text-xs text-outline">
-              <span>Wk 1</span>
-              <span>Wk 2</span>
-              <span>Wk 3</span>
-              <span>Wk 4</span>
-            </div>
+          <div className="min-h-[240px] rounded-lg border border-outline-variant/30 bg-background p-4">
+            {!chartPoints.length ? (
+              <p className="text-sm text-on-surface-variant">No data points for this range yet.</p>
+            ) : (
+              <div className="grid gap-2">
+                {chartPoints.slice(-14).map((item) => (
+                  <div key={item.label} className="grid grid-cols-[88px_1fr] items-center gap-3">
+                    <span className="text-xs text-on-surface-variant">{item.label}</span>
+                    <div className="space-y-1">
+                      <div className="h-2 overflow-hidden rounded-full bg-surface-container-high">
+                        <div
+                          className="h-full rounded-full bg-primary"
+                          style={{ width: `${Math.max(4, Math.min(100, (item.value / 10) * 100))}%` }}
+                        />
+                      </div>
+                      <div className="h-2 overflow-hidden rounded-full bg-surface-container-high">
+                        <div
+                          className="h-full rounded-full bg-secondary"
+                          style={{ width: `${isMedicationReport ? Math.max(2, Math.min(100, item.secondary)) : Math.max(4, Math.min(100, (item.secondary / 10) * 100))}%` }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
         <div className="col-span-12 flex flex-col justify-between rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-6 shadow-sm lg:col-span-4 lg:p-8">
           <div>
-            <h3 className="mb-1 font-h3 text-h3 text-on-background">Functional Output</h3>
-            <p className="mb-6 text-sm text-on-surface-variant">Daily task completion rate</p>
+            <h3 className="mb-1 font-h3 text-h3 text-on-background">
+              {isMedicationReport ? "Medication Impact Score" : "DMS Quality Snapshot"}
+            </h3>
+            <p className="mb-6 text-sm text-on-surface-variant">
+              {isMedicationReport ? "Derived only from medication adherence and DMS mood data" : "Detailed daily mood survey question quality"}
+            </p>
           </div>
-          <div className="flex items-center justify-center py-4">
-            <div className="relative h-40 w-40">
-              <svg className="h-full w-full -rotate-90 transform" viewBox="0 0 100 100">
-                <circle className="text-surface-container-high" cx="50" cy="50" fill="none" r="45" stroke="currentColor" strokeWidth="8" />
-                <circle
-                  className="text-secondary"
-                  cx="50"
-                  cy="50"
-                  fill="none"
-                  r="45"
-                  stroke="currentColor"
-                  strokeDasharray={2 * Math.PI * 45}
-                  strokeDashoffset={circleOffset}
-                  strokeLinecap="round"
-                  strokeWidth="8"
-                />
-              </svg>
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-[32px] font-bold leading-none text-on-background">{taskPct}%</span>
-                <span className="mt-1 flex items-center gap-0.5 font-label-sm text-secondary">
-                  <TrendingUp className="h-3.5 w-3.5" />
-                  tasks
-                </span>
+          <div className="rounded-xl border border-outline-variant/30 bg-surface p-4">
+            <p className="text-xs text-on-surface-variant">{isMedicationReport ? "Global impact score" : "Mood average"}</p>
+            <p className="mt-1 text-3xl font-bold text-on-surface">
+              {isMedicationReport ? report?.metrics?.medicationImpactScore ?? 0 : report?.metrics?.moodAverage ?? 0}
+            </p>
+          </div>
+          <div className="mt-4 rounded-lg bg-surface p-4">
+            {!isMedicationReport ? (
+              <div className="space-y-2">
+                {dmsQuestionRows.map((row) => (
+                  <div key={row.key} className="flex items-center justify-between text-sm">
+                    <span className="text-on-surface-variant">{row.label}</span>
+                    <span className="font-semibold text-on-surface">{dmsQuestionMetrics[row.key] ?? 0}/10</span>
+                  </div>
+                ))}
               </div>
-            </div>
+            ) : (
+              <div className="space-y-2 text-sm">
+                <p className="flex items-center justify-between">
+                  <span className="text-on-surface-variant">High adherence DMS avg</span>
+                  <span className="font-semibold text-on-surface">{report?.metrics?.moodOnHighAdherenceDays ?? 0}</span>
+                </p>
+                <p className="flex items-center justify-between">
+                  <span className="text-on-surface-variant">Low adherence DMS avg</span>
+                  <span className="font-semibold text-on-surface">{report?.metrics?.moodOnLowAdherenceDays ?? 0}</span>
+                </p>
+                <p className="flex items-center justify-between">
+                  <span className="text-on-surface-variant">Adherence-sensitive delta</span>
+                  <span className="font-semibold text-on-surface">{report?.metrics?.adherenceSensitiveDelta ?? 0}</span>
+                </p>
+              </div>
+            )}
           </div>
-          <div className="mt-4 flex items-start gap-3 rounded-lg bg-surface p-4">
+          <div className="mt-3 flex items-start gap-3 rounded-lg bg-surface p-4">
             <Info className="mt-0.5 h-5 w-5 shrink-0 text-tertiary" />
             <p className="text-sm text-on-surface-variant">
-              Scores reflect tasks marked complete in your planner for the loaded session data.
+              Task completion remains a separate operational metric and is not used to calculate DMS or medication-effect report analytics.
             </p>
           </div>
         </div>
       </div>
+
+      {isMedicationReport ? (
+        <section className="mt-6 rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-5 shadow-sm">
+          <h3 className="font-h3 text-h3 text-on-surface">Per-medication impact map</h3>
+          <p className="mt-1 text-sm text-on-surface-variant">
+            Each medication is mapped to adherence and same-day DMS mood outcomes.
+          </p>
+          <div className="mt-4 grid gap-4 md:grid-cols-2">
+            {perMedication.map((item) => (
+              <article key={item.medicationName} className="rounded-lg border border-outline-variant/30 bg-surface p-4">
+                <div className="flex items-center justify-between">
+                  <h4 className="font-semibold text-on-surface">{item.medicationName}</h4>
+                  <span className="text-xs text-on-surface-variant">{item.logs} logs</span>
+                </div>
+                <p className="mt-1 text-sm text-on-surface-variant">Impact score: {item.impactScore} | Overlap days: {item.overlapDays}</p>
+                <div className="mt-3 space-y-1">
+                  {(item.trend || []).slice(-7).map((t) => (
+                    <p key={t.date} className="text-xs text-on-surface-variant">
+                      {new Date(t.date).toLocaleDateString([], { month: "short", day: "numeric" })}: adherence {t.adherenceRate}% • mood {t.moodAverage}
+                    </p>
+                  ))}
+                </div>
+              </article>
+            ))}
+            {!perMedication.length ? (
+              <p className="text-sm text-on-surface-variant">No medication-specific overlap with DMS was found in this range.</p>
+            ) : null}
+          </div>
+        </section>
+      ) : null}
 
       <details className="mt-6 rounded-xl border border-outline-variant/30 bg-surface-container-low p-4">
         <summary className="cursor-pointer font-label-md text-on-surface">Raw report payload</summary>

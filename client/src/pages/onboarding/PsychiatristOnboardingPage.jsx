@@ -102,7 +102,7 @@ export default function PsychiatristOnboardingPage() {
       <header className="sticky top-0 z-40 flex justify-between items-center w-full px-6 py-3 bg-surface-container-lowest/80 backdrop-blur-md shadow-sm border-b border-outline-variant/60">
         <div className="flex items-center gap-2">
           <span className="material-symbols-outlined text-primary" data-weight="fill">health_and_safety</span>
-          <span className="font-h3 text-h3 text-primary-container">MindWell Pro Verification</span>
+          <span className="font-h3 text-h3 text-primary-container">MindTrack Pro Verification</span>
         </div>
         <Link className="font-label-md text-label-md text-on-surface-variant" to="/auth/login">
           Save & Exit

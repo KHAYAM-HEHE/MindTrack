@@ -1,9 +1,13 @@
 const Goal = require("../models/Goal");
 const Task = require("../models/Task");
 const MoodSurvey = require("../models/MoodSurvey");
+const UserProfile = require("../models/UserProfile");
 
 const DEFAULT_MODEL = "gpt-4o-mini";
-const DEFAULT_OPENROUTER_MODEL = "meta-llama/llama-3.1-8b-instruct:free";
+/** Primary default; OpenRouter retires free models often — fallbacks run automatically. */
+const DEFAULT_OPENROUTER_MODEL = "openai/gpt-oss-120b:free";
+/** Used when OPENROUTER_MODEL is unset or fails (comma-separated extra slugs in OPENROUTER_MODEL_FALLBACKS merge after env primary). */
+const BUILTIN_OPENROUTER_FALLBACKS = ["openai/gpt-oss-120b:free"];
 
 const buildMoodSummary = (moods) => {
   if (!moods?.length) return "";
@@ -36,8 +40,34 @@ const parseJsonFromContent = (text) => {
   const start = trimmed.indexOf("{");
   const end = trimmed.lastIndexOf("}");
   if (start === -1 || end === -1) return null;
-  return JSON.parse(trimmed.slice(start, end + 1));
+  try {
+    return JSON.parse(trimmed.slice(start, end + 1));
+  } catch {
+    return null;
+  }
 };
+
+const collectOpenRouterModels = () => {
+  const primary = (process.env.OPENROUTER_MODEL || "").trim();
+  const fromEnv = (process.env.OPENROUTER_MODEL_FALLBACKS || "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const ordered = [
+    primary,
+    ...fromEnv,
+    DEFAULT_OPENROUTER_MODEL,
+    ...BUILTIN_OPENROUTER_FALLBACKS,
+  ].filter(Boolean);
+  return [...new Set(ordered)];
+};
+
+const openRouterHeaders = () => ({
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+  "HTTP-Referer": process.env.OPENROUTER_SITE_URL || "http://localhost:5000",
+  "X-Title": process.env.OPENROUTER_APP_NAME || "MindTrack",
+});
 
 const normalizeResult = (raw) => {
   const longTermGoals = (raw.longTermGoals || raw.goals || []).map((g) => ({
@@ -53,6 +83,17 @@ const normalizeResult = (raw) => {
   })).filter((t) => t.title);
 
   return { longTermGoals, dailyTasks };
+};
+
+const normalizeQuoteResult = (raw, fallbackType = "SECULAR") => {
+  const quote = String(raw?.quote || raw?.text || "").trim();
+  const tip = String(raw?.tip || raw?.guidance || "").trim();
+  if (!quote) return null;
+  return {
+    quote,
+    tip: tip || "Take one grounded step today and keep your check-ins consistent.",
+    quoteType: String(raw?.quoteType || fallbackType).toUpperCase(),
+  };
 };
 
 const fallbackRecommend = ({ focusArea, notes, existingGoals, existingTasks }) => {
@@ -174,17 +215,121 @@ Rules:
     .filter(Boolean)
     .join("\n");
 
-  const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+  const messages = [
+    { role: "system", content: system },
+    { role: "user", content: userMsg },
+  ];
+
+  const models = collectOpenRouterModels();
+  let lastErr = "";
+  for (const model of models) {
+    for (const useJsonObject of [true, false]) {
+      const body = {
+        model,
+        temperature: 0.6,
+        messages,
+      };
+      if (useJsonObject) body.response_format = { type: "json_object" };
+
+      let res;
+      try {
+        res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+          method: "POST",
+          headers: openRouterHeaders(),
+          body: JSON.stringify(body),
+        });
+      } catch (e) {
+        lastErr = e.message || "network";
+        continue;
+      }
+
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        const msg = data?.error?.message || res.statusText || "request failed";
+        lastErr = msg;
+        if (useJsonObject && (res.status === 400 || /json|response_format|schema/i.test(String(msg)))) continue;
+        if (res.status === 404 || res.status === 429) break;
+        continue;
+      }
+
+      const content = data?.choices?.[0]?.message?.content;
+      let parsed = typeof content === "string" ? parseJsonFromContent(content) : content;
+      if (!parsed && typeof content === "string") {
+        try {
+          parsed = JSON.parse(content.trim());
+        } catch {
+          parsed = null;
+        }
+      }
+      if (!parsed) {
+        lastErr = "Invalid model response";
+        continue;
+      }
+
+      const normalized = normalizeResult(parsed);
+      if (!normalized.longTermGoals.length && !normalized.dailyTasks.length) {
+        lastErr = "Empty recommendations";
+        continue;
+      }
+      return { ...normalized, engine: "openrouter", modelUsed: model };
+    }
+  }
+  throw new Error(lastErr || "OpenRouter: all models failed");
+};
+
+const fallbackQuote = ({ quoteType = "SECULAR", moodSummary = "" }) => {
+  const tone = String(quoteType || "SECULAR").toUpperCase();
+  const lowerMood = /mood [1-4]\/10|anxiety [8-9]\/10|stress [8-9]\/10/i.test(moodSummary);
+  const moodHint = lowerMood
+    ? "Focus on one stabilizing habit today: hydration, movement, or a short breathing reset."
+    : "Use your current momentum to complete one meaningful action before day-end.";
+  const bank = {
+    SECULAR: {
+      quote: "Change compounds through consistent, honest daily practice.",
+      tip: moodHint,
+    },
+    RELIGIOUS: {
+      quote: "Keep faith with your process: patience in effort often brings clarity in outcomes.",
+      tip: moodHint,
+    },
+    ISLAMIC: {
+      quote: "Stay steady with sabr and trust; sincere effort is never lost.",
+      tip: moodHint,
+    },
+  };
+  return { ...(bank[tone] || bank.SECULAR), quoteType: tone, engine: "fallback" };
+};
+
+const openAiQuote = async ({ quoteType, moodSummary }) => {
+  const key = process.env.OPENAI_API_KEY;
+  if (!key) throw new Error("Missing OPENAI_API_KEY");
+  const system = `You are a supportive wellbeing assistant.
+Return ONLY valid JSON:
+{
+  "quote": string,
+  "tip": string,
+  "quoteType": "SECULAR"|"RELIGIOUS"|"ISLAMIC"
+}
+Rules:
+- Keep quote <= 22 words.
+- Keep tip <= 24 words.
+- No diagnosis, medication instructions, or crisis directives.
+- Match the requested quoteType tone while remaining inclusive and professional.`;
+
+  const userMsg = [
+    `Requested quote type: ${quoteType || "SECULAR"}`,
+    moodSummary ? `Recent DMS context: ${moodSummary}` : "No DMS context available.",
+  ].join("\n");
+
+  const res = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${key}`,
-      "HTTP-Referer": process.env.OPENROUTER_SITE_URL || "http://localhost:5000",
-      "X-Title": process.env.OPENROUTER_APP_NAME || "MindTrack",
     },
     body: JSON.stringify({
-      model: process.env.OPENROUTER_MODEL || DEFAULT_OPENROUTER_MODEL,
-      temperature: 0.6,
+      model: process.env.OPENAI_QUOTE_MODEL || process.env.OPENAI_MODEL || DEFAULT_MODEL,
+      temperature: 0.7,
       response_format: { type: "json_object" },
       messages: [
         { role: "system", content: system },
@@ -192,19 +337,98 @@ Rules:
       ],
     }),
   });
-
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) {
-    const msg = data?.error?.message || res.statusText || "OpenRouter request failed";
-    throw new Error(msg);
-  }
-
+  if (!res.ok) throw new Error(data?.error?.message || res.statusText || "OpenAI quote request failed");
   const content = data?.choices?.[0]?.message?.content;
   const parsed = typeof content === "string" ? parseJsonFromContent(content) : content;
-  if (!parsed) throw new Error("Invalid model response");
+  const normalized = normalizeQuoteResult(parsed, quoteType);
+  if (!normalized) throw new Error("Invalid quote response");
+  return { ...normalized, engine: "openai" };
+};
 
-  const normalized = normalizeResult(parsed);
-  return { ...normalized, engine: "openrouter" };
+const collectOpenRouterQuoteModels = () => {
+  const quotePrimary = (process.env.OPENROUTER_QUOTE_MODEL || "").trim();
+  const base = collectOpenRouterModels();
+  const ordered = quotePrimary ? [quotePrimary, ...base.filter((m) => m !== quotePrimary)] : base;
+  return [...new Set(ordered)];
+};
+
+const openRouterQuote = async ({ quoteType, moodSummary }) => {
+  const key = process.env.OPENROUTER_API_KEY;
+  if (!key) throw new Error("Missing OPENROUTER_API_KEY");
+  const system = `You are a supportive wellbeing assistant.
+Return ONLY valid JSON:
+{
+  "quote": string,
+  "tip": string,
+  "quoteType": "SECULAR"|"RELIGIOUS"|"ISLAMIC"
+}
+Rules:
+- Keep quote <= 22 words.
+- Keep tip <= 24 words.
+- No diagnosis, medication instructions, or crisis directives.
+- Match the requested quoteType tone while remaining inclusive and professional.`;
+
+  const userMsg = [
+    `Requested quote type: ${quoteType || "SECULAR"}`,
+    moodSummary ? `Recent DMS context: ${moodSummary}` : "No DMS context available.",
+  ].join("\n");
+
+  const messages = [
+    { role: "system", content: system },
+    { role: "user", content: userMsg },
+  ];
+
+  const models = collectOpenRouterQuoteModels();
+  let lastErr = "";
+  for (const model of models) {
+    for (const useJsonObject of [true, false]) {
+      const body = {
+        model,
+        temperature: 0.7,
+        messages,
+      };
+      if (useJsonObject) body.response_format = { type: "json_object" };
+
+      let res;
+      try {
+        res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+          method: "POST",
+          headers: openRouterHeaders(),
+          body: JSON.stringify(body),
+        });
+      } catch (e) {
+        lastErr = e.message || "network";
+        continue;
+      }
+
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        const msg = data?.error?.message || res.statusText || "request failed";
+        lastErr = msg;
+        if (useJsonObject && (res.status === 400 || /json|response_format|schema/i.test(String(msg)))) continue;
+        if (res.status === 404 || res.status === 429) break;
+        continue;
+      }
+
+      const content = data?.choices?.[0]?.message?.content;
+      let parsed = typeof content === "string" ? parseJsonFromContent(content) : content;
+      if (!parsed && typeof content === "string") {
+        try {
+          parsed = JSON.parse(content.trim());
+        } catch {
+          parsed = null;
+        }
+      }
+      const normalized = normalizeQuoteResult(parsed, quoteType);
+      if (!normalized) {
+        lastErr = "Invalid quote response";
+        continue;
+      }
+      return { ...normalized, engine: "openrouter", modelUsed: model };
+    }
+  }
+  throw new Error(lastErr || "OpenRouter quote: all models failed");
 };
 
 /**
@@ -244,8 +468,34 @@ const recommendForClientUser = async (userId, body) => {
   });
 };
 
+const recommendQuoteForClientUser = async (userId) => {
+  const [profile, moods] = await Promise.all([
+    UserProfile.findOne({ userId }).lean(),
+    MoodSurvey.find({ userId }).sort({ surveyDate: -1 }).limit(6).lean(),
+  ]);
+  const quoteType = String(profile?.preferences?.quoteType || "SECULAR").toUpperCase();
+  const moodSummary = buildMoodSummary(moods);
+
+  if (process.env.OPENROUTER_API_KEY) {
+    try {
+      return await openRouterQuote({ quoteType, moodSummary });
+    } catch (err) {
+      console.error("[ai-quote] OpenRouter failed:", err.message);
+    }
+  }
+  if (process.env.OPENAI_API_KEY) {
+    try {
+      return await openAiQuote({ quoteType, moodSummary });
+    } catch (err) {
+      console.error("[ai-quote] OpenAI failed:", err.message);
+    }
+  }
+  return fallbackQuote({ quoteType, moodSummary });
+};
+
 module.exports = {
   buildClientContext,
   recommendGoalsAndTasks,
   recommendForClientUser,
+  recommendQuoteForClientUser,
 };

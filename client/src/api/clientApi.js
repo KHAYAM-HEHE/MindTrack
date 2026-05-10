@@ -7,6 +7,7 @@ export const clientApi = {
     http(`/users/goals/${id}`, { method: "PATCH", body: JSON.stringify(body) }, token),
   recommendGoalsTasks: (body, token) =>
     http("/users/recommendations/goals-tasks", { method: "POST", body: JSON.stringify(body) }, token),
+  getAiQuote: (token) => http("/users/recommendations/quote", {}, token),
   listTasks: (token) => http("/users/tasks", {}, token),
   createTask: (body, token) => http("/users/tasks", { method: "POST", body: JSON.stringify(body) }, token),
   updateTask: (id, body, token) =>
@@ -24,6 +25,7 @@ export const clientApi = {
   bookAppointment: (body, token) =>
     http("/professionals/appointments", { method: "POST", body: JSON.stringify(body) }, token),
   listAppointments: (token) => http("/professionals/appointments", {}, token),
+  cancelAppointment: (id, token) => http(`/professionals/appointments/${id}/cancel`, { method: "PATCH" }, token),
   getReport: (range, token) => http(`/reports/${range}`, {}, token),
 };
 

@@ -10,6 +10,11 @@ export default function ClientMoodSurveyPage() {
   const [reflection, setReflection] = useState("");
   const [sleep, setSleep] = useState("FAIR");
   const [emotions, setEmotions] = useState(["Calm", "Happy"]);
+  const [anxietyScore, setAnxietyScore] = useState(4);
+  const [stressScore, setStressScore] = useState(4);
+  const [focusScore, setFocusScore] = useState(6);
+  const [socialConnectionScore, setSocialConnectionScore] = useState(6);
+  const [irritabilityScore, setIrritabilityScore] = useState(3);
 
   useEffect(() => {
     if (token) loadClientData(token);
@@ -19,8 +24,33 @@ export default function ClientMoodSurveyPage() {
     setEmotions((prev) => (prev.includes(label) ? prev.filter((item) => item !== label) : [...prev, label]));
   };
 
+  const submittedToday = client.moods.some((item) => {
+    const d = new Date(item.surveyDate || item.createdAt);
+    const today = new Date();
+    return (
+      d.getFullYear() === today.getFullYear() &&
+      d.getMonth() === today.getMonth() &&
+      d.getDate() === today.getDate()
+    );
+  });
+
   const submit = async () => {
-    await createMood({ mood: "CHECK_IN", score, reflection, sleepQuality: sleep, emotions }, token);
+    if (submittedToday) return;
+    await createMood(
+      {
+        mood: "CHECK_IN",
+        score,
+        anxietyScore,
+        stressScore,
+        focusScore,
+        socialConnectionScore,
+        irritabilityScore,
+        reflection,
+        sleepQuality: sleep,
+        emotions,
+      },
+      token
+    );
     setReflection("");
   };
 
@@ -32,8 +62,13 @@ export default function ClientMoodSurveyPage() {
         </span>
         <h3 className="text-4xl font-bold text-on-background">How are you feeling today?</h3>
         <p className="mx-auto mt-2 max-w-2xl text-on-surface-variant">
-          Taking a moment to reflect helps us better understand your journey and provide tailored support.
+          DMS is submitted once per day and includes detailed clinical questions for meaningful trend analysis.
         </p>
+        {submittedToday ? (
+          <p className="mx-auto mt-3 max-w-2xl rounded-lg bg-secondary-container/40 px-4 py-2 text-sm text-on-surface">
+            You have already submitted today&apos;s Daily Mood Survey.
+          </p>
+        ) : null}
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-12">
@@ -110,6 +145,34 @@ export default function ClientMoodSurveyPage() {
         </section>
 
         <section className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-6 shadow-sm md:col-span-12">
+          <h4 className="mb-2 text-xl font-semibold text-on-surface">Detailed DMS Questions</h4>
+          <p className="mb-4 text-sm text-on-surface-variant">
+            Rate each area from 1 (very low) to 10 (very high) to support better analysis.
+          </p>
+          <div className="grid gap-4 md:grid-cols-2">
+            {[
+              { label: "Anxiety intensity", value: anxietyScore, set: setAnxietyScore },
+              { label: "Stress load", value: stressScore, set: setStressScore },
+              { label: "Focus and concentration", value: focusScore, set: setFocusScore },
+              { label: "Social connectedness", value: socialConnectionScore, set: setSocialConnectionScore },
+              { label: "Irritability", value: irritabilityScore, set: setIrritabilityScore },
+            ].map((item) => (
+              <label key={item.label} className="text-sm text-on-surface">
+                <span className="mb-1 block">{item.label}: {item.value}</span>
+                <input
+                  className="w-full accent-primary"
+                  type="range"
+                  min="1"
+                  max="10"
+                  value={item.value}
+                  onChange={(e) => item.set(Number(e.target.value))}
+                />
+              </label>
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-6 shadow-sm md:col-span-12">
           <label className="mb-2 block text-xl font-semibold text-on-surface">Daily Reflection (Optional)</label>
           <textarea
             className="w-full rounded-lg border border-outline-variant bg-background p-3 text-on-surface"
@@ -119,7 +182,7 @@ export default function ClientMoodSurveyPage() {
             onChange={(e) => setReflection(e.target.value)}
           />
           <div className="mt-4 flex justify-end">
-            <button className="rounded-xl bg-primary px-5 py-2 text-on-primary" onClick={submit}>
+            <button className="rounded-xl bg-primary px-5 py-2 text-on-primary disabled:opacity-50" onClick={submit} disabled={submittedToday}>
               Complete Check-In
             </button>
           </div>

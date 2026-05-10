@@ -58,7 +58,7 @@ export default function ClientSidebar({ sticky = true }) {
           </span>
         </div>
         <div>
-          <h3 className="text-sm font-extrabold text-primary">MindWell</h3>
+          <h3 className="text-sm font-extrabold text-primary">MindTrack</h3>
           <p className="text-xs text-on-surface-variant">Mental Health Care</p>
         </div>
       </div>

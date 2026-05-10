@@ -185,7 +185,7 @@ export default function PsychiatristSchedulePage() {
               </label>
               {!clients.length && !clientsLoading ? (
                 <p className="text-xs text-on-surface-variant">
-                  No clients yet. Clients appear after they book with you or start a chat session.
+                  No clients yet. Clients appear here after you verify and confirm their paid booking requests.
                 </p>
               ) : null}
               <label className="block text-sm font-medium text-on-surface">

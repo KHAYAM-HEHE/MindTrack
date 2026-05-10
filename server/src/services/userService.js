@@ -5,6 +5,7 @@ const Task = require("../models/Task");
 const MoodSurvey = require("../models/MoodSurvey");
 const MedicationLog = require("../models/MedicationLog");
 const Complaint = require("../models/Complaint");
+const ApiError = require("../utils/ApiError");
 
 const getMyProfile = async (userId) => {
   const [user, profile] = await Promise.all([
@@ -29,11 +30,36 @@ const updateTask = async (userId, taskId, payload) =>
   Task.findOneAndUpdate({ _id: taskId, userId }, payload, { new: true });
 
 const createMoodSurvey = async (userId, payload) => {
+  const now = new Date();
+  const dayStart = new Date(now);
+  dayStart.setHours(0, 0, 0, 0);
+  const dayEnd = new Date(now);
+  dayEnd.setHours(23, 59, 59, 999);
+
+  const existingToday = await MoodSurvey.findOne({
+    userId,
+    surveyDate: { $gte: dayStart, $lte: dayEnd },
+  }).lean();
+  if (existingToday) {
+    throw new ApiError(409, "Daily Mood Survey can only be submitted once per day.");
+  }
+
   const normalized = { ...payload };
   if (normalized.moodScore == null && normalized.score != null) {
     normalized.moodScore = normalized.score;
     delete normalized.score;
   }
+  if (!normalized.notes && normalized.reflection) {
+    normalized.notes = normalized.reflection;
+  }
+  normalized.extraFields = {
+    ...(normalized.extraFields || {}),
+    ...(normalized.sleepQuality ? { sleepQuality: normalized.sleepQuality } : {}),
+    ...(Array.isArray(normalized.emotions) ? { emotions: normalized.emotions } : {}),
+    ...(normalized.focusScore != null ? { focusScore: normalized.focusScore } : {}),
+    ...(normalized.socialConnectionScore != null ? { socialConnectionScore: normalized.socialConnectionScore } : {}),
+    ...(normalized.irritabilityScore != null ? { irritabilityScore: normalized.irritabilityScore } : {}),
+  };
   return MoodSurvey.create({ userId, ...normalized });
 };
 const listMoodSurveys = async (userId) =>

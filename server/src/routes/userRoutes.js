@@ -24,6 +24,7 @@ router.post(
   authorize(ROLES.CLIENT),
   userController.recommendGoalsTasks
 );
+router.get("/recommendations/quote", authorize(ROLES.CLIENT), userController.getAiQuote);
 
 router.post("/tasks", authorize(ROLES.CLIENT), userController.createTask);
 router.get("/tasks", authorize(ROLES.CLIENT), userController.listTasks);

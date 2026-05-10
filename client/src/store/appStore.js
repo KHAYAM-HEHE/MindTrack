@@ -20,6 +20,7 @@ export const useAppStore = create((set, get) => ({
     professionals: [],
     appointments: [],
     reports: {},
+    aiQuote: null,
   },
   professional: {
     requests: [],
@@ -109,6 +110,17 @@ export const useAppStore = create((set, get) => ({
       throw error;
     }
   },
+  fetchAiQuote: async (token) => {
+    set({ error: "" });
+    try {
+      const aiQuote = await clientApi.getAiQuote(token);
+      set((state) => ({ client: { ...state.client, aiQuote } }));
+      return aiQuote;
+    } catch (error) {
+      set({ error: error.message || "Request failed" });
+      throw error;
+    }
+  },
   createTask: async (payload, token) =>
     get().withLoad(async () => {
       await clientApi.createTask(payload, token);
@@ -146,6 +158,11 @@ export const useAppStore = create((set, get) => ({
       await clientApi.bookAppointment(payload, token);
       await get().loadClientData(token);
     }),
+  cancelAppointment: async (id, token) =>
+    get().withLoad(async () => {
+      await clientApi.cancelAppointment(id, token);
+      await get().loadClientData(token);
+    }),
   loadReport: async (range, token) =>
     get().withLoad(async () => {
       const report = await clientApi.getReport(range, token);
@@ -162,9 +179,9 @@ export const useAppStore = create((set, get) => ({
     }),
   upsertProfessionalProfile: async (payload, token) => get().withLoad(async () => professionalApi.upsertProfile(payload, token)),
   submitVerification: async (payload, token) => get().withLoad(async () => professionalApi.submitVerification(payload, token)),
-  updateAppointmentStatus: async (id, status, token) =>
+  updateAppointmentStatus: async (id, status, token, paymentVerificationNotes) =>
     get().withLoad(async () => {
-      await professionalApi.updateAppointmentStatus(id, status, token);
+      await professionalApi.updateAppointmentStatus(id, status, token, paymentVerificationNotes);
       await get().loadProfessionalData(token);
     }),
   loadReviews: async (professionalUserId, token) =>

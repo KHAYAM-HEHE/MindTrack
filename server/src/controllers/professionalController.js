@@ -1,4 +1,6 @@
 const asyncHandler = require("../utils/asyncHandler");
+const ApiError = require("../utils/ApiError");
+const ChatSession = require("../models/ChatSession");
 const professionalService = require("../services/professionalService");
 const recommendationService = require("../services/recommendationService");
 
@@ -33,6 +35,11 @@ const getMyVerificationStatus = asyncHandler(async (req, res) => {
 const createAppointment = asyncHandler(async (req, res) => {
   const data = await professionalService.createAppointmentForRole(req.user, req.body);
   res.status(201).json({ success: true, data });
+});
+
+const cancelMyAppointment = asyncHandler(async (req, res) => {
+  const data = await professionalService.cancelAppointmentForClient(req.user._id, req.params.id);
+  res.json({ success: true, data });
 });
 
 const listMyClients = asyncHandler(async (req, res) => {
@@ -119,9 +126,23 @@ const updateAppointmentStatus = asyncHandler(async (req, res) => {
   const data = await professionalService.updateAppointmentStatus(
     req.user._id,
     req.params.id,
-    req.body.status
+    req.body.status,
+    { paymentVerificationNotes: req.body.paymentVerificationNotes }
   );
   res.json({ success: true, data });
+});
+
+const uploadAppointmentReceipt = asyncHandler(async (req, res) => {
+  if (!req.file) throw new ApiError(400, "Receipt file is required");
+  const professionalUserId = req.body.professionalUserId;
+  if (!professionalUserId) throw new ApiError(400, "professionalUserId is required");
+  const introChatExists = await ChatSession.exists({
+    clientUserId: req.user._id,
+    professionalUserId,
+  });
+  if (!introChatExists) throw new ApiError(400, "Start an intro chat with this professional before uploading a receipt.");
+  const receiptUrl = `/uploads/appointments/${req.user._id}/${req.file.filename}`;
+  res.json({ success: true, data: { receiptUrl } });
 });
 
 const getProfessionalById = asyncHandler(async (req, res) => {
@@ -169,6 +190,7 @@ module.exports = {
   submitVerification,
   getMyVerificationStatus,
   createAppointment,
+  cancelMyAppointment,
   listMyClients,
   getClientGoalsAndTasks,
   createClientGoal,
@@ -180,6 +202,7 @@ module.exports = {
   toggleChatLock,
   listIncomingRequests,
   updateAppointmentStatus,
+  uploadAppointmentReceipt,
   getProfessionalById,
   listExternalAppointments,
   createExternalAppointment,
